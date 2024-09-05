@@ -11,233 +11,124 @@ public class Main {
             {' ', '|', ' ', '|', ' '},
     };
 
-    static int[] felder= {0,0,0, 0,0,0, 0,0,0};
+    static int[] felder = {0, 0, 0, 0, 0, 0, 0, 0, 0};
     static char spieler1 = 'o';
     static char spieler2 = 'x';
     static char leeresFeld = ' ';
 
 
-
     public static void main(String[] args) {
 
         System.out.println("Willkommen zu TictacToe!");
-        printField(spielFeld);
+        printField();
 
 
+        for (int runden = 0; runden < 9; runden++) {
+            int[] coordinaten = new int[2];
 
-        for(int runden = 0; runden < 9; runden++) {
-
-            if(checkForWinner1()){
-                break;
-            }
-
-            if(runden % 2 == 0){
+            if (runden % 2 == 0) {
                 int zug = spielerZugAuswahl(spieler1);
 
-                while(!isValid(zug)){
+                while (!isValid(zug)) {
                     zug = spielerZugAuswahl(spieler1);
                 }
-                zeichenSetzen(zug, spieler1);
+                coordinaten = zeichenSetzen(zug, spieler1);
 
 
-            } else zeichenSetzen(computerZug(), spieler2);
+            } else coordinaten = zeichenSetzen(computerZug(), spieler2);
 
-            //printArrayTest();
             System.out.println();
             System.out.println();
-            printField(spielFeld);
+            printField();
+
+            System.out.println("coordinaten: "+coordinaten[0] + " " + coordinaten[1]);
+
+            if (runden > 3) {
+                if (checkForWinner(coordinaten)) {
+                    break;
+                }
+            }
         }
         System.out.println("Das Spiel ist zu ende!");
 
     }
 
-    public static void printArrayTest(){
-        for(int i = 0; i < felder.length; i++){
-            //System.out.println();
-            System.out.print(felder[i]+", ");
-        }
+    public static int spielerZugAuswahl(char spieler) {
+        System.out.println("Spieler \"" + spieler + "\", geben sie eine Zahl von 1 bis 9 ein um ihr Zeichen zu setzen.");
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextInt();
     }
 
-    public static boolean checkForWinner(){
-        //0,2,4
-        if(felder[0] == felder[1] && felder[1] == felder[2] && felder[0] != 0){
-            if(spielFeld[0][0] == spieler1){
-                System.out.println("spieler 1 hat gewonnen!");
-                return true;
-            }else System.out.println("der computer hat gewonnen!");
-            return true;
-        } else if (felder[3] == felder[4] && felder[4] == felder[5] && felder[3] != 0) {
-            if(spielFeld[0][3] == spieler1){
-                System.out.println("spieler 1 hat gewonnen!");
-                return true;
-            }else System.out.println("der computer hat gewonnen!");
-            return true;
-        } else if (felder[6] == felder[7] && felder[7] == felder[8] && felder[6] != 0) {
-            if(spielFeld[0][6] == spieler1){
-                System.out.println("spieler 1 hat gewonnen!");
-                return true;
-            }else System.out.println("der computer hat gewonnen!");
-            return true;
+    public static int computerZug() {
+        Random rand = new Random();
+
+        int n = rand.nextInt(8) + 1;
+
+        //System.out.println(n);
+        while (felder[n - 1] != 0) {
+            n = rand.nextInt(8) + 1;
+            //System.out.println(n);
         }
 
-        if(felder[0] == felder[3] && felder[3] == felder[6] && felder[0] != 0){
-            if(spielFeld[0][0] == spieler1){
-                System.out.println("spieler 1 hat gewonnen!");
-                return true;
-            }else System.out.println("der computer hat gewonnen!");
-            return true;
-        } else if (felder[1] == felder[4] && felder[4] == felder[7] && felder[1] != 0) {
-            if(spielFeld[1][0] == spieler1){
-                System.out.println("spieler 1 hat gewonnen!");
-                return true;
-            }else System.out.println("der computer hat gewonnen!");
-            return true;
-        } else if (felder[2] == felder[5] && felder[5] == felder[8] && felder[2] != 0) {
-            if(spielFeld[2][0] == spieler1){
-                System.out.println("spieler 1 hat gewonnen!");
-                return true;
-            }else System.out.println("der computer hat gewonnen!");
-            return true;
-        }
-
-        if(felder[0] == felder[4] && felder[4] == felder[8] && felder[0] != 0){
-            if(spielFeld[0][0] == spieler1){
-                System.out.println("spieler 1 hat gewonnen!");
-                return true;
-            }else System.out.println("der computer hat gewonnen!");
-            return true;
-        } else if (felder[2] == felder[4] && felder[4] == felder[6] && felder[2] != 0) {
-            if(spielFeld[2][0] == spieler1){
-                System.out.println("spieler 1 hat gewonnen!");
-                return true;
-            }else System.out.println("der computer hat gewonnen!");
-            return true;
-        }
-        return false;
-
+        return n;
     }
 
-    public static void printWhoWon(char temp){
+    public static int[] zeichenSetzen(int feld, char player) {
 
-        if(temp == spieler1) {
-            System.out.println("spieler hat gewonnen");
-        } else if(temp == spieler2){
-            System.out.println("computer hat gewonnen");
-        }
+        if (player == spieler1) {
+            felder[feld - 1] = 1;
+        } else felder[feld - 1] = 2;
+
+
+        return switch (feld) {
+            case 1 -> {
+                spielFeld[0][0] = player;
+                yield new int[]{0, 0};
+            }
+            case 2 -> {
+                spielFeld[0][2] = player;
+                yield new int[]{0, 2};
+            }
+            case 3 -> {
+                spielFeld[0][4] = player;
+                yield new int[]{0, 4};
+            }
+            case 4 -> {
+                spielFeld[2][0] = player;
+                yield new int[]{2, 0};
+            }
+            case 5 -> {
+                spielFeld[2][2] = player;
+                yield new int[]{2, 2};
+            }
+            case 6 -> {
+                spielFeld[2][4] = player;
+                yield new int[]{2, 4};
+            }
+            case 7 -> {
+                spielFeld[4][0] = player;
+                yield new int[]{4, 0};
+            }
+            case 8 -> {
+                spielFeld[4][2] = player;
+                yield new int[]{4, 2};
+            }
+            case 9 -> {
+                spielFeld[4][4] = player;
+                yield new int[]{4, 4};
+            }
+            default -> null;
+        };
     }
 
-    public static boolean checkForWinner1(){
+    public static boolean isValid(int auswahl) {
 
-        char temp;
-//        char temp2;
-//
-//        for(int i = 0; i < spielFeld.length; i+=2){
-//            temp = spielFeld[i][0];
-//            temp2 = spielFeld[0][i];
-//            int counterRow = 0;
-//            int counterCol = 0;
-//
-//            for(int j = 0; j < spielFeld[i].length; j+=2){
-//                if(temp == leeresFeld && temp2 == leeresFeld) break;
-//                if(temp == spielFeld[i][j]){
-//                    counterRow++;
-//                }
-//                if(temp2 == spielFeld[j][i]){
-//                    counterCol++;
-//                } else break;
-//            }
-//
-//            if(counterRow == 3){
-//                printWhoWon(temp);
-//                return true;
-//            } else if(counterCol == 3){
-//                printWhoWon(temp2);
-//                return true;
-//            }
-//        }
-
-
-
-         // checkt die reihen
-        for(int i = 0; i < spielFeld.length; i+=2){
-            temp = spielFeld[i][0];
-            int counter = 0;
-
-            for(int j = 0; j < spielFeld[i].length; j+=2){
-                if(temp == leeresFeld) break;
-                if(temp == spielFeld[i][j]){
-                    counter++;
-                } else break;
-            }
-
-            if(counter == 3){
-                printWhoWon(temp);
-                return true;
-            }
-        }
-
-        // checkt die spalten
-        for(int i = 0; i < spielFeld.length; i+=2) {
-            temp = spielFeld[0][i];
-            int counter = 0;
-
-            for (int j = 0; j < spielFeld[i].length; j += 2) {
-                if (temp == leeresFeld) break;
-                if (temp == spielFeld[j][i]) {
-                    counter++;
-                } else break;
-            }
-
-            if(counter == 3){
-                printWhoWon(temp);
-                return true;
-            }
-        }
-
-        // checkt diagonale von links oben nach rechts unten
-        temp = spielFeld[0][0];
-        int counter = 0;
-        for(int i = 0; i < spielFeld.length; i+=2) {
-            if (temp == leeresFeld) break;
-            if (temp == spielFeld[i][i]) {
-                counter++;
-            } else break;
-        }
-        if(counter == 3){
-            printWhoWon(temp);
-            return true;
-        }
-
-        // checkt diagonale von rechts oben nach links unten
-        // 0/4, 2/2, 4/0
-        temp = spielFeld[0][4];
-        int countDownTemp = 4;
-        counter = 0;
-        for(int i = 0; i < spielFeld.length; i+=2) {
-            if (temp == leeresFeld) break;
-            if (temp == spielFeld[i][countDownTemp]) {
-                counter++;
-            } else break;
-            countDownTemp = countDownTemp - 2;
-        }
-        if(counter == 3){
-            printWhoWon(temp);
-            return true;
-        }
-
-
-        return false;
-    }
-
-
-    public static boolean isValid(int auswahl){
-
-        if(auswahl < 1 || auswahl > 9){
+        if (auswahl < 1 || auswahl > 9) {
             System.out.println();
             System.out.println("Fehler, die Eingabe ist ungültig!");
             return false;
         }
-        if(felder[auswahl-1] != 0){
+        if (felder[auswahl - 1] != 0) {
             System.out.println();
             System.out.println("Dieses Feld ist bereits besetzt, bitte versuchen sie es nocheinmal!");
             return false;
@@ -246,13 +137,7 @@ public class Main {
         return true;
     }
 
-    public static int spielerZugAuswahl(char spieler){
-        System.out.println("Spieler \"" +spieler+ "\", geben sie eine Zahl von 1 bis 9 ein um ihr Zeichen zu setzen.");
-        Scanner scanner = new Scanner(System.in);
-        return scanner.nextInt();
-    }
-
-    public static void printField(char[][] spielFeld) {
+    public static void printField() {
 
         for (int i = 0; i < spielFeld.length; i++) {
             for (int j = 0; j < spielFeld[i].length; j++) {
@@ -262,57 +147,135 @@ public class Main {
         }
     }
 
-    public static void zeichenSetzen(int feld, char player){
+    public static boolean checkForWinner(int[] coordinaten) {
 
-        if(player == spieler1){
-            felder[feld-1] = 1;
-        } else  felder[feld-1] = 2;
+        char temp;
+        int counter;
 
+        //reihen
+        temp = spielFeld[coordinaten[0]][coordinaten[1]];
+        counter = 0;
+        for (int i = 0; i < 5; i += 2) {
 
-        switch (feld) {
-            case 1:
-                spielFeld[0][0] = player;
-                break;
-            case 2:
-                spielFeld[0][2] = player;
-                break;
-            case 3:
-                spielFeld[0][4] = player;
-                break;
-            case 4:
-                spielFeld[2][0] = player;
-                break;
-            case 5:
-                spielFeld[2][2] = player;
-                break;
-            case 6:
-                spielFeld[2][4] = player;
-                break;
-            case 7:
-                spielFeld[4][0] = player;
-                break;
-            case 8:
-                spielFeld[4][2] = player;
-                break;
-            case 9:
-                spielFeld[4][4] = player;
-                break;
-
+            if (temp == spielFeld[coordinaten[0]][i]) {
+                counter++;
+            } else break;
+            System.out.println(counter);
         }
 
-    }
-
-    public static int computerZug(){
-        Random rand = new Random();
-        int n = 0;
-        n = rand.nextInt(8)+1;
-
-        //System.out.println(n);
-        while(felder[n-1] != 0){
-            n = rand.nextInt(8)+1;
-            //System.out.println(n);
+        if (counter == 3) {
+            printWhoWon(temp);
+            return true;
         }
 
-        return n;
+
+
+
+
+
+
+
+
+
+        // checkt die reihen
+//        for (int i = 0; i < spielFeld.length; i += 2) {
+//            temp = spielFeld[i][0];
+//            counter = 0;
+//
+//            for (int j = 0; j < spielFeld[i].length; j += 2) {
+//                if (temp == leeresFeld) break;
+//                if (temp == spielFeld[i][j]) {
+//                    counter++;
+//                } else break;
+//            }
+//
+//            if (counter == 3) {
+//                printWhoWon(temp);
+//                return true;
+//            }
+//        }
+
+        // checkt die spalten
+//        for (int i = 0; i < spielFeld.length; i += 2) {
+//            temp = spielFeld[0][i];
+//            counter = 0;
+//
+//            for (int j = 0; j < spielFeld[i].length; j += 2) {
+//                if (temp == leeresFeld) break;
+//                if (temp == spielFeld[j][i]) {
+//                    counter++;
+//                } else break;
+//            }
+//
+//            if (counter == 3) {
+//                printWhoWon(temp);
+//                return true;
+//            }
+//        }
+
+
+        temp = spielFeld[coordinaten[0]][coordinaten[1]];
+        counter = 0;
+        for (int i = 0; i < 5; i += 2) {
+
+            if (temp == spielFeld[i][coordinaten[1]]) {
+                counter++;
+            } else break;
+            System.out.println(counter);
+        }
+
+        if (counter == 3) {
+            printWhoWon(temp);
+            return true;
+        }
+
+
+
+
+
+
+        // checkt diagonale von links oben nach rechts unten
+        temp = spielFeld[0][0];
+        counter = 0;
+        for (int i = 0; i < spielFeld.length; i += 2) {
+            if (temp == leeresFeld) break;
+            if (temp == spielFeld[i][i]) {
+                counter++;
+            } else break;
+        }
+        if (counter == 3) {
+            printWhoWon(temp);
+            return true;
+        }
+
+        // checkt diagonale von rechts oben nach links unten
+        // 0/4, 2/2, 4/0
+        temp = spielFeld[0][4];
+        int countDownTemp = 4;
+        counter = 0;
+        for (int i = 0; i < spielFeld.length; i += 2) {
+            if (temp == leeresFeld) break;
+            if (temp == spielFeld[i][countDownTemp]) {
+                counter++;
+            } else break;
+            countDownTemp = countDownTemp - 2;
+        }
+        if (counter == 3) {
+            printWhoWon(temp);
+            return true;
+        }
+
+
+        return false;
     }
+
+    public static void printWhoWon(char temp) {
+
+        if (temp == spieler1) {
+            System.out.println("spieler hat gewonnen");
+        } else if (temp == spieler2) {
+            System.out.println("computer hat gewonnen");
+        }
+    }
+
 }
