@@ -14,23 +14,28 @@ public class Main {
     static char spieler1 = 'o';
     static char spieler2 = 'x';
     static char leeresFeld = ' ';
+    static int fieldSize = 3;
 
 
     public static void main(String[] args) {
 
         System.out.println("Willkommen zu TicTacToe!");
         printField();
+        int spielZugCounter = 0;
+
+        while (true) {
+            System.out.println(spielZugCounter);
 
 
-        for (int runden = 0; runden < 9; runden++) {
             int[] coordinaten;
 
-            if (runden % 2 == 0) {
-                int zug = spielerNachZugFragen(spieler1);
+            if (spielZugCounter % 2 == 0) {
+                int zug;
 
-                while (!isValid(zug)) {
+                do{
                     zug = spielerNachZugFragen(spieler1);
-                }
+                } while (!isValid(zug));
+
                 coordinaten = returnCoordinates(zug);
                 spielFeld[coordinaten[0]][coordinaten[1]] = spieler1;
 
@@ -41,13 +46,18 @@ public class Main {
             }
 
             System.out.println();
-            System.out.println();
             printField();
 
-            if (runden > 3) {
+            if (spielZugCounter > 3) {
                 if (checkForWinner(coordinaten)) {
                     break;
                 }
+            }
+            spielZugCounter++;
+
+            if (spielZugCounter > fieldSize*fieldSize-1) {
+                System.out.println("Es ist gleichstand!");
+                break;
             }
         }
 
@@ -64,13 +74,13 @@ public class Main {
     public static int computerZug() {
         Random rand = new Random();
 
-        int n = rand.nextInt(8) + 1;
-        int[] coordinaten = returnCoordinates(n);
+        int n;
+        int[] coordinaten;
 
-        while(spielFeld[coordinaten[0]][coordinaten[1]] != leeresFeld) {
+        do{
             n = rand.nextInt(8) + 1;
             coordinaten = returnCoordinates(n);
-        }
+        }   while (spielFeld[coordinaten[0]][coordinaten[1]] != leeresFeld);
 
         return n;
     }
@@ -102,7 +112,7 @@ public class Main {
 
     public static boolean isValid(int spielZug) {
 
-        if (spielZug < 1 || spielZug > 9) {
+        if (spielZug < 1 || spielZug > fieldSize*fieldSize) {
             System.out.println();
             System.out.println("Fehler, die Eingabe ist ungültig!");
             return false;
@@ -145,7 +155,7 @@ public class Main {
             } else break;
         }
 
-        if (counter == 3) {
+        if (counter == fieldSize) {
             printWhoWon(temp);
             return true;
         }
@@ -161,7 +171,7 @@ public class Main {
             } else break;
         }
 
-        if (counter == 3) {
+        if (counter == fieldSize) {
             printWhoWon(temp);
             return true;
         }
@@ -177,7 +187,7 @@ public class Main {
                     counter++;
                 } else break;
             }
-            if (counter == 3) {
+            if (counter == fieldSize) {
                 printWhoWon(temp);
                 return true;
             }
@@ -185,12 +195,10 @@ public class Main {
 
         // checkt diagonale von rechts oben nach links unten
         // 0/4, 2/2, 4/0
-        if(coordinaten[0] + coordinaten[1] == 4) {
+        if(coordinaten[0] + coordinaten[1] == spielFeld.length-1) {
             temp = spielFeld[coordinaten[0]][coordinaten[1]];
             counter = 0;
-            int countDownTemp = 4;
-
-            System.out.println("ging in if");
+            int countDownTemp = spielFeld.length-1;
 
             for (int i = 0; i < spielFeld.length; i += 2) {
                 if (temp == leeresFeld) break;
@@ -199,7 +207,7 @@ public class Main {
                 } else break;
                 countDownTemp = countDownTemp - 2;
             }
-            if (counter == 3) {
+            if (counter == fieldSize) {
                 printWhoWon(temp);
                 return true;
             }
@@ -212,9 +220,9 @@ public class Main {
     public static void printWhoWon(char temp) {
 
         if (temp == spieler1) {
-            System.out.println("spieler hat gewonnen");
+            System.out.println("Du hast gewonnen! Wohoo!");
         } else if (temp == spieler2) {
-            System.out.println("computer hat gewonnen");
+            System.out.println("Der Computer hat gewonnen!");
         }
     }
 
