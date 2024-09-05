@@ -18,7 +18,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        System.out.println("Willkommen zu TictacToe!");
+        System.out.println("Willkommen zu TicTacToe!");
         printField();
 
 
@@ -26,10 +26,10 @@ public class Main {
             int[] coordinaten;
 
             if (runden % 2 == 0) {
-                int zug = spielerZugAuswahl(spieler1);
+                int zug = spielerNachZugFragen(spieler1);
 
                 while (!isValid(zug)) {
-                    zug = spielerZugAuswahl(spieler1);
+                    zug = spielerNachZugFragen(spieler1);
                 }
                 coordinaten = returnCoordinates(zug);
                 spielFeld[coordinaten[0]][coordinaten[1]] = spieler1;
@@ -55,7 +55,7 @@ public class Main {
 
     }
 
-    public static int spielerZugAuswahl(char spieler) {
+    public static int spielerNachZugFragen(char spieler) {
         System.out.println("Spieler \"" + spieler + "\", geben sie eine Zahl von 1 bis 9 ein um ihr Zeichen zu setzen.");
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
@@ -136,7 +136,7 @@ public class Main {
         // checkt die reihen
         temp = spielFeld[coordinaten[0]][coordinaten[1]];
         counter = 0;
-        for (int i = 0; i < 5; i += 2) {
+        for (int i = 0; i < spielFeld.length; i += 2) {
 
             if (temp == spielFeld[coordinaten[0]][i]) {
                 counter++;
@@ -152,7 +152,7 @@ public class Main {
         // checkt die spalten
         temp = spielFeld[coordinaten[0]][coordinaten[1]];
         counter = 0;
-        for (int i = 0; i < 5; i += 2) {
+        for (int i = 0; i < spielFeld.length; i += 2) {
 
             if (temp == spielFeld[i][coordinaten[1]]) {
                 counter++;
@@ -166,35 +166,41 @@ public class Main {
 
 
         // checkt diagonale von links oben nach rechts unten
-        temp = spielFeld[0][0];
-        counter = 0;
-        for (int i = 0; i < spielFeld.length; i += 2) {
-            if (temp == leeresFeld) break;
-            if (temp == spielFeld[i][i]) {
-                counter++;
-            } else break;
+        // 0/0, 2/2, 4/4
+        if(coordinaten[0] == coordinaten[1]) {
+            temp = spielFeld[coordinaten[0]][coordinaten[1]];
+            counter = 0;
+            for (int i = 0; i < spielFeld.length; i += 2) {
+                if (temp == spielFeld[i][i]) {
+                    counter++;
+                } else break;
+            }
+            if (counter == 3) {
+                printWhoWon(temp);
+                return true;
+            }
         }
-        if (counter == 3) {
-            printWhoWon(temp);
-            return true;
-        }
-
 
         // checkt diagonale von rechts oben nach links unten
         // 0/4, 2/2, 4/0
-        temp = spielFeld[0][4];
-        int countDownTemp = 4;
-        counter = 0;
-        for (int i = 0; i < spielFeld.length; i += 2) {
-            if (temp == leeresFeld) break;
-            if (temp == spielFeld[i][countDownTemp]) {
-                counter++;
-            } else break;
-            countDownTemp = countDownTemp - 2;
-        }
-        if (counter == 3) {
-            printWhoWon(temp);
-            return true;
+        if(coordinaten[0] + coordinaten[1] == 4) {
+            temp = spielFeld[coordinaten[0]][coordinaten[1]];
+            counter = 0;
+            int countDownTemp = 4;
+
+            System.out.println("ging in if");
+
+            for (int i = 0; i < spielFeld.length; i += 2) {
+                if (temp == leeresFeld) break;
+                if (temp == spielFeld[i][countDownTemp]) {
+                    counter++;
+                } else break;
+                countDownTemp = countDownTemp - 2;
+            }
+            if (counter == 3) {
+                printWhoWon(temp);
+                return true;
+            }
         }
 
 
