@@ -24,7 +24,7 @@ public class Main {
 
 
         for (int runden = 0; runden < 9; runden++) {
-            int[] coordinaten = new int[2];
+            int[] coordinaten;
 
             if (runden % 2 == 0) {
                 int zug = spielerZugAuswahl(spieler1);
@@ -40,8 +40,6 @@ public class Main {
             System.out.println();
             System.out.println();
             printField();
-
-            System.out.println("coordinaten: "+coordinaten[0] + " " + coordinaten[1]);
 
             if (runden > 3) {
                 if (checkForWinner(coordinaten)) {
@@ -152,7 +150,7 @@ public class Main {
         char temp;
         int counter;
 
-        //reihen
+        // checkt die reihen
         temp = spielFeld[coordinaten[0]][coordinaten[1]];
         counter = 0;
         for (int i = 0; i < 5; i += 2) {
@@ -160,7 +158,6 @@ public class Main {
             if (temp == spielFeld[coordinaten[0]][i]) {
                 counter++;
             } else break;
-            System.out.println(counter);
         }
 
         if (counter == 3) {
@@ -168,52 +165,7 @@ public class Main {
             return true;
         }
 
-
-
-
-
-
-
-
-
-
-        // checkt die reihen
-//        for (int i = 0; i < spielFeld.length; i += 2) {
-//            temp = spielFeld[i][0];
-//            counter = 0;
-//
-//            for (int j = 0; j < spielFeld[i].length; j += 2) {
-//                if (temp == leeresFeld) break;
-//                if (temp == spielFeld[i][j]) {
-//                    counter++;
-//                } else break;
-//            }
-//
-//            if (counter == 3) {
-//                printWhoWon(temp);
-//                return true;
-//            }
-//        }
-
         // checkt die spalten
-//        for (int i = 0; i < spielFeld.length; i += 2) {
-//            temp = spielFeld[0][i];
-//            counter = 0;
-//
-//            for (int j = 0; j < spielFeld[i].length; j += 2) {
-//                if (temp == leeresFeld) break;
-//                if (temp == spielFeld[j][i]) {
-//                    counter++;
-//                } else break;
-//            }
-//
-//            if (counter == 3) {
-//                printWhoWon(temp);
-//                return true;
-//            }
-//        }
-
-
         temp = spielFeld[coordinaten[0]][coordinaten[1]];
         counter = 0;
         for (int i = 0; i < 5; i += 2) {
@@ -221,17 +173,12 @@ public class Main {
             if (temp == spielFeld[i][coordinaten[1]]) {
                 counter++;
             } else break;
-            System.out.println(counter);
         }
 
         if (counter == 3) {
             printWhoWon(temp);
             return true;
         }
-
-
-
-
 
 
         // checkt diagonale von links oben nach rechts unten
