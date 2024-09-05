@@ -96,7 +96,7 @@ public class Main {
 
             case 9 -> new int[]{4, 4};
 
-            default -> null;
+            default -> new int[]{-1, -1};
         };
     }
 
@@ -109,6 +109,7 @@ public class Main {
         }
 
         int[] coordinates = returnCoordinates(spielZug);
+
         if(spielFeld[coordinates[0]][coordinates[1]] != leeresFeld) {
             System.out.println();
             System.out.println("Dieses Feld ist bereits besetzt, bitte versuchen sie es nocheinmal!");
@@ -120,9 +121,10 @@ public class Main {
 
     public static void printField() {
 
-        for (int i = 0; i < spielFeld.length; i++) {
-            for (int j = 0; j < spielFeld[i].length; j++) {
-                System.out.print(spielFeld[i][j]);
+        //for (int i = 0; i < spielFeld.length; i++)
+        for (char[] chars : spielFeld) {
+            for (char aChar : chars) {
+                System.out.print(aChar);
             }
             System.out.println();
         }
