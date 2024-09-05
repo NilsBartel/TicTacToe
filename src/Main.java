@@ -32,10 +32,16 @@ public class Main {
                 while (!isValid(zug)) {
                     zug = spielerZugAuswahl(spieler1);
                 }
-                coordinaten = zeichenSetzen(zug, spieler1);
+                //coordinaten = zeichenSetzen(zug, spieler1);
+                coordinaten = returnCoordinates(zug);
+                spielFeld[coordinaten[0]][coordinaten[1]] = spieler1;
 
 
-            } else coordinaten = zeichenSetzen(computerZug(), spieler2);
+            } else {
+                //coordinaten = zeichenSetzen(computerZug(), spieler2);
+                coordinaten = returnCoordinates(computerZug());
+                spielFeld[coordinaten[0]][coordinaten[1]] = spieler2;
+            }
 
             System.out.println();
             System.out.println();
@@ -61,24 +67,64 @@ public class Main {
         Random rand = new Random();
 
         int n = rand.nextInt(8) + 1;
+        int[] coordinaten = returnCoordinates(n);
 
-        //System.out.println(n);
-        while (felder[n - 1] != 0) {
+
+        while(spielFeld[coordinaten[0]][coordinaten[1]] != leeresFeld) {
             n = rand.nextInt(8) + 1;
+            coordinaten = returnCoordinates(n);
             //System.out.println(n);
         }
+
+
+        //System.out.println(n);
+//        while (felder[n - 1] != 0) {
+//            n = rand.nextInt(8) + 1;
+//            //System.out.println(n);
+//        }
 
         return n;
     }
 
-    public static int[] zeichenSetzen(int feld, char player) {
+    public static int[] returnCoordinates(int spielZug){
 
-        if (player == spieler1) {
-            felder[feld - 1] = 1;
-        } else felder[feld - 1] = 2;
+        return switch (spielZug) {
+            case 1 -> new int[]{0, 0};
+
+            case 2 -> new int[]{0, 2};
+
+            case 3 -> new int[]{0, 4};
+
+            case 4 -> new int[]{2, 0};
+
+            case 5 -> new int[]{2, 2};
+
+            case 6 -> new int[]{2, 4};
+
+            case 7 -> new int[]{4, 0};
+
+            case 8 -> new int[]{4, 2};
+
+            case 9 -> new int[]{4, 4};
+
+            default -> null;
+        };
+    }
 
 
-        return switch (feld) {
+
+
+
+    public static int[] zeichenSetzen(int spielZug, char player) {
+
+//        if (player == spieler1) {
+//            felder[spielZug - 1] = 1;
+//        } else felder[spielZug - 1] = 2;
+
+        // coordinates {0,2}
+        //spielFeld[][];
+
+        return switch (spielZug) {
             case 1 -> {
                 spielFeld[0][0] = player;
                 yield new int[]{0, 0};
@@ -119,18 +165,39 @@ public class Main {
         };
     }
 
-    public static boolean isValid(int auswahl) {
+    public static boolean isValid(int spielZug) {
 
-        if (auswahl < 1 || auswahl > 9) {
+        if (spielZug < 1 || spielZug > 9) {
             System.out.println();
             System.out.println("Fehler, die Eingabe ist ungültig!");
             return false;
         }
-        if (felder[auswahl - 1] != 0) {
+
+        //int[] coordianten = zeichenSetzen(spielZug);
+
+
+
+
+        int[] coordinates = returnCoordinates(spielZug);
+
+        if(spielFeld[coordinates[0]][coordinates[1]] != leeresFeld) {
             System.out.println();
             System.out.println("Dieses Feld ist bereits besetzt, bitte versuchen sie es nocheinmal!");
             return false;
         }
+
+
+
+
+
+
+
+//        if (felder[spielZug - 1] != 0) {
+//        //if(spielFeld)
+//            System.out.println();
+//            System.out.println("Dieses Feld ist bereits besetzt, bitte versuchen sie es nocheinmal!");
+//            return false;
+//        }
 
         return true;
     }
@@ -165,6 +232,7 @@ public class Main {
             return true;
         }
 
+
         // checkt die spalten
         temp = spielFeld[coordinaten[0]][coordinaten[1]];
         counter = 0;
@@ -181,6 +249,18 @@ public class Main {
         }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
         // checkt diagonale von links oben nach rechts unten
         temp = spielFeld[0][0];
         counter = 0;
@@ -194,6 +274,18 @@ public class Main {
             printWhoWon(temp);
             return true;
         }
+
+
+
+
+
+
+
+
+
+
+
+
 
         // checkt diagonale von rechts oben nach links unten
         // 0/4, 2/2, 4/0
@@ -211,6 +303,19 @@ public class Main {
             printWhoWon(temp);
             return true;
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         return false;
