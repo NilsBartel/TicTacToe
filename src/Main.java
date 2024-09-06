@@ -33,11 +33,46 @@ public class Main {
         displayGameEndMessage();
     }
 
+    public static int computerMove(){
+
+        // checks if computer can win with the next move
+        for (int i = 1; i < fieldSize*fieldSize+1; i++) {
+            int[] coordinates = returnCoordinates(i);
+
+            if(spielFeld[coordinates[0]][coordinates[1]] != leeresFeld) continue;
+
+
+            spielFeld[coordinates[0]][coordinates[1]] = spieler2;
+            if (checkForWinner(coordinates)){
+                System.out.println("not random move");
+                spielFeld[coordinates[0]][coordinates[1]] = leeresFeld;
+                return i;
+            }
+            spielFeld[coordinates[0]][coordinates[1]] = leeresFeld;
+        }
+
+
+        // checks if computer can lose with the next move
+
+        Random rand = new Random();
+        int n;
+        int[] coordinates;
+        do{
+            n = rand.nextInt(8) + 1;
+            coordinates = returnCoordinates(n);
+        }   while (spielFeld[coordinates[0]][coordinates[1]] != leeresFeld);
+
+        System.out.println("random move");
+        return n;
+
+    }
+
     public static void gameLoop(){
 
         printField();
 
         int spielZugCounter = 0;
+
         while (true) {
 
             int[] coordinaten;
@@ -54,7 +89,7 @@ public class Main {
 
 
             } else {
-                coordinaten = returnCoordinates(computerZug());
+                coordinaten = returnCoordinates(computerMove());
                 spielFeld[coordinaten[0]][coordinaten[1]] = spieler2;
             }
 
@@ -206,10 +241,10 @@ public class Main {
 
         // checkt diagonale von rechts oben nach links unten
         // 0/4, 2/2, 4/0
-        if(coordinaten[0] + coordinaten[1] == spielFeld.length-1) {
+        if(coordinaten[0] + coordinaten[1] == 4) {
             temp = spielFeld[coordinaten[0]][coordinaten[1]];
             counter = 0;
-            int countDownTemp = spielFeld.length-1;
+            int countDownTemp = 4;
 
             for (int i = 0; i < spielFeld.length; i += 2) {
                 if (temp == leeresFeld) break;
