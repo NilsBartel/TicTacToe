@@ -5,9 +5,9 @@ public class Main {
 
     static char[][] spielFeld = new char[][]{
             {' ', '|', ' ', '|', ' '},
-            {'-', '-', '-', '-', '-'},
+            {'-', '+', '-', '+', '-'},
             {' ', '|', ' ', '|', ' '},
-            {'-', '-', '-', '-', '-'},
+            {'-', '+', '-', '+', '-'},
             {' ', '|', ' ', '|', ' '},
     };
 
@@ -15,17 +15,80 @@ public class Main {
     static char spieler2 = 'x';
     static char leeresFeld = ' ';
     static int fieldSize = 3;
+    static int computerScore = 0;
+    static int playerScore = 0;
+
 
 
     public static void main(String[] args) {
 
         System.out.println("Willkommen zu TicTacToe!");
+
+
+
+        do {
+            gameLoop();
+        } while(askPlayAgain());
+
+
+
+        System.out.println();
+        System.out.println("Das Spiel ist zu ende!");
+        System.out.println("The final score is:");
+        System.out.println("Player Score: " + playerScore + "      " + "Computer Score: " + computerScore);
+        System.out.println();
+        if(playerScore > computerScore) {
+            System.out.println("You won the game! Congrats!!!");
+        } else if (computerScore > playerScore) {
+            System.out.println("You lost the game!");
+        } else {
+            System.out.println("The end score is even! No one won!");
+        }
+
+
+    }
+
+    public static void resetSpielFeld(){
+
+        for(int i = 0; i < spielFeld.length; i+=2){
+            for(int j = 0; j < spielFeld[0].length; j+=2){
+                spielFeld[i][j] = leeresFeld;
+            }
+        }
+    }
+
+    public static boolean askPlayAgain() {
+        Scanner scanner = new Scanner(System.in);
+        String response;
+
+        System.out.println();
+        System.out.println("The score is:");
+        System.out.println("Player Score: " + playerScore + "      " + "Computer Score: " + computerScore);
+
+        System.out.println();
+        System.out.println("Do you want to play again? (Type y/n)");
+        response = scanner.nextLine();
+
+        while(! (response.equals("y") || response.equals("n"))){
+            System.out.println("This is not a valid input! Please try again.");
+            response = scanner.nextLine();
+        }
+
+        if(response.equals("y")){
+            resetSpielFeld();
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public static void gameLoop(){
+
         printField();
+
         int spielZugCounter = 0;
-
         while (true) {
-            System.out.println(spielZugCounter);
-
 
             int[] coordinaten;
 
@@ -60,8 +123,6 @@ public class Main {
                 break;
             }
         }
-
-        System.out.println("Das Spiel ist zu ende!");
 
     }
 
@@ -220,9 +281,11 @@ public class Main {
     public static void printWhoWon(char temp) {
 
         if (temp == spieler1) {
-            System.out.println("Du hast gewonnen! Wohoo!");
+            playerScore++;
+            System.out.println("You won the round! Wohoo!");
         } else if (temp == spieler2) {
-            System.out.println("Der Computer hat gewonnen!");
+            computerScore++;
+            System.out.println("The computer won the round! Better luck next time!");
         }
     }
 
