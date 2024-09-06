@@ -25,62 +25,12 @@ public class Main {
         System.out.println("Willkommen zu TicTacToe!");
 
 
-
         do {
             gameLoop();
         } while(askPlayAgain());
 
 
-
-        System.out.println();
-        System.out.println("Das Spiel ist zu ende!");
-        System.out.println("The final score is:");
-        System.out.println("Player Score: " + playerScore + "      " + "Computer Score: " + computerScore);
-        System.out.println();
-        if(playerScore > computerScore) {
-            System.out.println("You won the game! Congrats!!!");
-        } else if (computerScore > playerScore) {
-            System.out.println("You lost the game!");
-        } else {
-            System.out.println("The end score is even! No one won!");
-        }
-
-
-    }
-
-    public static void resetSpielFeld(){
-
-        for(int i = 0; i < spielFeld.length; i+=2){
-            for(int j = 0; j < spielFeld[0].length; j+=2){
-                spielFeld[i][j] = leeresFeld;
-            }
-        }
-    }
-
-    public static boolean askPlayAgain() {
-        Scanner scanner = new Scanner(System.in);
-        String response;
-
-        System.out.println();
-        System.out.println("The score is:");
-        System.out.println("Player Score: " + playerScore + "      " + "Computer Score: " + computerScore);
-
-        System.out.println();
-        System.out.println("Do you want to play again? (Type y/n)");
-        response = scanner.nextLine();
-
-        while(! (response.equals("y") || response.equals("n"))){
-            System.out.println("This is not a valid input! Please try again.");
-            response = scanner.nextLine();
-        }
-
-        if(response.equals("y")){
-            resetSpielFeld();
-            return true;
-        } else {
-            return false;
-        }
-
+        displayGameEndMessage();
     }
 
     public static void gameLoop(){
@@ -289,4 +239,54 @@ public class Main {
         }
     }
 
+    public static boolean askPlayAgain() {
+        Scanner scanner = new Scanner(System.in);
+        String response;
+
+        System.out.println();
+        System.out.println("The score is:");
+        System.out.println("Player Score: " + playerScore + "      " + "Computer Score: " + computerScore);
+
+        System.out.println();
+        System.out.println("Do you want to play again? (Type y/n)");
+        response = scanner.nextLine();
+
+        while(! (response.equals("y") || response.equals("n"))){
+            System.out.println("This is not a valid input! Please try again.");
+            response = scanner.nextLine();
+        }
+
+        if(response.equals("y")){
+            resetSpielFeld();
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public static void resetSpielFeld(){
+
+        for(int i = 0; i < spielFeld.length; i+=2){
+            for(int j = 0; j < spielFeld[0].length; j+=2){
+                spielFeld[i][j] = leeresFeld;
+            }
+        }
+    }
+
+    public static void displayGameEndMessage() {
+
+        System.out.println();
+        System.out.println("Das Spiel ist zu ende!");
+        System.out.println("The final score is:");
+        System.out.println("Player Score: " + playerScore + "      " + "Computer Score: " + computerScore);
+        System.out.println();
+        if(playerScore > computerScore) {
+            System.out.println("You won the game! Congrats!!!");
+        } else if (computerScore > playerScore) {
+            System.out.println("You lost the game!");
+        } else {
+            System.out.println("The end score is even! No one won!");
+        }
+    }
 }
