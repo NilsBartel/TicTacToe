@@ -21,13 +21,17 @@ public class Main {
 
 
     public static void main(String[] args) {
-
+        int startPlayer = 0; // 0 = player, 1 = computer
 
         System.out.println("Willkommen zu TicTacToe!");
 
 
         do {
-            gameLoop();
+            gameLoop(startPlayer);
+            if (startPlayer == 0) {
+                startPlayer = 1;
+            } else startPlayer = 0;
+
         } while(askPlayAgain());
 
 
@@ -35,7 +39,7 @@ public class Main {
     }
 
 
-    public static void gameLoop(){
+    public static void gameLoop(int whichPlayerStarts){
 
         printField();
 
@@ -45,7 +49,7 @@ public class Main {
 
             int[] coordinaten;
 
-            if (spielZugCounter % 2 == 0) {
+            if (spielZugCounter % 2 == whichPlayerStarts) {
                 int zug;
 
                 do{
