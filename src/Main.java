@@ -22,6 +22,7 @@ public class Main {
 
     public static void main(String[] args) {
 
+
         System.out.println("Willkommen zu TicTacToe!");
 
 
@@ -33,39 +34,6 @@ public class Main {
         displayGameEndMessage();
     }
 
-    public static int computerMove(){
-
-        // checks if computer can win with the next move
-        for (int i = 1; i < fieldSize*fieldSize+1; i++) {
-            int[] coordinates = returnCoordinates(i);
-
-            if(spielFeld[coordinates[0]][coordinates[1]] != leeresFeld) continue;
-
-
-            spielFeld[coordinates[0]][coordinates[1]] = spieler2;
-            if (checkForWinner(coordinates)){
-                System.out.println("not random move");
-                spielFeld[coordinates[0]][coordinates[1]] = leeresFeld;
-                return i;
-            }
-            spielFeld[coordinates[0]][coordinates[1]] = leeresFeld;
-        }
-
-
-        // checks if computer can lose with the next move
-
-        Random rand = new Random();
-        int n;
-        int[] coordinates;
-        do{
-            n = rand.nextInt(8) + 1;
-            coordinates = returnCoordinates(n);
-        }   while (spielFeld[coordinates[0]][coordinates[1]] != leeresFeld);
-
-        System.out.println("random move");
-        return n;
-
-    }
 
     public static void gameLoop(){
 
@@ -97,7 +65,7 @@ public class Main {
             printField();
 
             if (spielZugCounter > 3) {
-                if (checkForWinner(coordinaten)) {
+                if (checkForWinner(coordinaten, true)) {
                     break;
                 }
             }
@@ -115,6 +83,53 @@ public class Main {
         System.out.println("Spieler \"" + spieler + "\", geben sie eine Zahl von 1 bis 9 ein um ihr Zeichen zu setzen.");
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
+    }
+
+    public static int computerMove(){
+
+        // checks if computer can win with the next move
+        for (int i = 1; i < fieldSize*fieldSize+1; i++) {
+            int[] coordinates = returnCoordinates(i);
+
+            if(spielFeld[coordinates[0]][coordinates[1]] != leeresFeld) continue;
+
+            spielFeld[coordinates[0]][coordinates[1]] = spieler2;
+            if (checkForWinner(coordinates, false)){
+                System.out.println("not random move");
+                spielFeld[coordinates[0]][coordinates[1]] = leeresFeld;
+                return i;
+            }
+            spielFeld[coordinates[0]][coordinates[1]] = leeresFeld;
+        }
+
+
+        // checks if computer can lose with the next move
+        for (int i = 1; i < fieldSize*fieldSize+1; i++) {
+            int[] coordinates = returnCoordinates(i);
+
+            if(spielFeld[coordinates[0]][coordinates[1]] != leeresFeld) continue;
+
+            spielFeld[coordinates[0]][coordinates[1]] = spieler1;
+            if (checkForWinner(coordinates, false)){
+                System.out.println("not random move");
+                spielFeld[coordinates[0]][coordinates[1]] = leeresFeld;
+                return i;
+            }
+            spielFeld[coordinates[0]][coordinates[1]] = leeresFeld;
+        }
+
+
+        Random rand = new Random();
+        int n;
+        int[] coordinates;
+        do{
+            n = rand.nextInt(8) + 1;
+            coordinates = returnCoordinates(n);
+        }   while (spielFeld[coordinates[0]][coordinates[1]] != leeresFeld);
+
+        System.out.println("random move");
+        return n;
+
     }
 
     public static int computerZug() {
@@ -186,7 +201,8 @@ public class Main {
         }
     }
 
-    public static boolean checkForWinner(int[] coordinaten) {
+    public static boolean checkForWinner(int[] coordinaten, boolean printWinner) {
+
 
         char temp;
         int counter;
@@ -202,7 +218,9 @@ public class Main {
         }
 
         if (counter == fieldSize) {
-            printWhoWon(temp);
+            if (printWinner) {
+                printWhoWon(temp);
+            }
             return true;
         }
 
@@ -218,7 +236,9 @@ public class Main {
         }
 
         if (counter == fieldSize) {
-            printWhoWon(temp);
+            if (printWinner) {
+                printWhoWon(temp);
+            }
             return true;
         }
 
@@ -234,7 +254,9 @@ public class Main {
                 } else break;
             }
             if (counter == fieldSize) {
-                printWhoWon(temp);
+                if (printWinner) {
+                    printWhoWon(temp);
+                }
                 return true;
             }
         }
@@ -254,7 +276,9 @@ public class Main {
                 countDownTemp = countDownTemp - 2;
             }
             if (counter == fieldSize) {
-                printWhoWon(temp);
+                if (printWinner) {
+                    printWhoWon(temp);
+                }
                 return true;
             }
         }
