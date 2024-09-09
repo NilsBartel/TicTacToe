@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -11,12 +12,13 @@ public class Main {
             {' ', '|', ' ', '|', ' '},
     };
 
-    static char spieler1 = 'o';
-    static char spieler2 = 'x';
+    static char playerChar = 'o';
+    static char computerChar = 'x';
     static char leeresFeld = ' ';
     static int fieldSize = 3;
     static int computerScore = 0;
     static int playerScore = 0;
+    static int moveCounter = 0;
 
 
 
@@ -25,13 +27,12 @@ public class Main {
 
         System.out.println("Willkommen zu TicTacToe!");
 
-
         do {
             gameLoop(startPlayer);
             if (startPlayer == 0) {
                 startPlayer = 1;
             } else startPlayer = 0;
-
+            moveCounter = 0;
         } while(askPlayAgain());
 
 
@@ -43,39 +44,39 @@ public class Main {
 
         printField();
 
-        int spielZugCounter = 0;
-
         while (true) {
 
             int[] coordinaten;
 
-            if (spielZugCounter % 2 == whichPlayerStarts) {
+            if (moveCounter % 2 == whichPlayerStarts) {
                 int zug;
 
                 do{
-                    zug = spielerNachZugFragen(spieler1);
+                    zug = spielerNachZugFragen(playerChar);
                 } while (!isValid(zug));
 
                 coordinaten = returnCoordinates(zug);
-                spielFeld[coordinaten[0]][coordinaten[1]] = spieler1;
+                spielFeld[coordinaten[0]][coordinaten[1]] = playerChar;
 
 
             } else {
                 coordinaten = returnCoordinates(computerMove());
-                spielFeld[coordinaten[0]][coordinaten[1]] = spieler2;
+                spielFeld[coordinaten[0]][coordinaten[1]] = computerChar;
             }
+
 
             System.out.println();
             printField();
 
-            if (spielZugCounter > 3) {
+            if (moveCounter > 3) {
+                System.out.println("testing");
                 if (checkForWinner(coordinaten, true)) {
                     break;
                 }
             }
-            spielZugCounter++;
+            moveCounter++;
 
-            if (spielZugCounter > fieldSize*fieldSize-1) {
+            if (moveCounter > fieldSize*fieldSize-1) {
                 System.out.println("Es ist gleichstand!");
                 break;
             }
@@ -89,6 +90,8 @@ public class Main {
         return scanner.nextInt();
     }
 
+
+
     public static int computerMove(){
 
         // checks if computer can win with the next move
@@ -97,7 +100,7 @@ public class Main {
 
             if(spielFeld[coordinates[0]][coordinates[1]] != leeresFeld) continue;
 
-            spielFeld[coordinates[0]][coordinates[1]] = spieler2;
+            spielFeld[coordinates[0]][coordinates[1]] = computerChar;
             if (checkForWinner(coordinates, false)){
                 System.out.println("not random move");
                 spielFeld[coordinates[0]][coordinates[1]] = leeresFeld;
@@ -113,7 +116,7 @@ public class Main {
 
             if(spielFeld[coordinates[0]][coordinates[1]] != leeresFeld) continue;
 
-            spielFeld[coordinates[0]][coordinates[1]] = spieler1;
+            spielFeld[coordinates[0]][coordinates[1]] = playerChar;
             if (checkForWinner(coordinates, false)){
                 System.out.println("not random move");
                 spielFeld[coordinates[0]][coordinates[1]] = leeresFeld;
@@ -122,21 +125,66 @@ public class Main {
             spielFeld[coordinates[0]][coordinates[1]] = leeresFeld;
         }
 
+        int[] coordinates = returnCoordinates(5);
+        if(spielFeld[coordinates[0]][coordinates[1]] == leeresFeld) return 5;
 
-        Random rand = new Random();
-        int n;
-        int[] coordinates;
-        do{
-            n = rand.nextInt(8) + 1;
-            coordinates = returnCoordinates(n);
-        }   while (spielFeld[coordinates[0]][coordinates[1]] != leeresFeld);
 
-        System.out.println("random move");
-        return n;
 
+
+
+//        Random rand  = new Random();
+//        int n;
+//        int[] corners = {1,3,7,9};
+//        HashMap<Integer, Integer> corner = new HashMap<>();
+//        corner.put(0, 1);
+//        corner.put(1, 3);
+//        corner.put(2, 7);
+//        corner.put(3, 9);
+//
+//        int stop = 5;
+//
+//        while(!corner.isEmpty()){
+//
+//            System.out.println("corner size " + corner.size());
+//            n = rand.nextInt(corner.size()-1)+1;
+//            System.out.println(n);
+//            coordinates = returnCoordinates(n);
+//            if(spielFeld[coordinates[0]][coordinates[1]] == leeresFeld) {
+//                System.out.println("found a corner");
+//                return n;
+//            }else{
+//                corner.remove(n);
+//                System.out.println("removed corner");
+//            }
+//
+//            stop--;
+//            if(stop == 0) break;
+//        }
+//        System.out.println("found no corner");
+
+
+
+
+
+
+
+
+
+//        coordinates = returnCoordinates(1);
+//        if(spielFeld[coordinates[0]][coordinates[1]] == leeresFeld) return 1;
+//        coordinates = returnCoordinates(3);
+//        if(spielFeld[coordinates[0]][coordinates[1]] == leeresFeld) return 3;
+//        coordinates = returnCoordinates(7);
+//        if(spielFeld[coordinates[0]][coordinates[1]] == leeresFeld) return 7;
+//        coordinates = returnCoordinates(9);
+//        if(spielFeld[coordinates[0]][coordinates[1]] == leeresFeld) return 9;
+
+
+
+        return randomComputerZug();
     }
 
-    public static int computerZug() {
+    public static int randomComputerZug() {
         Random rand = new Random();
 
         int n;
@@ -147,6 +195,7 @@ public class Main {
             coordinaten = returnCoordinates(n);
         }   while (spielFeld[coordinaten[0]][coordinaten[1]] != leeresFeld);
 
+        System.out.println("random move");
         return n;
     }
 
@@ -293,10 +342,10 @@ public class Main {
 
     public static void printWhoWon(char temp) {
 
-        if (temp == spieler1) {
+        if (temp == playerChar) {
             playerScore++;
             System.out.println("You won the round! Wohoo!");
-        } else if (temp == spieler2) {
+        } else if (temp == computerChar) {
             computerScore++;
             System.out.println("The computer won the round! Better luck next time!");
         }
