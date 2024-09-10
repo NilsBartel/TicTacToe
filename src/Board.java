@@ -16,8 +16,40 @@ public class Board {
         for(Row row : rows){
             row.print();
         }
+
+
+    }
+
+
+    public boolean isValid(int index){
+
+
+        if(index < 1 || index > 9) return false;
+
+
+
+        Position position = new Position(index);
+        int row = position.getRow();
+        int column = position.getColumn();
+
+        if (rows.get(row).getFields().get(column).getSymbol() == ' '){
+            System.out.println("returned true");
+            return true;
+        }
+
+
+
+
+
+        return false;
     }
 
 
 
+
+
+
+    public ArrayList<Row> getRows() {
+        return rows;
+    }
 }

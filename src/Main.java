@@ -1,4 +1,3 @@
-import java.util.HashMap;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -23,16 +22,30 @@ public class Main {
 
 
     public static void main(String[] args) {
+
         int startPlayer = 0; // 0 = player, 1 = computer
 
         System.out.println("Willkommen zu TicTacToe!");
 
         do {
-            gameLoop(startPlayer);
-            if (startPlayer == 0) {
-                startPlayer = 1;
-            } else startPlayer = 0;
-            moveCounter = 0;
+            Match match = new Match();
+            match.play();
+            MatchStatus status = match.getStatus();
+
+            switch (status) {
+                case PLAYER_WON -> System.out.println("player won");
+                case COMPUTER_WON -> System.out.println("computer won");
+                case DRAW -> System.out.println("draw");
+
+            }
+
+
+
+//            gameLoop(startPlayer);
+//            if (startPlayer == 0) {
+//                startPlayer = 1;
+//            } else startPlayer = 0;
+//            moveCounter = 0;
         } while(askPlayAgain());
 
 
@@ -89,8 +102,6 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
     }
-
-
 
     public static int computerMove(){
 
@@ -355,9 +366,9 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String response;
 
-        System.out.println();
+        /*System.out.println();
         System.out.println("The score is:");
-        System.out.println("Player Score: " + playerScore + "      " + "Computer Score: " + computerScore);
+        System.out.println("Player Score: " + playerScore + "      " + "Computer Score: " + computerScore);*/
 
         System.out.println();
         System.out.println("Do you want to play again? (Type y/n)");

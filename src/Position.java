@@ -7,8 +7,8 @@ public class Position {
 
     public Position(int index){
         this.index = index;
-        this.row = index / 3;
-        this.column = index % 3;
+        this.row = (index -1) / 3;
+        this.column = (index -1) % 3 ;
     }
 
     public Position(int row, int column){
@@ -19,4 +19,15 @@ public class Position {
 
 
 
+
+
+    public int getIndex() {
+        return index;
+    }
+    public int getRow() {
+        return row;
+    }
+    public int getColumn() {
+        return column;
+    }
 }

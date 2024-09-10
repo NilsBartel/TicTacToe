@@ -3,6 +3,9 @@ public class Match {
 
     private final Board board;
     private MatchStatus status;
+    private final char playerSymbol = 'o';
+    private final char computerSymbol = 'x';
+    private boolean isPlayerTurn = true;
 
 
     public Match() {
@@ -12,7 +15,75 @@ public class Match {
 
 
     public void play(){
+        //board.getRows().get(1).getFields().get(2).setSymbol('S');
+
+
+        int n = 0;
+
+
         board.print();
+        while (n<9){
+
+            if(isPlayerTurn){
+                int playerMove = PlayerMoveService.askForMove();
+                //System.out.println(playerMove);
+                Position playerPosition = new Position(playerMove);
+                int row = playerPosition.getRow();
+                int column = playerPosition.getColumn();
+
+                board.getRows().get(row).getFields().get(column).setSymbol(playerSymbol);
+            } else {
+
+                int computerMove = ComputerMoveService.randomMove(board);
+                //System.out.println(computerMove);
+
+                Position computerPosition = new Position(computerMove);
+
+                int row = computerPosition.getRow();
+                int column = computerPosition.getColumn();
+                board.getRows().get(row).getFields().get(column).setSymbol(computerSymbol);
+            }
+
+
+
+
+
+
+
+            board.print();
+
+            isPlayerTurn = !isPlayerTurn;
+            n++;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //System.out.println(row);
+        //System.out.println(column);
+
+
+
+
+
+
+
+
+
+
+
 
 
 

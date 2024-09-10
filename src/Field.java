@@ -5,7 +5,7 @@ public class Field {
 
     public Field(Position position) {
         this.position = position;
-        this.symbol = 'x';
+        this.symbol = ' ';
     }
 
 
@@ -16,7 +16,7 @@ public class Field {
         return symbol;
     }
 
-    public void setsymbol(char symbol, Position position) {
+    public void setSymbol(char symbol) {
         this.symbol = symbol;
     }
 

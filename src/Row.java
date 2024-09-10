@@ -23,6 +23,9 @@ public class Row {
         System.out.println(line);
     }
 
+    public ArrayList<Field> getFields() {
+        return fields;
+    }
 
 
 }
