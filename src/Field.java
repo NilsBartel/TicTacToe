@@ -11,7 +11,6 @@ public class Field {
 
 
 
-
     public char getSymbol() {
         return symbol;
     }

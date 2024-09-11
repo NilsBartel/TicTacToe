@@ -12,7 +12,6 @@ public class Row {
 
 
     public void print(){
-        //String line = "%c | %c | %c";
 
         ArrayList<String> symbols = new ArrayList<>();
         for(Field field : fields){
