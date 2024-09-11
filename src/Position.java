@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Position {
 
     private int index;
@@ -17,7 +19,12 @@ public class Position {
         this.column = column;
     }
 
-
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Position position)) return false;
+        return index == position.index;
+    }
 
 
 

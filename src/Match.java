@@ -5,6 +5,7 @@ public class Match {
     private MatchStatus status;
     private final char playerSymbol = 'o';
     private final char computerSymbol = 'x';
+    private final char emptySymbol = ' ';
     private boolean isPlayerTurn = true;
     private char currentSymbol;
 
@@ -50,15 +51,15 @@ public class Match {
 
             } else{
                 currentSymbol = computerSymbol;
-                move = ComputerMoveService.randomMove(board);
+                move = ComputerMoveService.betterComputerMove(board, computerSymbol, playerSymbol, emptySymbol);
             }
 
 
             //int playerMove = PlayerMoveService.askForMove();
             //System.out.println(playerMove);
-            Position playerPosition = new Position(move);
-            int row = playerPosition.getRow();
-            int column = playerPosition.getColumn();
+            Position position = new Position(move);
+            int row = position.getRow();
+            int column = position.getColumn();
 
             board.getRows().get(row).getFields().get(column).setSymbol(currentSymbol);
 
@@ -66,7 +67,7 @@ public class Match {
 
             board.print();
 
-            if (Winner.thereIsWinner(board, move, currentSymbol)) {
+            if (Winner.thereIsWinner(board, position, currentSymbol)) {
 
 
                 if (currentSymbol == computerSymbol){

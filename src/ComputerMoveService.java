@@ -36,39 +36,47 @@ public class ComputerMoveService {
         return n;
     }
 
-    public static int betterComputerMove(Board board) {
+    public static int betterComputerMove(Board board, char computerSymbol, char playerSymbol, char emptySymbol) {
 
 
         // checks if computer can win with the next move
-//        for (int i = 1; i < fieldSize*fieldSize+1; i++) {
-//            int[] coordinates = returnCoordinates(i);
-//
-//            if(spielFeld[coordinates[0]][coordinates[1]] != leeresFeld) continue;
-//
-//            spielFeld[coordinates[0]][coordinates[1]] = computerChar;
-//            if (checkForWinner(coordinates, false)){
-//                System.out.println("not random move");
-//                spielFeld[coordinates[0]][coordinates[1]] = leeresFeld;
-//                return i;
-//            }
-//            spielFeld[coordinates[0]][coordinates[1]] = leeresFeld;
-//        }
+        for (int i = 1; i < 9+1; i++) {
+
+            if(!board.isValid(i)) continue;
+
+            Position position = new Position(i);
+            int row = position.getRow();
+            int column = position.getColumn();
+
+            board.getRows().get(row).getFields().get(column).setSymbol(computerSymbol);
+            if (Winner.thereIsWinner(board, position, computerSymbol)){
+                System.out.println("not random move");
+                board.getRows().get(row).getFields().get(column).setSymbol(emptySymbol);
+                return i;
+            }
+            board.getRows().get(row).getFields().get(column).setSymbol(emptySymbol);
+        }
+
+
 
 
         // checks if computer can lose with the next move
-//        for (int i = 1; i < fieldSize*fieldSize+1; i++) {
-//            int[] coordinates = returnCoordinates(i);
-//
-//            if(spielFeld[coordinates[0]][coordinates[1]] != leeresFeld) continue;
-//
-//            spielFeld[coordinates[0]][coordinates[1]] = playerChar;
-//            if (checkForWinner(coordinates, false)){
-//                System.out.println("not random move");
-//                spielFeld[coordinates[0]][coordinates[1]] = leeresFeld;
-//                return i;
-//            }
-//            spielFeld[coordinates[0]][coordinates[1]] = leeresFeld;
-//        }
+        for (int i = 1; i < 9+1; i++) {
+
+            if(!board.isValid(i)) continue;
+
+            Position position = new Position(i);
+            int row = position.getRow();
+            int column = position.getColumn();
+
+            board.getRows().get(row).getFields().get(column).setSymbol(playerSymbol);
+            if (Winner.thereIsWinner(board, position, playerSymbol)){
+                System.out.println("not random move");
+                board.getRows().get(row).getFields().get(column).setSymbol(emptySymbol);
+                return i;
+            }
+            board.getRows().get(row).getFields().get(column).setSymbol(emptySymbol);
+        }
 
 
 
@@ -76,7 +84,38 @@ public class ComputerMoveService {
 
 
 
-        return 0;
+
+
+
+
+
+
+        return randomMove(board);
+    }
+
+
+    private static int checkWhereSymbolCanWin(Board board, char symbol, char emptySymbol) {
+
+        for (int i = 1; i < 9+1; i++) {
+
+            if(!board.isValid(i)) continue;
+
+            Position position = new Position(i);
+            int row = position.getRow();
+            int column = position.getColumn();
+
+            board.getRows().get(row).getFields().get(column).setSymbol(symbol);
+            if (Winner.thereIsWinner(board, position, symbol)){
+                System.out.println("not random move");
+                board.getRows().get(row).getFields().get(column).setSymbol(emptySymbol);
+                return i;
+            }
+            board.getRows().get(row).getFields().get(column).setSymbol(emptySymbol);
+        }
+
+
+
+        return -1;
     }
 
 

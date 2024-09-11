@@ -1,55 +1,58 @@
+import java.util.ArrayList;
+
 public class Winner {
 
 
 
-    public static boolean thereIsWinner(Board board, int index, char currentSymbol) {
+    public static boolean thereIsWinner(Board board, Position position, char currentSymbol) {
 
         int counter;
 
-        Position position = new Position(index);
+
         int row = position.getRow();
-        int column = position.getColumn();
 
-        // checks the rows
-        counter = 0;
-        for (int columns = 0; columns < board.rows.size(); columns++) {
+        //int column = position.getColumn();
 
-            //board.getRows().get(1).getFields().get(2).setSymbol('S');
-            if (currentSymbol == board.getRows().get(row).getFields().get(columns).getSymbol()) {
-                counter++;
-            } else break;
+        if(allEqualsSymbol(board.getRows().get(row).getFields(), currentSymbol)) return true;
+
+
+        ArrayList<Field> column = new ArrayList<>();
+        for(Row line : board.getRows()) {
+            column.add(line.getFields().get(position.getColumn()));
         }
-        if (counter == board.rows.size()) {
-            return true;
-        }
+        if(allEqualsSymbol(column, currentSymbol)) return true;
 
 
-        // checks the columns
-        counter = 0;
-        for (int rows = 0; rows < board.rows.size(); rows++) {
+        ArrayList<Field> diagonalLeftRight = new ArrayList<>();
+        for(Position pos : Board.DIAGONAL_TOP_LEFT_BOTTOM_RIGHT){
+            diagonalLeftRight.add(board.getRows().get(pos.getRow()).getFields().get(pos.getColumn()));
+        }
+        if(allEqualsSymbol(diagonalLeftRight, currentSymbol)) return true;
 
-            if (currentSymbol == board.getRows().get(rows).getFields().get(column).getSymbol()) {
-                counter++;
-            } else break;
+
+        ArrayList<Field> diagonalRightLeft = new ArrayList<>();
+        for(Position pos : Board.DIAGONAL_TOP_RIGHT_BOTTOM_LEFT){
+            diagonalRightLeft.add(board.getRows().get(pos.getRow()).getFields().get(pos.getColumn()));
         }
-        if (counter == board.rows.size()) {
-            return true;
-        }
+        if(allEqualsSymbol(diagonalRightLeft, currentSymbol)) return true;
 
 
 
 
         // checks the diagonal top left to bottom right
         // 0/0, 1/1, 2/2
-        counter = 0;
-        for (int i = 0; i < board.rows.size(); i++) {
-            if (currentSymbol == board.getRows().get(i).getFields().get(i).getSymbol()) {
-                counter++;
-            } else break;
-        }
-        if (counter == board.rows.size()) {
-            return true;
-        }
+//        if(Board.DIAGONAL_TOP_LEFT_BOTTOM_RIGHT.contains(position)) {
+//
+//            counter = 0;
+//            for(Position diagonalPosition : Board.DIAGONAL_TOP_LEFT_BOTTOM_RIGHT) {
+//                if (currentSymbol == board.getRows().get(diagonalPosition.getRow()).getFields().get(diagonalPosition.getColumn()).getSymbol()) {
+//                    counter++;
+//                } else break;
+//                if (counter == board.rows.size()) {
+//                    return true;
+//                }
+//            }
+//        }
 
 
 
@@ -58,24 +61,31 @@ public class Winner {
 
         // checks the diagonal top right to bottom left
         // 0/2, 1/1, 2/0     all = 2
-        if(index == 3 || index == 5 || index == 7){
-
-            counter = 0;
-            int countDownTemp = 2;
-
-            for (int i = 0; i < board.rows.size(); i++) {
-                if (currentSymbol == board.getRows().get(i).getFields().get(countDownTemp).getSymbol()) {
-                    counter++;
-                } else break;
-                countDownTemp = countDownTemp - 1;
-            }
-            if (counter == board.rows.size()) {
-                return true;
-            }
-        }
+//        if(Board.DIAGONAL_TOP_RIGHT_BOTTOM_LEFT.contains(position)) {
+//
+//            counter = 0;
+//            for(Position diagonalPosition : Board.DIAGONAL_TOP_RIGHT_BOTTOM_LEFT) {
+//                if (currentSymbol == board.getRows().get(diagonalPosition.getRow()).getFields().get(diagonalPosition.getColumn()).getSymbol()) {
+//                    counter++;
+//                } else break;
+//                if (counter == board.rows.size()) {
+//                    return true;
+//                }
+//            }
+//        }
 
 
         return false;
+    }
+
+
+    private static boolean allEqualsSymbol(ArrayList<Field> fields, char currentSymbol) {
+
+        for(Field field : fields) {
+            if (field.getSymbol() != currentSymbol) return false;
+
+        }
+        return true;
     }
 
 
