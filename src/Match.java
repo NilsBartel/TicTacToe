@@ -6,6 +6,7 @@ public class Match {
     private final char playerSymbol = 'o';
     private final char computerSymbol = 'x';
     private boolean isPlayerTurn = true;
+    private char currentSymbol;
 
 
     public Match() {
@@ -15,10 +16,94 @@ public class Match {
 
 
     public void play(){
-        //board.getRows().get(1).getFields().get(2).setSymbol('S');
 
 
-        int n = 0;
+        this.status = MatchStatus.RUNNING;
+
+
+        int moveCounter = 0;
+//        board.getRows().get(1).getFields().get(2).setSymbol('S');
+//        board.getRows().get(1).getFields().get(0).setSymbol('S');
+//
+//        board.print();
+
+        if(isPlayerTurn){
+            currentSymbol = playerSymbol;
+        } else{
+            currentSymbol = computerSymbol;
+        }
+
+
+
+
+
+
+
+        board.print();
+        while (true){
+
+            int move;
+
+            if(isPlayerTurn){
+                currentSymbol = playerSymbol;
+                move = PlayerInput.askForMove(board);
+
+            } else{
+                currentSymbol = computerSymbol;
+                move = ComputerMoveService.randomMove(board);
+            }
+
+
+            //int playerMove = PlayerMoveService.askForMove();
+            //System.out.println(playerMove);
+            Position playerPosition = new Position(move);
+            int row = playerPosition.getRow();
+            int column = playerPosition.getColumn();
+
+            board.getRows().get(row).getFields().get(column).setSymbol(currentSymbol);
+
+
+
+            board.print();
+
+            if (Winner.thereIsWinner(board, move, currentSymbol)) {
+
+
+                if (currentSymbol == computerSymbol){
+                    this.status = MatchStatus.COMPUTER_WON;
+                } else this.status = MatchStatus.PLAYER_WON;
+
+
+
+
+                //Winner.printWinner(currentSymbol, computerSymbol, playerSymbol);
+                break;
+            }
+
+            moveCounter++;
+            if (moveCounter > 9-1) {
+                //System.out.println("It's a draw!");
+                this.status = MatchStatus.DRAW;
+                break;
+            }
+
+            isPlayerTurn = !isPlayerTurn;
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*int n = 0;
 
 
         board.print();
@@ -32,6 +117,7 @@ public class Match {
                 int column = playerPosition.getColumn();
 
                 board.getRows().get(row).getFields().get(column).setSymbol(playerSymbol);
+                CheckWinner.thereIsWinner(board, playerMove, playerSymbol);
             } else {
 
                 int computerMove = ComputerMoveService.randomMove(board);
@@ -42,6 +128,7 @@ public class Match {
                 int row = computerPosition.getRow();
                 int column = computerPosition.getColumn();
                 board.getRows().get(row).getFields().get(column).setSymbol(computerSymbol);
+                CheckWinner.thereIsWinner(board, computerMove, computerSymbol);
             }
 
 
@@ -54,7 +141,7 @@ public class Match {
 
             isPlayerTurn = !isPlayerTurn;
             n++;
-        }
+        }*/
 
 
 
@@ -137,5 +224,9 @@ public class Match {
 
     public MatchStatus getStatus() {
         return status;
+    }
+
+    public boolean getIsPlayerTurn() {
+        return isPlayerTurn;
     }
 }

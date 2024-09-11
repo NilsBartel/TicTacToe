@@ -33,7 +33,7 @@ public class Board {
         int column = position.getColumn();
 
         if (rows.get(row).getFields().get(column).getSymbol() == ' '){
-            System.out.println("returned true");
+            //System.out.println("returned true");
             return true;
         }
 

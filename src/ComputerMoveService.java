@@ -36,4 +36,48 @@ public class ComputerMoveService {
         return n;
     }
 
+    public static int betterComputerMove(Board board) {
+
+
+        // checks if computer can win with the next move
+//        for (int i = 1; i < fieldSize*fieldSize+1; i++) {
+//            int[] coordinates = returnCoordinates(i);
+//
+//            if(spielFeld[coordinates[0]][coordinates[1]] != leeresFeld) continue;
+//
+//            spielFeld[coordinates[0]][coordinates[1]] = computerChar;
+//            if (checkForWinner(coordinates, false)){
+//                System.out.println("not random move");
+//                spielFeld[coordinates[0]][coordinates[1]] = leeresFeld;
+//                return i;
+//            }
+//            spielFeld[coordinates[0]][coordinates[1]] = leeresFeld;
+//        }
+
+
+        // checks if computer can lose with the next move
+//        for (int i = 1; i < fieldSize*fieldSize+1; i++) {
+//            int[] coordinates = returnCoordinates(i);
+//
+//            if(spielFeld[coordinates[0]][coordinates[1]] != leeresFeld) continue;
+//
+//            spielFeld[coordinates[0]][coordinates[1]] = playerChar;
+//            if (checkForWinner(coordinates, false)){
+//                System.out.println("not random move");
+//                spielFeld[coordinates[0]][coordinates[1]] = leeresFeld;
+//                return i;
+//            }
+//            spielFeld[coordinates[0]][coordinates[1]] = leeresFeld;
+//        }
+
+
+
+
+
+
+
+        return 0;
+    }
+
+
 }
