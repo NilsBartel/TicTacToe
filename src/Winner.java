@@ -6,7 +6,6 @@ public class Winner {
 
     public static boolean thereIsWinner(Board board, Position position, char currentSymbol) {
 
-        int counter;
 
 
         int row = position.getRow();

@@ -3,10 +3,10 @@ public class Match {
 
     private final Board board;
     private MatchStatus status;
-    private final char playerSymbol = 'o';
-    private final char computerSymbol = 'x';
-    private final char emptySymbol = ' ';
-    private boolean isPlayerTurn = true;
+    public static final char PLAYER_SYMBOL = 'o';
+    public static final char COMPUTER_SYMBOL = 'x';
+    public static final char EMPTY_SYMBOL = ' ';
+    private boolean isPlayerTurn;
     private char currentSymbol;
 
 
@@ -29,9 +29,9 @@ public class Match {
 //        board.print();
 
         if(isPlayerTurn){
-            currentSymbol = playerSymbol;
+            currentSymbol = PLAYER_SYMBOL;
         } else{
-            currentSymbol = computerSymbol;
+            currentSymbol = COMPUTER_SYMBOL;
         }
 
 
@@ -46,12 +46,12 @@ public class Match {
             int move;
 
             if(isPlayerTurn){
-                currentSymbol = playerSymbol;
+                currentSymbol = PLAYER_SYMBOL;
                 move = PlayerInput.askForMove(board);
 
             } else{
-                currentSymbol = computerSymbol;
-                move = ComputerMoveService.betterComputerMove(board, computerSymbol, playerSymbol, emptySymbol);
+                currentSymbol = COMPUTER_SYMBOL;
+                move = ComputerMoveService.betterComputerMove(board);
             }
 
 
@@ -70,7 +70,7 @@ public class Match {
             if (Winner.thereIsWinner(board, position, currentSymbol)) {
 
 
-                if (currentSymbol == computerSymbol){
+                if (currentSymbol == COMPUTER_SYMBOL){
                     this.status = MatchStatus.COMPUTER_WON;
                 } else this.status = MatchStatus.PLAYER_WON;
 
@@ -91,7 +91,6 @@ public class Match {
             isPlayerTurn = !isPlayerTurn;
 
         }
-
 
 
 
@@ -225,6 +224,10 @@ public class Match {
 
     public MatchStatus getStatus() {
         return status;
+    }
+
+    public void setPlayerTurn(boolean playerTurn) {
+        isPlayerTurn = playerTurn;
     }
 
     public boolean getIsPlayerTurn() {
