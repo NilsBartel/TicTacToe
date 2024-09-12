@@ -16,9 +16,10 @@ public class ComputerMoveService {
         Random rand = new Random();
         int n;
         do{
-            n = rand.nextInt(8) + 1;
+            n = rand.nextInt(9) + 1;
         } while (!board.isValid(n));
 
+        System.out.println("random move");
         return n;
     }
 
@@ -26,7 +27,7 @@ public class ComputerMoveService {
 
 
         //checks if computer can win with the next move
-        int bestMove = checkWhereSymbolCanWin(board, Match.COMPUTER_SYMBOL);
+        int bestMove = returnWhereSymbolCanWin(board, Match.COMPUTER_SYMBOL);
         if( bestMove != -1) {
             System.out.println("used win");
             return bestMove;
@@ -34,7 +35,7 @@ public class ComputerMoveService {
 
 
         // checks if computer can lose with the next move
-        bestMove = checkWhereSymbolCanWin(board, Match.PLAYER_SYMBOL);
+        bestMove = returnWhereSymbolCanWin(board, Match.PLAYER_SYMBOL);
         if( bestMove != -1) {
             System.out.println("prevented win");
             return bestMove;
@@ -48,20 +49,36 @@ public class ComputerMoveService {
             return bestMove;
         }
 
+
         //prevent a fork
-        bestMove = findFork(board, Match.PLAYER_SYMBOL);
-        if( bestMove != -1) {
-            System.out.println("prevent a fork");
-            return bestMove;
+        int foundFork = findFork(board, Match.PLAYER_SYMBOL);
+        if(foundFork != -1) { //found a fork for the opponent
+            System.out.println("prevented a fork");
+            return returnMoveWhereTheNextCouldWin(board, Match.COMPUTER_SYMBOL);
         }
+
+
+        //plays the middle
+        if(board.isValid(5)) return 5;
+
+
+        //Opposite corner
+
+
+        // play a corner
+        if(board.isValid(1)) return 1;
+        if(board.isValid(3)) return 3;
+        if(board.isValid(7)) return 7;
+        if(board.isValid(9)) return 9;
+
+
 
 
 
         return randomMove(board);
     }
 
-
-    private static int checkWhereSymbolCanWin(Board board, char symbol) {
+    private static int returnWhereSymbolCanWin(Board board, char symbol) {
 
         for (int i = 1; i < 9+1; i++) {
 
@@ -73,7 +90,6 @@ public class ComputerMoveService {
 
             board.getRows().get(row).getFields().get(column).setSymbol(symbol);
             if (Winner.thereIsWinner(board, position, symbol)){
-                System.out.println("not random move");
                 board.getRows().get(row).getFields().get(column).setSymbol(Match.EMPTY_SYMBOL);
                 return i;
             }
@@ -85,11 +101,10 @@ public class ComputerMoveService {
     }
 
     private static int findFork(Board board, char symbol) {
+
         // check for a move where I have 2 winning moves the next round (and pick that move)
         for (int i = 1; i < 9+1; i++) {
-            int counter = 0;
 
-            //System.out.print(1);
             if(!board.isValid(i)) continue;
 
             Position position = new Position(i);
@@ -99,7 +114,10 @@ public class ComputerMoveService {
 
 
             //checks the second level
-            if (checkForTwoWins(board, symbol)) return i;
+            if (checkForTwoWins(board, symbol)) {
+                board.getRows().get(row).getFields().get(column).setSymbol(Match.EMPTY_SYMBOL);
+                return i;
+            }
 
             board.getRows().get(row).getFields().get(column).setSymbol(Match.EMPTY_SYMBOL);
         }
@@ -135,6 +153,29 @@ public class ComputerMoveService {
 
 
         return false;
+    }
+    
+    private static int returnMoveWhereTheNextCouldWin(Board board, char symbol) {
+
+        for (int i = 1; i < 9+1; i++) {
+
+            if(!board.isValid(i)) continue;
+
+            Position position = new Position(i);
+            int row = position.getRow();
+            int column = position.getColumn();
+
+            board.getRows().get(row).getFields().get(column).setSymbol(symbol);
+
+            int bestMove = returnWhereSymbolCanWin(board, symbol);
+            if(bestMove != -1) {
+                board.getRows().get(row).getFields().get(column).setSymbol(Match.EMPTY_SYMBOL);
+                return bestMove;
+            }
+            board.getRows().get(row).getFields().get(column).setSymbol(Match.EMPTY_SYMBOL);
+        }
+
+        return -1;
     }
 
 

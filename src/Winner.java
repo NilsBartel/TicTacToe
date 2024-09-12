@@ -37,43 +37,6 @@ public class Winner {
 
 
 
-
-        // checks the diagonal top left to bottom right
-        // 0/0, 1/1, 2/2
-//        if(Board.DIAGONAL_TOP_LEFT_BOTTOM_RIGHT.contains(position)) {
-//
-//            counter = 0;
-//            for(Position diagonalPosition : Board.DIAGONAL_TOP_LEFT_BOTTOM_RIGHT) {
-//                if (currentSymbol == board.getRows().get(diagonalPosition.getRow()).getFields().get(diagonalPosition.getColumn()).getSymbol()) {
-//                    counter++;
-//                } else break;
-//                if (counter == board.rows.size()) {
-//                    return true;
-//                }
-//            }
-//        }
-
-
-
-
-
-
-        // checks the diagonal top right to bottom left
-        // 0/2, 1/1, 2/0     all = 2
-//        if(Board.DIAGONAL_TOP_RIGHT_BOTTOM_LEFT.contains(position)) {
-//
-//            counter = 0;
-//            for(Position diagonalPosition : Board.DIAGONAL_TOP_RIGHT_BOTTOM_LEFT) {
-//                if (currentSymbol == board.getRows().get(diagonalPosition.getRow()).getFields().get(diagonalPosition.getColumn()).getSymbol()) {
-//                    counter++;
-//                } else break;
-//                if (counter == board.rows.size()) {
-//                    return true;
-//                }
-//            }
-//        }
-
-
         return false;
     }
 
