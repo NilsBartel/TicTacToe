@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Match {
     // game loop
 
@@ -18,7 +21,6 @@ public class Match {
 
     public void play(){
 
-
         this.status = MatchStatus.RUNNING;
 
 
@@ -32,22 +34,25 @@ public class Match {
             currentSymbol = COMPUTER_SYMBOL;
         }
 
+        ArrayList<Integer> list = new ArrayList<>();
 
-
-        board.print();
-        System.out.println();
+        //board.print();
+        //System.out.println();
         while (true){
 
             int move;
 
             if(isPlayerTurn){
                 currentSymbol = PLAYER_SYMBOL;
-                move = PlayerInput.askForMove(board);
+                //move = PlayerInput.askForMove(board);
+                move = ComputerMoveService.randomMove(board);
 
             } else{
                 currentSymbol = COMPUTER_SYMBOL;
                 move = ComputerMoveService.betterComputerMove(board);
             }
+
+            list.add(move);
 
 
             Position position = new Position(move);
@@ -56,8 +61,8 @@ public class Match {
 
             board.getRows().get(row).getFields().get(column).setSymbol(currentSymbol);
 
-            System.out.println();
-            board.print();
+            //System.out.println();
+            //board.print();
 
 
 
@@ -65,7 +70,10 @@ public class Match {
 
                 if (currentSymbol == COMPUTER_SYMBOL){
                     this.status = MatchStatus.COMPUTER_WON;
-                } else this.status = MatchStatus.PLAYER_WON;
+                } else{
+                    this.status = MatchStatus.PLAYER_WON;
+                    System.out.println(list);
+                }
                 break;
             }
 

@@ -38,6 +38,15 @@ public class Board {
         return (rows.get(row).getFields().get(column).getSymbol() == ' ');
     }
 
+    public boolean isEmpty(){
+        for(Row row : rows){
+            for(Field field : row.getFields()){
+                if(field.getSymbol() != Match.EMPTY_SYMBOL) return false;
+            }
+        }
+        return true;
+    }
+
 
 
 
