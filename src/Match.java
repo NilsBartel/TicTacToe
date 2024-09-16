@@ -104,4 +104,10 @@ public class Match {
     public boolean getIsPlayerTurn() {
         return isPlayerTurn;
     }
+
+    public static char getOpponentsSymbol(char symbol) {
+        if (symbol == COMPUTER_SYMBOL){
+            return PLAYER_SYMBOL;
+        } else return COMPUTER_SYMBOL;
+    }
 }

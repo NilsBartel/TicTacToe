@@ -20,10 +20,7 @@ public class Board {
         for(Row row : rows){
             row.print();
         }
-
-
     }
-
 
     public boolean isValid(int index){
 
@@ -46,7 +43,6 @@ public class Board {
         }
         return true;
     }
-
 
 
 

@@ -5,6 +5,8 @@ public class ComputerMoveService {
 
 
 
+
+
     public static Position randomMove(Board board) {
 
         Random rand = new Random();
@@ -48,76 +50,16 @@ public class ComputerMoveService {
         }
 
 
-        // COMPUTER:
-        // check for 2 forks
-        //      go through all the moves (as computer) and place a symbol
-        //           check where would player's best move be? (use existing test) (and place a symbol (player))
-        //                is there still a fork for the player?
-        //                      yes:              no:
-        //                      go next           return (the loop value)
 
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // if we find 2 forks for the player
-
-        // go through every field
-
-        // place a computer mark
-
-        // check if there is still a chance for the player to fork
-
-
-
-
-
-        //prevent 2 forks then,
-        //prevent 1 fork
-        
-        ArrayList<Position> forksToWin = new ArrayList<>();
+        ArrayList<Position> forksToWin;
         
          forksToWin = findFork(board, Match.PLAYER_SYMBOL);
 
         // found 2 forks
         if (forksToWin.size() >= 2) {
             //System.out.println("found two forks");
-//            int defendMove = 1;
-//
+
               Position defendMove = makeOpponentDefend(board, Match.COMPUTER_SYMBOL);
-//
-//            // do I need a loop?
-//
-//            defendMove = makeOpponentDefend(board, Match.COMPUTER_SYMBOL, defendMove);
-//            // if "defendMove" results in opponent winning or creating another fork:  try again
-//
-//            //System.out.println("test3");
-//            if(returnWhereSymbolCanWin(board, Match.PLAYER_SYMBOL) != -1) {
-//                System.out.println("test2");
-//                if(findFork(board, Match.PLAYER_SYMBOL) != -2 && findFork(board, Match.PLAYER_SYMBOL) != -1) {
-//                    System.out.println("test");
-//                    return  defendMove;
-//                }
-//            }
-//
-//
-//
 
             if(defendMove != null) {
                 //System.out.println("made opponent defend");
@@ -135,22 +77,6 @@ public class ComputerMoveService {
             //System.out.println("prevented single fork");
             return forksToWin.getFirst();
         }
-//        if (foundFork != -1 && foundFork != -2) {
-//            return foundFork;
-//        }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -192,7 +118,6 @@ public class ComputerMoveService {
         return null;
     }
 
-
     // find a move with which we could win next
     private static Position makeOpponentDefend(Board board, char symbol) {
         for (int first = 1; first < 9+1; first++) {
@@ -208,6 +133,21 @@ public class ComputerMoveService {
 
 
             if(returnWhereSymbolCanWin(board, symbol) != null){
+
+                // check if there is still a chance to get a fork
+                Position bestMove = returnWhereSymbolCanWin(board, symbol);
+                if(bestMove != null) {
+                    board.getRows().get(bestMove.getRow()).getFields().get(bestMove.getColumn()).setSymbol(Match.getOpponentsSymbol(symbol));
+
+                    if (checkForTwoWins(board, Match.getOpponentsSymbol(symbol))){
+                        board.getRows().get(position.getRow()).getFields().get(position.getColumn()).setSymbol(Match.EMPTY_SYMBOL);
+                        board.getRows().get(bestMove.getRow()).getFields().get(bestMove.getColumn()).setSymbol(Match.EMPTY_SYMBOL);
+                        return bestMove;
+                    }
+                    board.getRows().get(bestMove.getRow()).getFields().get(bestMove.getColumn()).setSymbol(Match.EMPTY_SYMBOL);
+
+                }
+
                 board.getRows().get(position.getRow()).getFields().get(position.getColumn()).setSymbol(Match.EMPTY_SYMBOL);
                 return position;
             }
@@ -218,9 +158,6 @@ public class ComputerMoveService {
         return null;
     }
 
-
-
-    // -1 if no fork found, -2 if 2 forks found, or the move with which the fork is being created
     private static ArrayList<Position> findFork(Board board, char symbol) {
         ArrayList<Position> positions = new ArrayList<>();
 
@@ -277,30 +214,5 @@ public class ComputerMoveService {
 
         return false;
     }
-
-    
-//    private static int returnMoveWhereTheNextCouldWin(Board board, char symbol) {
-//
-//        for (int i = 1; i < 9+1; i++) {
-//
-//            if(!board.isValid(i)) continue;
-//
-//            Position position = new Position(i);
-//            int row = position.getRow();
-//            int column = position.getColumn();
-//
-//            board.getRows().get(row).getFields().get(column).setSymbol(symbol);
-//
-//            int bestMove = returnWhereSymbolCanWin(board, symbol);
-//            if(bestMove != -1) {
-//                board.getRows().get(row).getFields().get(column).setSymbol(Match.EMPTY_SYMBOL);
-//                return bestMove;
-//            }
-//            board.getRows().get(row).getFields().get(column).setSymbol(Match.EMPTY_SYMBOL);
-//        }
-//
-//        return -1;
-//    }
-
 
 }

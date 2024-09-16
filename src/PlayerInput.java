@@ -4,8 +4,6 @@ public class PlayerInput {
 
 
 
-
-
     public static Position askForMove(Board board) {
         Scanner scanner = new Scanner(System.in);
 
