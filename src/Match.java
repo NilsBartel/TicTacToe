@@ -46,10 +46,12 @@ public class Match {
                 currentSymbol = PLAYER_SYMBOL;
                 //move = PlayerInput.askForMove(board);
                 move = ComputerMoveService.randomMove(board);
+                //System.out.println("player: " + move);
 
             } else{
                 currentSymbol = COMPUTER_SYMBOL;
                 move = ComputerMoveService.betterComputerMove(board);
+                //System.out.println("computer: " + move);
             }
 
             list.add(move);
@@ -67,7 +69,7 @@ public class Match {
 
 
             if (Winner.thereIsWinner(board, position, currentSymbol)) {
-
+                //System.out.println(list);
                 if (currentSymbol == COMPUTER_SYMBOL){
                     this.status = MatchStatus.COMPUTER_WON;
                 } else{

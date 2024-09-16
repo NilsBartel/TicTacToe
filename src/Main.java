@@ -15,34 +15,34 @@ public class Main {
         int roundCounter = 0;
         System.out.println("Willkommen zu TicTacToe!");
 
-        for(int i = 0; i < 1000; i++){
+        for(int i = 0; i < 100000; i++){
             //do {
-                Match match = new Match();
-                match.setPlayerTurn(roundCounter % 2 == 0);
+            Match match = new Match();
+            match.setPlayerTurn(roundCounter % 2 == 0);
 
-                match.play();
-                MatchStatus status = match.getStatus();
+            match.play();
+            MatchStatus status = match.getStatus();
 
 
 
-                switch (status) {
-                    case PLAYER_WON ->{
-                        playerScore++;
-                        //Output.printWhoWon(match.getIsPlayerTurn());
-                    }
-                    case COMPUTER_WON -> {
-                        computerScore++;
-                        //Output.printWhoWon(match.getIsPlayerTurn());
-                    }
-                    case DRAW -> {
-                        drawCounter++;
-                        //Output.printDraw();
-                    }
+            switch (status) {
+                case PLAYER_WON ->{
+                    playerScore++;
+                    //Output.printWhoWon(match.getIsPlayerTurn());
                 }
+                case COMPUTER_WON -> {
+                    computerScore++;
+                    //Output.printWhoWon(match.getIsPlayerTurn());
+                }
+                case DRAW -> {
+                    drawCounter++;
+                    //Output.printDraw();
+                }
+            }
 
-                //Output.printScore(playerScore, computerScore);
-                roundCounter++;
-                //Output.printRoundCounter(roundCounter);
+            //Output.printScore(playerScore, computerScore);
+            roundCounter++;
+            //Output.printRoundCounter(roundCounter);
             //} while(PlayerInput.askPlayAgain());
         }
 

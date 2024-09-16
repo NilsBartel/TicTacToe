@@ -37,19 +37,142 @@ public class ComputerMoveService {
 
         //find a fork
         bestMove = findFork(board, Match.COMPUTER_SYMBOL);
-        if( bestMove != -1) {
+        if( bestMove != -1 && bestMove != -2) {
             //System.out.println("used a fork");
             return bestMove;
         }
         //System.out.println("no fork found");
 
 
-        //prevent a fork
+        // COMPUTER:
+        // check for 2 forks
+        //      go through all the moves (as computer) and place a symbol
+        //           check where would player's best move be? (use existing test) (and place a symbol (player))
+        //                is there still a fork for the player?
+        //                      yes:              no:
+        //                      go next           return (the loop value)
+
+
+
+//        int foundFork = findFork(board, Match.PLAYER_SYMBOL);
+//        // found 2 forks
+//        if (foundFork == -2) {
+//
+//            //int defendMove = makeOpponentDefend(board, Match.COMPUTER_SYMBOL);
+//
+//            for(int i = 1; i < 9+1; i++){
+//                if(!board.isValid(i)) continue;
+//
+//                Position position = new Position(i);
+//                int row = position.getRow();
+//                int column = position.getColumn();
+//
+//                board.getRows().get(row).getFields().get(column).setSymbol(Match.COMPUTER_SYMBOL);
+//
+//
+//
+//                //checks if player can win with the next move
+//                int playerNextMove = returnWhereSymbolCanWin(board, Match.PLAYER_SYMBOL);
+//                if( playerNextMove != -1) {
+//                    return playerNextMove;
+//                }
+//
+//                // checks if player can lose with the next move
+//                playerNextMove = returnWhereSymbolCanWin(board, Match.COMPUTER_SYMBOL);
+//                if( playerNextMove != -1) {
+//                    return playerNextMove;
+//                }
+//
+//
+//
+//            }
+//
+//
+//            if(defendMove != -1) {
+//                return defendMove;
+//            }
+//        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // if we find 2 forks for the player
+
+        // go through every field
+
+        // place a computer mark
+
+        // check if there is still a chance for the player to fork
+
+
+
+
+
+        //prevent 2 forks then,
+        //prevent 1 fork
         int foundFork = findFork(board, Match.PLAYER_SYMBOL);
-        if(foundFork != -1) { //found a fork for the opponent
-            //System.out.println("prevented a fork");
-            return returnMoveWhereTheNextCouldWin(board, Match.COMPUTER_SYMBOL);
+
+        // found 2 forks
+        if (foundFork == -2) {
+//            int defendMove = 1;
+//
+              int defendMove = makeOpponentDefend(board, Match.COMPUTER_SYMBOL);
+//
+//            // do I need a loop?
+//
+//            defendMove = makeOpponentDefend(board, Match.COMPUTER_SYMBOL, defendMove);
+//            // if "defendMove" results in opponent winning or creating another fork:  try again
+//
+//            //System.out.println("test3");
+//            if(returnWhereSymbolCanWin(board, Match.PLAYER_SYMBOL) != -1) {
+//                System.out.println("test2");
+//                if(findFork(board, Match.PLAYER_SYMBOL) != -2 && findFork(board, Match.PLAYER_SYMBOL) != -1) {
+//                    System.out.println("test");
+//                    return  defendMove;
+//                }
+//            }
+//
+//
+//
+
+            if(defendMove != -1) {
+                return defendMove;
+            }
         }
+
+
+        //found a fork for the opponent and stopping it by placing the mark there
+        if (foundFork != -1 && foundFork != -2) {
+            return foundFork;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         //plays the middle (if it's not the first move)
@@ -59,7 +182,6 @@ public class ComputerMoveService {
 
 
 
-        //Opposite corner
 
 
         // play a corner
@@ -98,124 +220,50 @@ public class ComputerMoveService {
     }
 
 
+    // find a move with which we could win next
+    private static int makeOpponentDefend(Board board, char symbol) {
+
+
+        for (int first = 1; first < 9+1; first++) {
 
 
 
+            int temp = -1;
 
+            if(!board.isValid(first)) continue;
 
+            Position position = new Position(first);
+            int row = position.getRow();
+            int column = position.getColumn();
 
-
-
-
-
-
-
-
-
-    private static int findForkRecursively(Board board, char symbol) {
-
-        //finding opponent symbol
-        char opponentSymbol;
-        if(symbol == Match.COMPUTER_SYMBOL) {
-            opponentSymbol = Match.PLAYER_SYMBOL;
-        } else opponentSymbol = Match.COMPUTER_SYMBOL;
-
-
-        // go 3 deep
-        //if(depth > 0){
-            //System.out.print(depth);
-
-
-            for (int i = 1; i < 9+1; i++) {
-
-                if(!board.isValid(i)) continue;
-
-                Position position = new Position(i);
-                int row = position.getRow();
-                int column = position.getColumn();
-                board.getRows().get(row).getFields().get(column).setSymbol(symbol);
-
-
-                //creating an opponent symbol
-
-                //not iterating but using the best possible move
-                for(int opponent = 1; opponent <= 9+1; opponent++){
-                    if(!board.isValid(opponent)) continue;
-                    Position opponentPosition = new Position(opponent);
-                    int opponentRow = opponentPosition.getRow();
-                    int opponentColumn = opponentPosition.getColumn();
-                    board.getRows().get(opponentRow).getFields().get(opponentColumn).setSymbol(opponentSymbol);
-
-
-
-                    // findFork????
-                    int bestMove = findFork(board, symbol);
-                    if(bestMove != -1) {
-                        System.out.println("found and used a fork");
-                        board.getRows().get(opponentRow).getFields().get(opponentColumn).setSymbol(Match.EMPTY_SYMBOL);
-                        board.getRows().get(row).getFields().get(column).setSymbol(Match.EMPTY_SYMBOL);
-                        return i;
-                    }
-                    board.getRows().get(opponentRow).getFields().get(opponentColumn).setSymbol(Match.EMPTY_SYMBOL);
-
-                }
-                board.getRows().get(row).getFields().get(column).setSymbol(Match.EMPTY_SYMBOL);
-
-
-
-                // remove all the symbols !!!!!!!!!!!!!!!!!
-
-
-
-
-
-
-
-
-
-
-
-
-
-                //checks the second level
-//                if (checkForTwoWins(board, symbol)) {
-//                    board.getRows().get(row).getFields().get(column).setSymbol(Match.EMPTY_SYMBOL);
-//                    //System.out.println("returned");
-//                    return i;
-//                }
-
-
-//                while (!checkForTwoWins(board, symbol)){
-//                    board.getRows().get(row).getFields().get(column).setSymbol(Match.EMPTY_SYMBOL);
-//                    return findForkRecursively(board, symbol, depth-1);
-//                }
-
-                board.getRows().get(row).getFields().get(column).setSymbol(Match.EMPTY_SYMBOL);
-
+            if (Board.DIAGONAL_TOP_RIGHT_BOTTOM_LEFT.contains(position) || Board.DIAGONAL_TOP_LEFT_BOTTOM_RIGHT.contains(position)) {
+                continue;
             }
-            //System.out.println();
+
+            board.getRows().get(row).getFields().get(column).setSymbol(symbol);
 
 
+            if(returnWhereSymbolCanWin(board, symbol) != -1){
+                board.getRows().get(row).getFields().get(column).setSymbol(Match.EMPTY_SYMBOL);
+                return first;
+            }
 
+            //temp = returnWhereSymbolCanWin(board, symbol);
+            board.getRows().get(row).getFields().get(column).setSymbol(Match.EMPTY_SYMBOL);
+            //return temp;
 
-        //}
-
-
-
-
-
-
-        // check for a move where I have 2 winning moves the next round (and pick that move)
+        }
 
 
         return -1;
+
+
     }
 
-
-
-
-
+    // -1 if no fork found, -2 if 2 forks found, or the move with which the fork is being created
     private static int findFork(Board board, char symbol) {
+        int temp = -1;
+        int counter = 0;
 
         // check for a move where I have 2 winning moves the next round (and pick that move)
         for (int i = 1; i < 9+1; i++) {
@@ -231,13 +279,22 @@ public class ComputerMoveService {
             //checks the second level
             if (checkForTwoWins(board, symbol)) {
                 board.getRows().get(row).getFields().get(column).setSymbol(Match.EMPTY_SYMBOL);
-                return i;
+                //return i;
+                temp = i;
+                counter++;
             }
 
             board.getRows().get(row).getFields().get(column).setSymbol(Match.EMPTY_SYMBOL);
         }
 
-        return -1;
+        //found more than one fork
+        if (counter > 1){
+            return -2;
+        }
+
+
+        return temp;
+        //return -1;
     }
 
     private static boolean checkForTwoWins(Board board, char symbol) {
@@ -265,10 +322,9 @@ public class ComputerMoveService {
             }
         }
 
-
-
         return false;
     }
+
     
     private static int returnMoveWhereTheNextCouldWin(Board board, char symbol) {
 
