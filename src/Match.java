@@ -34,34 +34,29 @@ public class Match {
             currentSymbol = COMPUTER_SYMBOL;
         }
 
-        ArrayList<Integer> list = new ArrayList<>();
+        ArrayList<Position> list = new ArrayList<>();
 
         //board.print();
         //System.out.println();
         while (true){
 
-            int move;
+            Position position;
 
             if(isPlayerTurn){
                 currentSymbol = PLAYER_SYMBOL;
-                //move = PlayerInput.askForMove(board);
-                move = ComputerMoveService.randomMove(board);
+                position = ComputerMoveService.randomMove(board);
                 //System.out.println("player: " + move);
 
             } else{
                 currentSymbol = COMPUTER_SYMBOL;
-                move = ComputerMoveService.betterComputerMove(board);
+                position = ComputerMoveService.betterComputerMove(board);
                 //System.out.println("computer: " + move);
             }
 
-            list.add(move);
+            list.add(position);
 
 
-            Position position = new Position(move);
-            int row = position.getRow();
-            int column = position.getColumn();
-
-            board.getRows().get(row).getFields().get(column).setSymbol(currentSymbol);
+            board.getRows().get(position.getRow()).getFields().get(position.getColumn()).setSymbol(currentSymbol);
 
             //System.out.println();
             //board.print();
@@ -74,7 +69,11 @@ public class Match {
                     this.status = MatchStatus.COMPUTER_WON;
                 } else{
                     this.status = MatchStatus.PLAYER_WON;
-                    System.out.println(list);
+
+                    for(Position p : list){
+                        System.out.print(p.getIndex() + ", ");
+                    }
+                    System.out.println();
                 }
                 break;
             }
