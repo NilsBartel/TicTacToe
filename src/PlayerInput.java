@@ -6,7 +6,7 @@ public class PlayerInput {
 
 
 
-    public static int askForMove(Board board) {
+    public static Position askForMove(Board board) {
         Scanner scanner = new Scanner(System.in);
 
         int n;
@@ -15,7 +15,7 @@ public class PlayerInput {
             n= scanner.nextInt();
         } while(!board.isValid(n));
 
-        return n;
+        return new Position(n);
     }
 
     public static boolean askPlayAgain() {

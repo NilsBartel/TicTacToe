@@ -14,7 +14,7 @@ public class Main {
         
         int roundCounter = 0;
         System.out.println("Willkommen zu TicTacToe!");
-        int test = 0;
+
         for(int i = 0; i < 10000; i++){
             //do {
             Match match = new Match();
@@ -24,8 +24,6 @@ public class Main {
             MatchStatus status = match.getStatus();
 
 
-            test++;
-            //System.out.println(test);
 
 
 
@@ -48,6 +46,7 @@ public class Main {
             roundCounter++;
             //Output.printRoundCounter(roundCounter);
             //} while(PlayerInput.askPlayAgain());
+
         }
 
 

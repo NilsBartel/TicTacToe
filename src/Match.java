@@ -25,8 +25,6 @@ public class Match {
 
 
         int moveCounter = 0;
-//        board.getRows().get(1).getFields().get(2).setSymbol('S');
-//        board.getRows().get(1).getFields().get(0).setSymbol('S');
 
         if(isPlayerTurn){
             currentSymbol = PLAYER_SYMBOL;
@@ -45,6 +43,7 @@ public class Match {
             if(isPlayerTurn){
                 currentSymbol = PLAYER_SYMBOL;
                 position = ComputerMoveService.randomMove(board);
+                //position = PlayerInput.askForMove(board);
                 //System.out.println("player: " + move);
 
             } else{
@@ -64,7 +63,6 @@ public class Match {
 
 
             if (Winner.thereIsWinner(board, position, currentSymbol)) {
-                //System.out.println(list);
                 if (currentSymbol == COMPUTER_SYMBOL){
                     this.status = MatchStatus.COMPUTER_WON;
                 } else{
