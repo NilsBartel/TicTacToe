@@ -15,12 +15,12 @@ public class ComputerMoveService {
             n = rand.nextInt(9) + 1;
         } while (!board.isValid(n));
 
-        //System.out.println("random move");
+        System.out.println("random move");
         return new Position(n);
     }
 
-    public static Position betterComputerMove(Board board) {
-
+    public static Position impossibleComputerMove(Board board) {
+        System.out.println("not random move");
 
         //checks if computer can win with the next move
         Position bestMove = returnWhereSymbolCanWin(board, Match.COMPUTER_SYMBOL);
@@ -95,6 +95,23 @@ public class ComputerMoveService {
 
         return randomMove(board);
     }
+
+    public static Position mediumComputerMove(Board board) {
+        // 20% random move, otherwise do the best move
+        Random rand = new Random();
+
+            int num = rand.nextInt(100);
+            if(num < Main.MEDIUM_DIFFICULTY_PERCENTAGE){
+                return randomMove(board);
+            } else return impossibleComputerMove(board);
+
+
+    }
+
+    public static Position easyComputerMove(Board board) {
+        return randomMove(board);
+    }
+
 
     private static Position returnWhereSymbolCanWin(Board board, char symbol) {
 

@@ -36,5 +36,26 @@ public class PlayerInput {
         return response.equals("y");
     }
 
+    public static void askForDifficulty() {
+        Scanner scanner = new Scanner(System.in);
+        String response;
+        System.out.println("What difficulty would you like to play?   Easy, Medium, impossible?   (Type e/m/i)");
+        response = scanner.nextLine();
+        while(! (response.equals("e") || response.equals("m") || response.equals("i"))){
+            System.out.println("This is not a valid input! Please try again.");
+            response = scanner.nextLine();
+        }
+
+        switch(response){
+            case "e": Main.setDifficulty(DifficultyState.EASY);
+            break;
+            case "m": Main.setDifficulty(DifficultyState.MEDIUM);
+            break;
+            case "i": Main.setDifficulty(DifficultyState.IMPOSSIBLE);
+            break;
+            default: Main.setDifficulty(DifficultyState.MEDIUM);
+        }
+    }
+
 
 }

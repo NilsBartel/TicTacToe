@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class Match {
     // game loop
 
@@ -32,33 +29,32 @@ public class Match {
             currentSymbol = COMPUTER_SYMBOL;
         }
 
-        ArrayList<Position> list = new ArrayList<>();
+        //ArrayList<Position> list = new ArrayList<>();
 
-        //board.print();
-        //System.out.println();
+        board.print();
+        System.out.println();
         while (true){
 
             Position position;
 
             if(isPlayerTurn){
                 currentSymbol = PLAYER_SYMBOL;
-                position = ComputerMoveService.randomMove(board);
-                //position = PlayerInput.askForMove(board);
-                //System.out.println("player: " + move);
+                //position = ComputerMoveService.randomMove(board);
+                position = PlayerInput.askForMove(board);
 
             } else{
                 currentSymbol = COMPUTER_SYMBOL;
-                position = ComputerMoveService.betterComputerMove(board);
-                //System.out.println("computer: " + move);
+                //position = ComputerMoveService.impossibleComputerMove(board);
+                position = Difficulty.returnMove(board);
             }
 
-            list.add(position);
+            //list.add(position);
 
 
             board.getRows().get(position.getRow()).getFields().get(position.getColumn()).setSymbol(currentSymbol);
 
-            //System.out.println();
-            //board.print();
+            System.out.println();
+            board.print();
 
 
 
@@ -68,10 +64,10 @@ public class Match {
                 } else{
                     this.status = MatchStatus.PLAYER_WON;
 
-                    for(Position p : list){
-                        System.out.print(p.getIndex() + ", ");
-                    }
-                    System.out.println();
+//                    for(Position p : list){
+//                        System.out.print(p.getIndex() + ", ");
+//                    }
+//                    System.out.println();
                 }
                 break;
             }
