@@ -1,8 +1,6 @@
 public class Difficulty {
 
 
-
-
     public static Position returnMove(Board board) {
 
         switch (Main.getDifficulty()){
@@ -16,8 +14,6 @@ public class Difficulty {
                 return ComputerMoveService.impossibleComputerMove(board);
             }
         }
-
-
 
         return null;
     }

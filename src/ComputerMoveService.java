@@ -25,14 +25,12 @@ public class ComputerMoveService {
         //checks if computer can win with the next move
         Position bestMove = returnWhereSymbolCanWin(board, Match.COMPUTER_SYMBOL);
         if(bestMove != null) {
-            //System.out.println("used win");
             return bestMove;
         }
 
         // checks if computer can lose with the next move
         bestMove = returnWhereSymbolCanWin(board, Match.PLAYER_SYMBOL);
         if(bestMove != null) {
-            //System.out.println("prevented win");
             return bestMove;
         }
 
@@ -40,41 +38,30 @@ public class ComputerMoveService {
         ArrayList<Position> forks = new ArrayList<>();
         forks = findFork(board, Match.COMPUTER_SYMBOL);
         if(forks.size() == 1) {
-            //System.out.println("used fork");
             return forks.getFirst();
         }
-        //System.out.println("no fork found");
 
         if(!board.isEmpty()){
             if(board.isValid(5)) return new Position(5);
         }
 
 
-
+        // find 2 forks for opponent
         ArrayList<Position> forksToWin;
-        
-         forksToWin = findFork(board, Match.PLAYER_SYMBOL);
-
-        // found 2 forks
+        forksToWin = findFork(board, Match.PLAYER_SYMBOL);
         if (forksToWin.size() >= 2) {
-            //System.out.println("found two forks");
-
-              Position defendMove = makeOpponentDefend(board, Match.COMPUTER_SYMBOL);
+            Position defendMove = makeOpponentDefend(board, Match.COMPUTER_SYMBOL);
 
             if(defendMove != null) {
-                //System.out.println("made opponent defend");
                 return defendMove;
             }
             // cant make opponent defend, use the move that creates the double fork
             return forksToWin.getFirst();
-
         }
-        //System.out.println("no forks");
 
 
         //found a fork for the opponent and stopping it by placing the mark there
         if (forks.size() == 1) {
-            //System.out.println("prevented single fork");
             return forksToWin.getFirst();
         }
 
@@ -97,15 +84,12 @@ public class ComputerMoveService {
     }
 
     public static Position mediumComputerMove(Board board) {
-        // 20% random move, otherwise do the best move
         Random rand = new Random();
 
-            int num = rand.nextInt(100);
-            if(num < Main.MEDIUM_DIFFICULTY_PERCENTAGE){
-                return randomMove(board);
-            } else return impossibleComputerMove(board);
-
-
+        int num = rand.nextInt(100);
+        if(num < Main.MEDIUM_DIFFICULTY_PERCENTAGE){
+            return randomMove(board);
+        } else return impossibleComputerMove(board);
     }
 
     public static Position easyComputerMove(Board board) {

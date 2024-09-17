@@ -20,10 +20,6 @@ public class PlayerInput {
         Scanner scanner = new Scanner(System.in);
         String response;
 
-        /*System.out.println();
-        System.out.println("The score is:");
-        System.out.println("Player Score: " + playerScore + "      " + "Computer Score: " + computerScore);*/
-
         System.out.println();
         System.out.println("Do you want to play again? (Type y/n)");
         response = scanner.nextLine();
