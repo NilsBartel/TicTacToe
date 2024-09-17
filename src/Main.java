@@ -38,6 +38,7 @@ public class Main {
         System.out.println("Welcome to TicTacToe!");
         System.out.println();
 
+
         PlayerInput.askForDifficulty();
 
         //for(int i = 0; i < 1000000; i++){
