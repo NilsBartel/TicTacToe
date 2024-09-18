@@ -20,8 +20,6 @@ public class ComputerMoveService {
     }
 
     public static Position impossibleComputerMove(Board board) {
-        System.out.println("not random move");
-
         //checks if computer can win with the next move
         Position bestMove = returnWhereSymbolCanWin(board, Match.COMPUTER_SYMBOL);
         if(bestMove != null) {
@@ -37,9 +35,10 @@ public class ComputerMoveService {
         //find a fork
         ArrayList<Position> forks = new ArrayList<>();
         forks = findFork(board, Match.COMPUTER_SYMBOL);
-        if(forks.size() == 1) {
+        if(!forks.isEmpty()) {
             return forks.getFirst();
         }
+
 
         if(!board.isEmpty()){
             if(board.isValid(5)) return new Position(5);
@@ -52,19 +51,13 @@ public class ComputerMoveService {
         if (forksToWin.size() >= 2) {
             Position defendMove = makeOpponentDefend(board, Match.COMPUTER_SYMBOL);
 
+            // stopping the fork by making opponent defend
             if(defendMove != null) {
                 return defendMove;
             }
-            // cant make opponent defend, use the move that creates the double fork
+            // can't make opponent defend, use the move that creates the double fork
             return forksToWin.getFirst();
         }
-
-
-        //found a fork for the opponent and stopping it by placing the mark there
-        if (forks.size() == 1) {
-            return forksToWin.getFirst();
-        }
-
 
 
         //plays the middle (if it's not the first move)
@@ -184,7 +177,6 @@ public class ComputerMoveService {
 
             board.getRows().get(row).getFields().get(column).setSymbol(Match.EMPTY_SYMBOL);
         }
-
         return positions;
     }
 
