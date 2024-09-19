@@ -29,9 +29,6 @@ public final class Main {
 
         int mediumDifficultyPercentage = input;
 
-
-        System.out.println(mediumDifficultyPercentage);
-
         int roundCounter = 0;
         System.out.println("Welcome to TicTacToe!");
         System.out.println();

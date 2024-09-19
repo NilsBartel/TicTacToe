@@ -14,7 +14,6 @@ public final class ComputerMoveService {
             randomNum = rand.nextInt(9) + 1;
         } while (!board.isValid(randomNum));
 
-        System.out.println("random move");
         return new Position(randomNum);
     }
 
@@ -120,24 +119,23 @@ public final class ComputerMoveService {
 
             board.setSymbol(position.getRow(), position.getColumn(), symbol);
 
+            Position bestMove = returnWhereSymbolCanWin(board, symbol);
 
-            if(returnWhereSymbolCanWin(board, symbol) != null){
+            if(bestMove != null){
+
+                board.setSymbol(bestMove.getRow(), bestMove.getColumn(), Match.getOpponentsSymbol(symbol));
 
                 // check if there is still a chance to get a fork
-                Position bestMove = returnWhereSymbolCanWin(board, symbol);
-                if(bestMove != null) {
-                    board.setSymbol(bestMove.getRow(), bestMove.getColumn(), Match.getOpponentsSymbol(symbol));
-
-                    if (checkForTwoWins(board, Match.getOpponentsSymbol(symbol))){
-                        board.setSymbol(position.getRow(), position.getColumn(), Match.EMPTY_SYMBOL);
-                        board.setSymbol(bestMove.getRow(), bestMove.getColumn(), Match.EMPTY_SYMBOL);
-                        return bestMove;
-                    }
+                if (checkForTwoWins(board, Match.getOpponentsSymbol(symbol))){
+                    board.setSymbol(position.getRow(), position.getColumn(), Match.EMPTY_SYMBOL);
                     board.setSymbol(bestMove.getRow(), bestMove.getColumn(), Match.EMPTY_SYMBOL);
-
+                    return bestMove;
                 }
 
+
+                board.setSymbol(bestMove.getRow(), bestMove.getColumn(), Match.EMPTY_SYMBOL);
                 board.setSymbol(position.getRow(), position.getColumn(), Match.EMPTY_SYMBOL);
+
                 return position;
             }
 

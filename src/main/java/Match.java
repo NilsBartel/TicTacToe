@@ -24,11 +24,6 @@ public class Match {
         int moveCounter = 0;
 
         char currentSymbol;
-//        if(isPlayerTurn){
-//            currentSymbol = PLAYER_SYMBOL;
-//        } else{
-//            currentSymbol = COMPUTER_SYMBOL;
-//        }
 
         //ArrayList<Position> list = new ArrayList<>();
 
@@ -45,14 +40,12 @@ public class Match {
 
             } else{
                 currentSymbol = COMPUTER_SYMBOL;
-                //position = ComputerMoveService.impossibleComputerMove(board);
                 position = Difficulty.returnMove(board, mediumDifficulty);
             }
 
             //list.add(position);
 
             board.setSymbol(position.getRow(), position.getColumn(), currentSymbol);
-            //board.getRows().get(position.getRow()).getFields().get(position.getColumn()).setSymbol(currentSymbol);
 
             System.out.println();
             board.print();
