@@ -32,10 +32,9 @@ public final class ComputerMoveService {
         }
 
         //find a fork
-        List<Position> forks;
-        forks = findFork(board, Match.COMPUTER_SYMBOL);
-        if(!forks.isEmpty()) {
-            return forks.getFirst();
+        bestMove = findFork(board, Match.COMPUTER_SYMBOL);
+        if(bestMove != null) {
+            return bestMove;
         }
 
 
@@ -45,9 +44,9 @@ public final class ComputerMoveService {
 
 
         // find 2 forks for opponent
-        List<Position> forksToWin;
-        forksToWin = findFork(board, Match.PLAYER_SYMBOL);
-        if (forksToWin.size() >= 2) {
+        List<Position> forks;
+        forks = findMultipleForks(board, Match.PLAYER_SYMBOL);
+        if (forks.size() >= 2) {
             Position defendMove = makeOpponentDefend(board, Match.COMPUTER_SYMBOL);
 
             // stopping the fork by making opponent defend
@@ -55,27 +54,15 @@ public final class ComputerMoveService {
                 return defendMove;
             }
             // can't make opponent defend, use the move that creates the double fork
-            return forksToWin.getFirst();
+            return forks.getFirst();
         }
 
 
         // play a corner
-        if(board.isValid(1)) {
-            return new Position(1);
-        }
-        if(board.isValid(3)) {
-            return new Position(3);
-        }
-        if(board.isValid(7)) {
-            return new Position(7);
-        }
-        if(board.isValid(9)) {
-            return new Position(9);
-        }
+        return takeACorner(board);
 
 
-
-        return randomMove(board);
+        // else it takes a random move
     }
 
     public static Position mediumComputerMove(Board board, int mediumDifficultyPercentage) {
@@ -106,14 +93,11 @@ public final class ComputerMoveService {
             int row = position.getRow();
             int column = position.getColumn();
 
-            //board.getRows().get(row).getFields().get(column).setSymbol(symbol);
             board.setSymbol(row, column, symbol);
             if (Winner.thereIsWinner(board, position, symbol)){
-                //board.getRows().get(row).getFields().get(column).setSymbol(Match.EMPTY_SYMBOL);
                 board.setSymbol(row, column, Match.EMPTY_SYMBOL);
                 return position;
             }
-            //board.getRows().get(row).getFields().get(column).setSymbol(Match.EMPTY_SYMBOL);
             board.setSymbol(row, column, Match.EMPTY_SYMBOL);
         }
 
@@ -134,7 +118,6 @@ public final class ComputerMoveService {
                 continue;
             }
 
-            //board.getRows().get(position.getRow()).getFields().get(position.getColumn()).setSymbol(symbol);
             board.setSymbol(position.getRow(), position.getColumn(), symbol);
 
 
@@ -143,34 +126,55 @@ public final class ComputerMoveService {
                 // check if there is still a chance to get a fork
                 Position bestMove = returnWhereSymbolCanWin(board, symbol);
                 if(bestMove != null) {
-                    //board.getRows().get(bestMove.getRow()).getFields().get(bestMove.getColumn()).setSymbol(Match.getOpponentsSymbol(symbol));
                     board.setSymbol(bestMove.getRow(), bestMove.getColumn(), Match.getOpponentsSymbol(symbol));
 
                     if (checkForTwoWins(board, Match.getOpponentsSymbol(symbol))){
-                        //board.getRows().get(position.getRow()).getFields().get(position.getColumn()).setSymbol(Match.EMPTY_SYMBOL);
-                        //board.getRows().get(bestMove.getRow()).getFields().get(bestMove.getColumn()).setSymbol(Match.EMPTY_SYMBOL);
                         board.setSymbol(position.getRow(), position.getColumn(), Match.EMPTY_SYMBOL);
                         board.setSymbol(bestMove.getRow(), bestMove.getColumn(), Match.EMPTY_SYMBOL);
                         return bestMove;
                     }
-                    //board.getRows().get(bestMove.getRow()).getFields().get(bestMove.getColumn()).setSymbol(Match.EMPTY_SYMBOL);
                     board.setSymbol(bestMove.getRow(), bestMove.getColumn(), Match.EMPTY_SYMBOL);
 
                 }
 
-                //board.getRows().get(position.getRow()).getFields().get(position.getColumn()).setSymbol(Match.EMPTY_SYMBOL);
                 board.setSymbol(position.getRow(), position.getColumn(), Match.EMPTY_SYMBOL);
                 return position;
             }
 
-            //board.getRows().get(position.getRow()).getFields().get(position.getColumn()).setSymbol(Match.EMPTY_SYMBOL);
             board.setSymbol(position.getRow(), position.getColumn(), Match.EMPTY_SYMBOL);
 
         }
         return null;
     }
 
-    private static List<Position> findFork(Board board, char symbol) {
+    private static Position findFork(Board board, char symbol){
+        for (int i = 1; i < 9+1; i++) {
+
+            if(!board.isValid(i)) {
+                continue;
+            }
+
+            Position position = new Position(i);
+            int row = position.getRow();
+            int column = position.getColumn();
+
+            board.setSymbol(row, column, symbol);
+
+
+            //checks the second level
+            if (checkForTwoWins(board, symbol)) {
+                board.setSymbol(row, column, Match.EMPTY_SYMBOL);
+                return position;
+            }
+
+            board.setSymbol(row, column, Match.EMPTY_SYMBOL);
+
+        }
+        return null;
+
+    }
+
+    private static List<Position> findMultipleForks(Board board, char symbol) {
         List<Position> positions = new ArrayList<>();
 
         // check for a move where I have 2 winning moves the next round (and pick that move)
@@ -183,21 +187,17 @@ public final class ComputerMoveService {
             Position position = new Position(i);
             int row = position.getRow();
             int column = position.getColumn();
-            //board.getRows().get(row).getFields().get(column).setSymbol(symbol);
             board.setSymbol(row, column, symbol);
 
 
             //checks the second level
             if (checkForTwoWins(board, symbol)) {
-                //board.getRows().get(row).getFields().get(column).setSymbol(Match.EMPTY_SYMBOL);
                 board.setSymbol(row, column, Match.EMPTY_SYMBOL);
-                //System.out.println(position.getIndex());
                 positions.add(position);
                 // add random position to have two in the list
                 positions.add(position);
             }
 
-            //board.getRows().get(row).getFields().get(column).setSymbol(Match.EMPTY_SYMBOL);
             board.setSymbol(row, column, Match.EMPTY_SYMBOL);
 
         }
@@ -237,6 +237,25 @@ public final class ComputerMoveService {
         }
 
         return false;
+    }
+
+    private static Position takeACorner(Board board) {
+
+        // play a corner
+        if(board.isValid(1)) {
+            return new Position(1);
+        }
+        if(board.isValid(3)) {
+            return new Position(3);
+        }
+        if(board.isValid(7)) {
+            return new Position(7);
+        }
+        if(board.isValid(9)) {
+            return new Position(9);
+        }
+
+        return randomMove(board);
     }
 
 }

@@ -24,10 +24,11 @@ public class Position {
         if (this == object) {
             return true;
         }
-        if (!(object instanceof Position position)) {
-            return false;
-        }
-        return index == position.index;
+        return !(object instanceof Position position) || index == position.index;
+//        if (!(object instanceof Position position)) {
+//            return false;
+//        }
+//        return index == position.index;
     }
 
 
