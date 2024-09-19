@@ -2,9 +2,9 @@
 
 public class Position {
 
-    private int index;
-    private int row;
-    private int column;
+    private final int index;
+    private final int row;
+    private final int column;
 
 
     public Position(int index){
@@ -20,9 +20,13 @@ public class Position {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Position position)) return false;
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (!(object instanceof Position position)) {
+            return false;
+        }
         return index == position.index;
     }
 

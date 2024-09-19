@@ -1,10 +1,9 @@
 public class Field {
 
     private char symbol;
-    private Position position;
 
-    public Field(Position position) {
-        this.position = position;
+
+    public Field() {
         this.symbol = ' ';
     }
 

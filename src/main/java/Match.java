@@ -3,11 +3,11 @@ public class Match {
 
     private final Board board;
     private MatchStatus status;
+    private boolean isPlayerTurn;
     public static final char PLAYER_SYMBOL = 'o';
     public static final char COMPUTER_SYMBOL = 'x';
     public static final char EMPTY_SYMBOL = ' ';
-    private boolean isPlayerTurn;
-    private char currentSymbol;
+
 
 
     public Match() {
@@ -16,18 +16,19 @@ public class Match {
     }
 
 
-    public void play(){
+    public void play(int mediumDifficulty) {
 
         this.status = MatchStatus.RUNNING;
 
 
         int moveCounter = 0;
 
-        if(isPlayerTurn){
-            currentSymbol = PLAYER_SYMBOL;
-        } else{
-            currentSymbol = COMPUTER_SYMBOL;
-        }
+        char currentSymbol;
+//        if(isPlayerTurn){
+//            currentSymbol = PLAYER_SYMBOL;
+//        } else{
+//            currentSymbol = COMPUTER_SYMBOL;
+//        }
 
         //ArrayList<Position> list = new ArrayList<>();
 
@@ -45,13 +46,13 @@ public class Match {
             } else{
                 currentSymbol = COMPUTER_SYMBOL;
                 //position = ComputerMoveService.impossibleComputerMove(board);
-                position = Difficulty.returnMove(board);
+                position = Difficulty.returnMove(board, mediumDifficulty);
             }
 
             //list.add(position);
 
-
-            board.getRows().get(position.getRow()).getFields().get(position.getColumn()).setSymbol(currentSymbol);
+            board.setSymbol(position.getRow(), position.getColumn(), currentSymbol);
+            //board.getRows().get(position.getRow()).getFields().get(position.getColumn()).setSymbol(currentSymbol);
 
             System.out.println();
             board.print();
@@ -97,13 +98,15 @@ public class Match {
         isPlayerTurn = playerTurn;
     }
 
-    public boolean getIsPlayerTurn() {
+    public boolean isPlayerTurn() {
         return isPlayerTurn;
     }
 
     public static char getOpponentsSymbol(char symbol) {
         if (symbol == COMPUTER_SYMBOL){
             return PLAYER_SYMBOL;
-        } else return COMPUTER_SYMBOL;
+        } else {
+            return COMPUTER_SYMBOL;
+        }
     }
 }

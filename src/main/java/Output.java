@@ -1,11 +1,15 @@
-public class Output {
 
+public final class Output {
+    private Output() {
+    }
 
     public static void printWhoWon(boolean isPlayerTurn) {
         System.out.println();
         if (isPlayerTurn) {
             System.out.println("player wins!");
-        } else System.out.println("computer wins");
+        } else {
+            System.out.println("computer wins");
+        }
     }
 
     public static void printDraw() {

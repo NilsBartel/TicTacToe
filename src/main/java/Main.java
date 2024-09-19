@@ -1,15 +1,13 @@
-import java.util.Random;
+public final class Main {
 
-public class Main {
+    private static int computerScore = 0;
+    private static int playerScore = 0;
+    private static DifficultyState difficulty;
 
-    static int computerScore = 0;
-    static int playerScore = 0;
-    static int drawCounter = 0;
-    static private DifficultyState difficulty;
-    public static int MEDIUM_DIFFICULTY_PERCENTAGE = 30;
+    private Main() {
+    }
 
-
-
+    @SuppressWarnings("PMD.LawOfDemeter")
     public static void main(String[] args) {
 
         int input = 0;
@@ -29,10 +27,10 @@ public class Main {
             System.exit(1);
         }
 
-        MEDIUM_DIFFICULTY_PERCENTAGE = input;
+        int mediumDifficultyPercentage = input;
 
 
-        System.out.println(MEDIUM_DIFFICULTY_PERCENTAGE);
+        System.out.println(mediumDifficultyPercentage);
 
         int roundCounter = 0;
         System.out.println("Welcome to TicTacToe!");
@@ -46,22 +44,24 @@ public class Main {
             Match match = new Match();
             match.setPlayerTurn(roundCounter % 2 == 0);
 
-            match.play();
+            match.play(mediumDifficultyPercentage);
             MatchStatus status = match.getStatus();
 
 
             switch (status) {
                 case PLAYER_WON -> {
                     playerScore++;
-                    Output.printWhoWon(match.getIsPlayerTurn());
+                    Output.printWhoWon(match.isPlayerTurn());
                 }
                 case COMPUTER_WON -> {
                     computerScore++;
-                    Output.printWhoWon(match.getIsPlayerTurn());
+                    Output.printWhoWon(match.isPlayerTurn());
                 }
                 case DRAW -> {
-                    drawCounter++;
                     Output.printDraw();
+                }
+                default -> {
+                    System.out.println("Invalid match status");
                 }
             }
 
@@ -88,4 +88,5 @@ public class Main {
     public static void setDifficulty(DifficultyState difficulty) {
         Main.difficulty = difficulty;
     }
+
 }
