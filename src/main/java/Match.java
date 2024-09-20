@@ -1,5 +1,4 @@
 public class Match {
-    // game loop
 
     private final Board board;
     private MatchStatus status;
@@ -77,12 +76,6 @@ public class Match {
         }
     }
 
-
-
-    public Board getBoard() {
-        return board;
-    }
-
     public MatchStatus getStatus() {
         return status;
     }
@@ -91,7 +84,7 @@ public class Match {
         isPlayerTurn = playerTurn;
     }
 
-    public boolean isPlayerTurn() {
+    public boolean getPlayerTurn() {
         return isPlayerTurn;
     }
 

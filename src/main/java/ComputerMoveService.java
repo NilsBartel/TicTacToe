@@ -3,6 +3,8 @@ import java.util.List;
 import java.util.Random;
 
 public final class ComputerMoveService {
+    private static final int FORK_LENGTH = 2;
+
     private ComputerMoveService() {
     }
 
@@ -45,7 +47,7 @@ public final class ComputerMoveService {
         // find 2 forks for opponent
         List<Position> forks;
         forks = findMultipleForks(board, Match.PLAYER_SYMBOL);
-        if (forks.size() >= 2) {
+        if (forks.size() >= FORK_LENGTH) {
             Position defendMove = makeOpponentDefend(board, Match.COMPUTER_SYMBOL);
 
             // stopping the fork by making opponent defend
@@ -100,7 +102,6 @@ public final class ComputerMoveService {
             board.setSymbol(row, column, Match.EMPTY_SYMBOL);
         }
 
-
         return null;
     }
 
@@ -120,9 +121,7 @@ public final class ComputerMoveService {
             board.setSymbol(position.getRow(), position.getColumn(), symbol);
 
             Position bestMove = returnWhereSymbolCanWin(board, symbol);
-
             if(bestMove != null){
-
                 board.setSymbol(bestMove.getRow(), bestMove.getColumn(), Match.getOpponentsSymbol(symbol));
 
                 // check if there is still a chance to get a fork
@@ -132,7 +131,6 @@ public final class ComputerMoveService {
                     return bestMove;
                 }
 
-
                 board.setSymbol(bestMove.getRow(), bestMove.getColumn(), Match.EMPTY_SYMBOL);
                 board.setSymbol(position.getRow(), position.getColumn(), Match.EMPTY_SYMBOL);
 
@@ -140,7 +138,6 @@ public final class ComputerMoveService {
             }
 
             board.setSymbol(position.getRow(), position.getColumn(), Match.EMPTY_SYMBOL);
-
         }
         return null;
     }
@@ -215,21 +212,15 @@ public final class ComputerMoveService {
             Position position = new Position(i);
             int row = position.getRow();
             int column = position.getColumn();
-
-            //board.getRows().get(row).getFields().get(column).setSymbol(symbol);
             board.setSymbol(row, column, symbol);
 
             if (Winner.thereIsWinner(board, position, symbol)){
-
-                //board.getRows().get(row).getFields().get(column).setSymbol(Match.EMPTY_SYMBOL);
                 board.setSymbol(row, column, Match.EMPTY_SYMBOL);
-
                 counter++;
             }
-            //board.getRows().get(row).getFields().get(column).setSymbol(Match.EMPTY_SYMBOL);
             board.setSymbol(row, column, Match.EMPTY_SYMBOL);
 
-            if (counter == 2){
+            if (counter == FORK_LENGTH){
                 return true;
             }
         }

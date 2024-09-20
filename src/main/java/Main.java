@@ -48,11 +48,11 @@ public final class Main {
             switch (status) {
                 case PLAYER_WON -> {
                     playerScore++;
-                    Output.printWhoWon(match.isPlayerTurn());
+                    Output.printWhoWon(match.getPlayerTurn());
                 }
                 case COMPUTER_WON -> {
                     computerScore++;
-                    Output.printWhoWon(match.isPlayerTurn());
+                    Output.printWhoWon(match.getPlayerTurn());
                 }
                 case DRAW -> {
                     Output.printDraw();
