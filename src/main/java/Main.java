@@ -1,8 +1,14 @@
+import java.io.File;
+import java.util.List;
+
 public final class Main {
 
     private static int computerScore = 0;
     private static int playerScore = 0;
+    private static int roundCounter = 0;
+    private static int drawCounter = 0;
     private static DifficultyState difficulty;
+    private static final File FILE_SCORE = new File("score.txt");
 
     private Main() {
     }
@@ -30,9 +36,19 @@ public final class Main {
 //        int mediumDifficultyPercentage = input;
         int mediumDifficultyPercentage = 40;
 
-        int roundCounter = 0;
         System.out.println("Welcome to TicTacToe!");
         System.out.println();
+
+        if (!PlayerInput.newGame()){
+            if (FILE_SCORE.exists() && !FileReadWrite.isEmpty(FILE_SCORE)){
+                List<Integer> fileInput;
+                fileInput = FileReadWrite.readFile(FILE_SCORE);
+                roundCounter = fileInput.get(0);
+                playerScore = fileInput.get(1);
+                computerScore = fileInput.get(2);
+                drawCounter = fileInput.get(3);
+            }
+        }
 
 
         PlayerInput.askForDifficulty();
@@ -55,13 +71,19 @@ public final class Main {
                     computerScore++;
                     Output.printWhoWon(match.getPlayerTurn());
                 }
-                case DRAW -> Output.printDraw();
+                case DRAW ->  {
+                    drawCounter++;
+                    Output.printDraw();
+                }
                 default -> System.out.println("Invalid match status");
             }
 
             Output.printScore(playerScore, computerScore);
+            Output.printDrawCounter(drawCounter);
             roundCounter++;
             Output.printRoundCounter(roundCounter);
+
+            FileReadWrite.writeFile(FILE_SCORE,roundCounter, playerScore, computerScore, drawCounter);
         } while (PlayerInput.askPlayAgain());
 
         //}

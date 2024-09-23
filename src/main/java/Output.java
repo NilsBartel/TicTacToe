@@ -29,11 +29,11 @@ public final class Output {
     }
 
     public static void printRoundCounter(int roundCounter) {
+        System.out.println();
         System.out.println("Round: " + roundCounter);
     }
 
     public static void printDrawCounter(int drawCounter) {
-        System.out.println();
         System.out.println("Draw counter: " + drawCounter);
     }
 
