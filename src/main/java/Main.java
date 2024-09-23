@@ -10,24 +10,25 @@ public final class Main {
     @SuppressWarnings("PMD.LawOfDemeter")
     public static void main(String[] args) {
 
-        int input = 0;
-        if (args.length > 0) {
-            try {
-                input = Integer.parseInt(args[0]);
-            } catch (NumberFormatException e) {
-                System.out.println("Please enter a number between 1 and 100");
-                System.exit(1);
-            }
-            if (input < 1 || input > 100) {
-                System.out.println("Please enter a number between 1 and 100");
-                System.exit(1);
-            }
-        } else {
-            System.out.println("Please enter a number between 1 and 100");
-            System.exit(1);
-        }
+//        int input = 0;
+//        if (args.length > 0) {
+//            try {
+//                input = Integer.parseInt(args[0]);
+//            } catch (NumberFormatException e) {
+//                System.out.println("Please enter a number between 1 and 100");
+//                System.exit(1);
+//            }
+//            if (input < 1 || input > 100) {
+//                System.out.println("Please enter a number between 1 and 100");
+//                System.exit(1);
+//            }
+//        } else {
+//            System.out.println("Please enter a number between 1 and 100");
+//            System.exit(1);
+//        }
 
-        int mediumDifficultyPercentage = input;
+//        int mediumDifficultyPercentage = input;
+        int mediumDifficultyPercentage = 40;
 
         int roundCounter = 0;
         System.out.println("Welcome to TicTacToe!");
@@ -54,12 +55,8 @@ public final class Main {
                     computerScore++;
                     Output.printWhoWon(match.getPlayerTurn());
                 }
-                case DRAW -> {
-                    Output.printDraw();
-                }
-                default -> {
-                    System.out.println("Invalid match status");
-                }
+                case DRAW -> Output.printDraw();
+                default -> System.out.println("Invalid match status");
             }
 
             Output.printScore(playerScore, computerScore);

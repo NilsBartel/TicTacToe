@@ -50,7 +50,6 @@ public class Match {
             board.print();
 
 
-
             if (Winner.thereIsWinner(board, position, currentSymbol)) {
                 if (currentSymbol == COMPUTER_SYMBOL){
                     this.status = MatchStatus.COMPUTER_WON;
