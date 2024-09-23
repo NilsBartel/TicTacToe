@@ -83,7 +83,7 @@ public class Match {
         isPlayerTurn = playerTurn;
     }
 
-    public boolean getPlayerTurn() {
+    public boolean isPlayerTurn() {
         return isPlayerTurn;
     }
 

@@ -7,13 +7,14 @@ public final class PlayerInput {
     }
 
     public static Position askForMove(Board board) {
-        int input;
+        String move;
         do{
             System.out.println("Please pick a field (1-9)");
-            input= SCANNER.nextInt();
-        } while(!board.isValid(input));
+            move = SCANNER.nextLine();
 
-        return new Position(input);
+        } while(!board.isValid(Integer.parseInt(move)));
+
+        return new Position(Integer.parseInt(move));
     }
 
     public static boolean askPlayAgain() {

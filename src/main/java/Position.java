@@ -1,4 +1,4 @@
-
+import java.util.Objects;
 
 public class Position {
 
@@ -31,6 +31,10 @@ public class Position {
 //        return index == position.index;
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(index);
+    }
 
     public int getIndex() {
         return index;

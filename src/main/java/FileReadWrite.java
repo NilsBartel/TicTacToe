@@ -7,9 +7,6 @@ public final class FileReadWrite {
     }
 
 
-
-
-
     public static boolean isEmpty(File file) {
         return file.exists() && file.length() == 0;
     }
@@ -30,20 +27,13 @@ public final class FileReadWrite {
     }
 
     public static void writeFile(File fileName, int rounds, int playerScore, int computerScore, int draw){
-        String str = rounds + "\t" + playerScore + "\t" + computerScore + "\t" + draw;
+        String string = rounds + "\t" + playerScore + "\t" + computerScore + "\t" + draw;
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))){
-            writer.write(str);
+            writer.write(string);
         } catch (IOException e) {
             System.out.println("error while writing file");
         }
     }
-
-    public static void deleteFile(File fileName) {
-        fileName.delete();
-    }
-
-
-
 
 }

@@ -39,15 +39,13 @@ public final class Main {
         System.out.println("Welcome to TicTacToe!");
         System.out.println();
 
-        if (!PlayerInput.newGame()){
-            if (FILE_SCORE.exists() && !FileReadWrite.isEmpty(FILE_SCORE)){
-                List<Integer> fileInput;
-                fileInput = FileReadWrite.readFile(FILE_SCORE);
-                roundCounter = fileInput.get(0);
-                playerScore = fileInput.get(1);
-                computerScore = fileInput.get(2);
-                drawCounter = fileInput.get(3);
-            }
+        if (FILE_SCORE.exists() && !FileReadWrite.isEmpty(FILE_SCORE) && !PlayerInput.newGame()){
+            List<Integer> fileInput;
+            fileInput = FileReadWrite.readFile(FILE_SCORE);
+            roundCounter = fileInput.get(0);
+            playerScore = fileInput.get(1);
+            computerScore = fileInput.get(2);
+            drawCounter = fileInput.get(3);
         }
 
 
@@ -65,11 +63,11 @@ public final class Main {
             switch (status) {
                 case PLAYER_WON -> {
                     playerScore++;
-                    Output.printWhoWon(match.getPlayerTurn());
+                    Output.printWhoWon(match.isPlayerTurn());
                 }
                 case COMPUTER_WON -> {
                     computerScore++;
-                    Output.printWhoWon(match.getPlayerTurn());
+                    Output.printWhoWon(match.isPlayerTurn());
                 }
                 case DRAW ->  {
                     drawCounter++;
