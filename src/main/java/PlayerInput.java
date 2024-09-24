@@ -12,7 +12,7 @@ public final class PlayerInput {
             System.out.println("Please pick a field (1-9)");
             move = SCANNER.nextLine();
 
-        } while(!board.isValid(Integer.parseInt(move)));
+        } while(!board.isValid(Integer.parseInt(move)) && !move.isEmpty());
 
         return new Position(Integer.parseInt(move));
     }

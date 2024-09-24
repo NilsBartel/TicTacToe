@@ -22,19 +22,19 @@ public final class Output {
         System.out.println("Game end");
     }
 
-    public static void printScore(int playerScore, int computerScore) {
+    public static void printScore(Score score) {
         System.out.println();
         System.out.println("Score:");
-        System.out.println("player: "+ playerScore + "\t" + "computer: " + computerScore);
+        System.out.println("player: "+ score.getPlayerScore() + "\t" + "computer: " + score.getComputerScore());
     }
 
-    public static void printRoundCounter(int roundCounter) {
+    public static void printRoundCounter(Score score) {
         System.out.println();
-        System.out.println("Round: " + roundCounter);
+        System.out.println("Round: " + score.getRoundCounter());
     }
 
-    public static void printDrawCounter(int drawCounter) {
-        System.out.println("Draw counter: " + drawCounter);
+    public static void printDrawCounter(Score score) {
+        System.out.println("Draw counter: " + score.getDrawCount());
     }
 
 

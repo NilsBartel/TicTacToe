@@ -7,27 +7,27 @@ public final class FileReadWrite {
     }
 
 
-    public static boolean isEmpty(File file) {
-        return file.exists() && file.length() == 0;
-    }
 
-    public static List<Integer> readFile(File fileName) {
+    public static void readFile(File fileName, Score score) {
         List<Integer> list = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))){
             String line = reader.readLine();
-            for(int i = 0; i < 4; i++){
+            for(int i = 0; i < 3; i++){
                 list.add(Integer.parseInt(line.split("\t")[i]));
             }
+            score.setPlayerScore(list.get(0));
+            score.setComputerScore(list.get(1));
+            score.setDrawCount(list.get(2));
+
         } catch (IOException e) {
             System.out.println("error while reading file");
         }
 
-        return list;
     }
 
-    public static void writeFile(File fileName, int rounds, int playerScore, int computerScore, int draw){
-        String string = rounds + "\t" + playerScore + "\t" + computerScore + "\t" + draw;
+    public static void writeFile(File fileName, Score score){
+        String string = score.getPlayerScore() + "\t" + score.getComputerScore() + "\t" + score.getDrawCount();
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))){
             writer.write(string);
