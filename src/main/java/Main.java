@@ -1,4 +1,6 @@
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class Main {
 
@@ -17,24 +19,10 @@ public final class Main {
 
 
 
+        MatchHistory matchHistory = new MatchHistory();
+        matchHistory.printMatchHistory();
 
-//        MatchHistory matchHistory = new MatchHistory();
-//        matchHistory.populateList();
-//        matchHistory.printList();
-//        matchHistory.addNewMatch(5);
-//        matchHistory.printList();
-//        matchHistory.addNewMatch(20);
-//        matchHistory.printList();
-//        matchHistory.addNewMatch(4);
-//        matchHistory.printList();
-//        matchHistory.addNewMatch(29);
-//        matchHistory.printList();
-//
-//        JsonFileWriteRead.writeHistoryFile(FILE_MATCH_HISTORY, matchHistory);
-//
-//        matchHistory = JsonFileWriteRead.readHistoryFile(FILE_MATCH_HISTORY);
-//
-//        System.out.println(matchHistory.getMatchList());
+
 
 
 

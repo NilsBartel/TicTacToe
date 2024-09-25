@@ -72,15 +72,10 @@ public class Match {
 
             isPlayerTurn = !isPlayerTurn;
 
-
         }
 
         MatchHistory matchHistory = JsonFileWriteRead.readHistoryFile(Main.FILE_MATCH_HISTORY);
-
-
-        //int test = matchHistory.convertMatch(board);
         matchHistory.addNewMatchToList(matchHistory.convertMatchToInt(board));
-
         JsonFileWriteRead.writeHistoryFile(Main.FILE_MATCH_HISTORY, matchHistory);
 
 
