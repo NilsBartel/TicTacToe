@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public final class PlayerInput {
     private static final Scanner SCANNER = new Scanner(System.in);
+    private static final String INVALID_INPUT = "This is not a valid input! Please try again.";
 
     private PlayerInput() {
     }
@@ -17,6 +18,28 @@ public final class PlayerInput {
         return new Position(Integer.parseInt(move));
     }
 
+    public static boolean askPlayAgainWithHistory() {
+        String response;
+
+        System.out.println();
+        System.out.println("Do you want to play again? (Type y/n)");
+        System.out.println("Or type (h) for history.");
+        response = SCANNER.nextLine();
+
+        while(! ("y".equals(response) || "n".equals(response) || "h".equals(response))) {
+            System.out.println(INVALID_INPUT);
+            response = SCANNER.nextLine();
+        }
+
+        if("h".equals(response)) {
+            MatchHistory matchHistory = new MatchHistory();
+            matchHistory.printMatchHistory();
+            return askPlayAgain();
+        }
+
+        return "y".equals(response);
+    }
+
     public static boolean askPlayAgain() {
         String response;
 
@@ -25,10 +48,9 @@ public final class PlayerInput {
         response = SCANNER.nextLine();
 
         while(! ("y".equals(response) || "n".equals(response))) {
-            System.out.println("This is not a valid input! Please try again.");
+            System.out.println(INVALID_INPUT);
             response = SCANNER.nextLine();
         }
-
         return "y".equals(response);
     }
 
@@ -38,7 +60,7 @@ public final class PlayerInput {
         response = SCANNER.nextLine();
 
         while(! ("e".equals(response) || "m".equals(response) || "i".equals(response))) {
-            System.out.println("This is not a valid input! Please try again.");
+            System.out.println(INVALID_INPUT);
             response = SCANNER.nextLine();
         }
 
@@ -53,13 +75,15 @@ public final class PlayerInput {
         }
     }
 
+
+
     public static boolean newGame(){
         String response;
 
         System.out.println("Do you want to keep the old score? (Type y/n)");
         response = SCANNER.nextLine();
         while(! ("y".equals(response) || "n".equals(response))) {
-            System.out.println("This is not a valid input! Please try again.");
+            System.out.println(INVALID_INPUT);
             response = SCANNER.nextLine();
         }
 

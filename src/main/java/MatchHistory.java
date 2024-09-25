@@ -4,6 +4,9 @@ import java.util.List;
 
 public class MatchHistory {
     private static final int MATCH_HISTORY_LENGTH = 10;
+    private static final int PLAYER_INT = 1;
+    private static final int COMPUTER_INT = 2;
+    private static final int EMPTY_FILED_INT = 3;
 
 
     private final List<Integer> matchList = new ArrayList<>();
@@ -15,11 +18,11 @@ public class MatchHistory {
                 char symbol = board.getSymbol(row, column);
 
                 if (symbol == Match.PLAYER_SYMBOL) {
-                    number = number * 10 + 1;
+                    number = number * 10 + PLAYER_INT;
                 } else if (symbol == Match.COMPUTER_SYMBOL) {
-                    number = number * 10 + 2;
+                    number = number * 10 + COMPUTER_INT;
                 } else { // field is empty
-                    number = number * 10 + 3;
+                    number = number * 10 + EMPTY_FILED_INT;
                 }
             }
         }
@@ -27,21 +30,21 @@ public class MatchHistory {
     }
 
     public Board convertIntToBoard(int number) {
+        int newNumber = number;
         Board board = new Board();
-
         List<Integer> numbers = new ArrayList<>();
 
-        while(number > 0){
-            numbers.add(number % 10);
-            number = number / 10;
+        while(newNumber > 0){
+            numbers.add(newNumber % 10);
+            newNumber = newNumber / 10;
         }
 
         int counter = numbers.size() - 1;
         for (int row = 0; row < 3; row++) {
             for (int column = 0; column < 3; column++) {
-                if(numbers.get(counter) == 1) {
+                if(numbers.get(counter) == PLAYER_INT) {
                     board.setSymbol(row, column, Match.PLAYER_SYMBOL);
-                } else if (numbers.get(counter) == 2) {
+                } else if (numbers.get(counter) == COMPUTER_INT) {
                     board.setSymbol(row, column, Match.COMPUTER_SYMBOL);
                 } else {
                     board.setSymbol(row, column, Match.EMPTY_SYMBOL);

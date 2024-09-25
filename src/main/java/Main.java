@@ -1,6 +1,5 @@
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public final class Main {
 
@@ -16,19 +15,6 @@ public final class Main {
 
     @SuppressWarnings("PMD.LawOfDemeter")
     public static void main(String[] args) {
-
-
-
-        MatchHistory matchHistory = new MatchHistory();
-        matchHistory.printMatchHistory();
-
-
-
-
-
-
-
-
 
 
 //        int input = 0;
@@ -76,7 +62,9 @@ public final class Main {
             Score score;
             if (FILE_SCORE.exists() && FILE_SCORE.length() != 0) {
                 score = JsonFileWriteRead.readFile(FILE_SCORE);
-            } else score = new Score();
+            } else {
+                score = new Score();
+            }
 
 
             switch (status) {
@@ -102,7 +90,7 @@ public final class Main {
             Output.printRoundCounter(score);
 
             JsonFileWriteRead.writeFile(FILE_SCORE, score);
-        } while (PlayerInput.askPlayAgain());
+        } while (PlayerInput.askPlayAgainWithHistory());
 
 
 

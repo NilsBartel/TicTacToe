@@ -78,8 +78,6 @@ public class Match {
         matchHistory.addNewMatchToList(matchHistory.convertMatchToInt(board));
         JsonFileWriteRead.writeHistoryFile(Main.FILE_MATCH_HISTORY, matchHistory);
 
-
-        System.out.println(matchHistory.getMatchList());
     }
 
     public MatchStatus getStatus() {
