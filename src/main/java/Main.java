@@ -1,19 +1,11 @@
 import java.io.File;
-import java.util.List;
 
 public final class Main {
-
-//    private static int computerScore = 0;
-//    private static int playerScore = 0;
-//    private static int roundCounter = 0;
-//    private static int drawCounter = 0;
-
 
 
     private static DifficultyState difficulty;
     private static final File FILE_SCORE = new File("score.txt");
-    private static final File FILE_SCORE2 = new File("score2.txt");
-    private static final File FILE_SCORE3 = new File("score3.txt");
+    public static final File FILE_MATCH_HISTORY = new File("match_history.txt");
 
     private Main() {
     }
@@ -22,6 +14,32 @@ public final class Main {
 
     @SuppressWarnings("PMD.LawOfDemeter")
     public static void main(String[] args) {
+
+
+
+
+//        MatchHistory matchHistory = new MatchHistory();
+//        matchHistory.populateList();
+//        matchHistory.printList();
+//        matchHistory.addNewMatch(5);
+//        matchHistory.printList();
+//        matchHistory.addNewMatch(20);
+//        matchHistory.printList();
+//        matchHistory.addNewMatch(4);
+//        matchHistory.printList();
+//        matchHistory.addNewMatch(29);
+//        matchHistory.printList();
+//
+//        JsonFileWriteRead.writeHistoryFile(FILE_MATCH_HISTORY, matchHistory);
+//
+//        matchHistory = JsonFileWriteRead.readHistoryFile(FILE_MATCH_HISTORY);
+//
+//        System.out.println(matchHistory.getMatchList());
+
+
+
+
+
 
 
 
@@ -69,7 +87,6 @@ public final class Main {
 
             Score score;
             if (FILE_SCORE.exists() && FILE_SCORE.length() != 0) {
-                //FileReadWrite.readFile(FILE_SCORE, score);
                 score = JsonFileWriteRead.readFile(FILE_SCORE);
             } else score = new Score();
 
@@ -96,7 +113,6 @@ public final class Main {
             Output.printDrawCounter(score);
             Output.printRoundCounter(score);
 
-            //FileReadWrite.writeFile(FILE_SCORE, score);
             JsonFileWriteRead.writeFile(FILE_SCORE, score);
         } while (PlayerInput.askPlayAgain());
 

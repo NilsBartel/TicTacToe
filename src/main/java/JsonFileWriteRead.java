@@ -38,6 +38,33 @@ public final class JsonFileWriteRead {
 
 
 
+    public static MatchHistory readHistoryFile(File fileName){
+        ObjectMapper mapper = new ObjectMapper();
+
+        try{
+            return mapper.readValue(fileName, MatchHistory.class);
+
+        } catch (IOException e) {
+            System.out.println("error while reading file");
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void writeHistoryFile(File fileName, MatchHistory matchHistory){
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        try{
+            mapper.writeValue(fileName, matchHistory);
+        } catch (IOException e) {
+            System.out.println("error while writing file");
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
+
 
 
 
