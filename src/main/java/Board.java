@@ -24,7 +24,6 @@ public class Board {
 
     public boolean isValid(int index){
 
-
         if(index < 1 || index > 9) {
             return false;
         }
@@ -36,7 +35,6 @@ public class Board {
 
         // setSymbol(row, column, symbol)
 
-        //return rows.get(row).getFields().get(column).getSymbol() == ' ';
         return rows.get(row).getSymbol(column) == ' ';
 
     }
@@ -53,7 +51,6 @@ public class Board {
     }
 
     public void setSymbol(int row, int column, char symbol){
-        //rows.get(row).getFields().get(column).setSymbol(symbol);
         rows.get(row).setSymbol(column, symbol);
     }
 

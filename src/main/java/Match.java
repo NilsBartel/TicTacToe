@@ -53,6 +53,8 @@ public class Match {
         writeBoardToHistoryFile(board, Main.FILE_MATCH_HISTORY);
     }
 
+
+
     private boolean isGameOver(Board board, Position position, char currentSymbol, int moveCounter) {
 
         if (Winner.thereIsWinner(board, position, currentSymbol)) {

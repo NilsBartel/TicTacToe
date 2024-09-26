@@ -9,13 +9,20 @@ public final class PlayerInput {
 
     public static Position askForMove(Board board) {
         String move;
-        do{
+        int number;
+        while(true){
             System.out.println("Please pick a field (1-9)");
             move = SCANNER.nextLine();
 
-        } while(!board.isValid(Integer.parseInt(move)) && !move.isEmpty());
+            if(isInteger(move) && board.isValid(Integer.parseInt(move))){
+                number = Integer.parseInt(move);
+                break;
+            } else {
+                System.out.println(INVALID_INPUT);
+            }
+        }
 
-        return new Position(Integer.parseInt(move));
+        return new Position(number);
     }
 
     public static boolean askPlayAgainWithHistory() {
@@ -73,6 +80,22 @@ public final class PlayerInput {
             break;
             default: {throw new IllegalStateException("Unexpected value: " + response);}
         }
+    }
+
+
+    private static boolean isInteger(String input) {
+
+        if (input == null) {
+            return false;
+        }
+        try {
+            int num = Integer.parseInt(input);
+            System.out.println(num);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+
     }
 
 
