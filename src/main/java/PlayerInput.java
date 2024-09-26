@@ -76,19 +76,4 @@ public final class PlayerInput {
     }
 
 
-
-    public static boolean newGame(){
-        String response;
-
-        System.out.println("Do you want to keep the old score? (Type y/n)");
-        response = SCANNER.nextLine();
-        while(! ("y".equals(response) || "n".equals(response))) {
-            System.out.println(INVALID_INPUT);
-            response = SCANNER.nextLine();
-        }
-
-        return "n".equals(response);
-    }
-
-
 }

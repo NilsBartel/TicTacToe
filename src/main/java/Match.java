@@ -2,7 +2,7 @@ public class Match {
 
     private final Board board;
     private MatchStatus status;
-    private boolean isPlayerTurn;
+    //private boolean isPlayerTurn;
     public static final char PLAYER_SYMBOL = 'o';
     public static final char COMPUTER_SYMBOL = 'x';
     public static final char EMPTY_SYMBOL = ' ';
@@ -19,30 +19,29 @@ public class Match {
 
         this.status = MatchStatus.RUNNING;
 
-
         int moveCounter = 0;
-
         char currentSymbol;
 
-        //ArrayList<Position> list = new ArrayList<>();
+        if (Main.FILE_SCORE.exists() && Main.FILE_SCORE.length() != 0) {
+            Score score = JsonFileWriteRead.readFile(Main.FILE_SCORE);
+            Main.isPlayerTurn = ((score.getRoundCounter() % 2 == 0));
+        } else {
+            Main.isPlayerTurn = false;
+        }
+
 
         board.print();
         System.out.println();
         while (true){
 
             Position position;
-
-            if(isPlayerTurn){
+            if(Main.isPlayerTurn){
                 currentSymbol = PLAYER_SYMBOL;
-                //position = ComputerMoveService.randomMove(board);
                 position = PlayerInput.askForMove(board);
-
             } else{
                 currentSymbol = COMPUTER_SYMBOL;
                 position = Difficulty.returnMove(board, mediumDifficulty);
             }
-
-            //list.add(position);
 
             board.setSymbol(position.getRow(), position.getColumn(), currentSymbol);
 
@@ -55,11 +54,6 @@ public class Match {
                     this.status = MatchStatus.COMPUTER_WON;
                 } else{
                     this.status = MatchStatus.PLAYER_WON;
-
-//                    for(Position p : list){
-//                        System.out.print(p.getIndex() + ", ");
-//                    }
-//                    System.out.println();
                 }
                 break;
             }
@@ -70,26 +64,28 @@ public class Match {
                 break;
             }
 
-            isPlayerTurn = !isPlayerTurn;
+            Main.isPlayerTurn = !Main.isPlayerTurn;
 
         }
 
-        MatchHistory matchHistory = JsonFileWriteRead.readHistoryFile(Main.FILE_MATCH_HISTORY);
-        matchHistory.addNewMatchToList(matchHistory.convertMatchToInt(board));
-        JsonFileWriteRead.writeHistoryFile(Main.FILE_MATCH_HISTORY, matchHistory);
+        if (Main.FILE_MATCH_HISTORY.exists() && Main.FILE_MATCH_HISTORY.length() != 0) {
+            MatchHistory matchHistory = JsonFileWriteRead.readHistoryFile(Main.FILE_MATCH_HISTORY);
+            matchHistory.addBoardToHistory(board);
+            JsonFileWriteRead.writeHistoryFile(Main.FILE_MATCH_HISTORY, matchHistory);
+        } else {
+            MatchHistory matchHistory = new MatchHistory();
+            matchHistory.addBoardToHistory(board);
+            JsonFileWriteRead.writeHistoryFile(Main.FILE_MATCH_HISTORY, matchHistory);
+        }
+
+
+        //TODO: make the play() function more readable by building more functions
+
 
     }
 
     public MatchStatus getStatus() {
         return status;
-    }
-
-    public void setPlayerTurn(boolean playerTurn) {
-        isPlayerTurn = playerTurn;
-    }
-
-    public boolean isPlayerTurn() {
-        return isPlayerTurn;
     }
 
     public static char getOpponentsSymbol(char symbol) {

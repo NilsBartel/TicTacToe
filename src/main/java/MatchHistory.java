@@ -11,7 +11,13 @@ public class MatchHistory {
 
     private final List<Integer> matchList = new ArrayList<>();
 
-    public int convertMatchToInt(Board board) {
+
+    public void addBoardToHistory(Board board) {
+        int number = convertBoardToInt(board);
+        addIntToList(number);
+    }
+
+    private int convertBoardToInt(Board board) {
         int number = 0;
         for (int row = 0; row < 3; row++) {
             for (int column = 0; column < 3; column++) {
@@ -29,7 +35,7 @@ public class MatchHistory {
          return number;
     }
 
-    public Board convertIntToBoard(int number) {
+    private Board convertIntToBoard(int number) {
         int newNumber = number;
         Board board = new Board();
         List<Integer> numbers = new ArrayList<>();
@@ -55,33 +61,21 @@ public class MatchHistory {
         return board;
     }
 
-    public void addNewMatchToList(int match){
+    private void addIntToList(int match){
 
-        for(int i = matchList.size()-1; i > 0; i--){
-            if(matchList.get(i) != null){
-                matchList.set(i, matchList.get(i-1));
-            }
-        }
-        if(matchList.isEmpty()){
-            matchList.add(match);
-        } else {
-            matchList.set(0, match);
-        }
+        matchList.addFirst(match);
 
-
-        if(matchList.size() == MATCH_HISTORY_LENGTH+1){
+        if(matchList.size() > MATCH_HISTORY_LENGTH){
             matchList.remove(MATCH_HISTORY_LENGTH);
         }
+
     }
-
-
-
-
 
     public void printMatchHistory(){
 
         MatchHistory matchHistory = JsonFileWriteRead.readHistoryFile(Main.FILE_MATCH_HISTORY);
         List<Integer> list = matchHistory.getMatchList();
+        //List<Integer> list = matchList;
         for(int i = 0; i < list.size(); i++){
             Board boardTest = matchHistory.convertIntToBoard(list.get(i));
             System.out.println("Board: " + (i+1));

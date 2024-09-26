@@ -5,8 +5,9 @@ public final class Main {
 
 
     private static DifficultyState difficulty;
-    private static final File FILE_SCORE = new File("score.txt");
+    public static final File FILE_SCORE = new File("score.txt");
     public static final File FILE_MATCH_HISTORY = new File("match_history.txt");
+    public static boolean isPlayerTurn;
 
     private Main() {
     }
@@ -48,14 +49,6 @@ public final class Main {
 
             Match match = new Match();
 
-
-            //TODO: work on who starts (player and computer alternating)
-//            if (FILE_SCORE.exists() && !FileReadWrite.isEmpty(FILE_SCORE)) {
-//                match.setPlayerTurn((FileReadWrite.readFile(FILE_SCORE).get(0) + FileReadWrite.readFile(FILE_SCORE).get(1) + FileReadWrite.readFile(FILE_SCORE).get(2)) % 2 == 0);
-//            } else match.setPlayerTurn(true);
-            match.setPlayerTurn(true);
-
-
             match.play(mediumDifficultyPercentage);
             MatchStatus status = match.getStatus();
 
@@ -70,11 +63,11 @@ public final class Main {
             switch (status) {
                 case PLAYER_WON -> {
                     score.setPlayerScorePlusOne();
-                    Output.printWhoWon(match.isPlayerTurn());
+                    Output.printWhoWon(isPlayerTurn);
                 }
                 case COMPUTER_WON -> {
                     score.setComputerScorePlusOne();
-                    Output.printWhoWon(match.isPlayerTurn());
+                    Output.printWhoWon(isPlayerTurn);
                 }
                 case DRAW ->  {
                     score.setDrawCountPlusOne();

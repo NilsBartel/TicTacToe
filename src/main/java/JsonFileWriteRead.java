@@ -10,7 +10,6 @@ public final class JsonFileWriteRead {
 
 
     public static void writeFile(File fileName, Score score){
-
         ObjectMapper mapper = new ObjectMapper();
 
         try{
@@ -23,7 +22,6 @@ public final class JsonFileWriteRead {
 
 
     public static Score readFile(File fileName) {
-
         ObjectMapper mapper = new ObjectMapper();
 
         try{
@@ -34,8 +32,6 @@ public final class JsonFileWriteRead {
             throw new RuntimeException(e);
         }
     }
-
-
 
 
     public static MatchHistory readHistoryFile(File fileName){
@@ -51,7 +47,6 @@ public final class JsonFileWriteRead {
     }
 
     public static void writeHistoryFile(File fileName, MatchHistory matchHistory){
-
         ObjectMapper mapper = new ObjectMapper();
 
         try{
