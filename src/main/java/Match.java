@@ -1,8 +1,9 @@
+import java.io.File;
+
 public class Match {
 
     private final Board board;
     private MatchStatus status;
-    //private boolean isPlayerTurn;
     public static final char PLAYER_SYMBOL = 'o';
     public static final char COMPUTER_SYMBOL = 'x';
     public static final char EMPTY_SYMBOL = ' ';
@@ -20,19 +21,12 @@ public class Match {
         this.status = MatchStatus.RUNNING;
 
         int moveCounter = 0;
-        char currentSymbol;
-
-        if (Main.FILE_SCORE.exists() && Main.FILE_SCORE.length() != 0) {
-            Score score = JsonFileWriteRead.readFile(Main.FILE_SCORE);
-            Main.isPlayerTurn = ((score.getRoundCounter() % 2 == 0));
-        } else {
-            Main.isPlayerTurn = false;
-        }
-
+        setPlayerTurn();
 
         board.print();
         System.out.println();
         while (true){
+            char currentSymbol;
 
             Position position;
             if(Main.isPlayerTurn){
@@ -48,40 +42,59 @@ public class Match {
             System.out.println();
             board.print();
 
-
-            if (Winner.thereIsWinner(board, position, currentSymbol)) {
-                if (currentSymbol == COMPUTER_SYMBOL){
-                    this.status = MatchStatus.COMPUTER_WON;
-                } else{
-                    this.status = MatchStatus.PLAYER_WON;
-                }
-                break;
-            }
-
             moveCounter++;
-            if (moveCounter > 9-1) {
-                this.status = MatchStatus.DRAW;
+            if(isGameOver(board, position, currentSymbol, moveCounter)){
                 break;
             }
 
             Main.isPlayerTurn = !Main.isPlayerTurn;
-
         }
 
-        if (Main.FILE_MATCH_HISTORY.exists() && Main.FILE_MATCH_HISTORY.length() != 0) {
-            MatchHistory matchHistory = JsonFileWriteRead.readHistoryFile(Main.FILE_MATCH_HISTORY);
+        writeBoardToHistoryFile(board, Main.FILE_MATCH_HISTORY);
+    }
+
+    private boolean isGameOver(Board board, Position position, char currentSymbol, int moveCounter) {
+
+        if (Winner.thereIsWinner(board, position, currentSymbol)) {
+            if (currentSymbol == COMPUTER_SYMBOL){
+                this.status = MatchStatus.COMPUTER_WON;
+            } else{
+                this.status = MatchStatus.PLAYER_WON;
+            }
+            return true;
+        }
+
+        if (moveCounter > 9-1) {
+            this.status = MatchStatus.DRAW;
+            return true;
+        }
+
+        return false;
+    }
+
+    private void writeBoardToHistoryFile(Board board, File file) {
+
+        if (file.exists() && file.length() != 0) {
+            MatchHistory matchHistory = JsonFileWriteRead.readHistoryFile(file);
             matchHistory.addBoardToHistory(board);
-            JsonFileWriteRead.writeHistoryFile(Main.FILE_MATCH_HISTORY, matchHistory);
+            JsonFileWriteRead.writeHistoryFile(file, matchHistory);
         } else {
             MatchHistory matchHistory = new MatchHistory();
             matchHistory.addBoardToHistory(board);
-            JsonFileWriteRead.writeHistoryFile(Main.FILE_MATCH_HISTORY, matchHistory);
+            JsonFileWriteRead.writeHistoryFile(file, matchHistory);
         }
 
+    }
 
-        //TODO: make the play() function more readable by building more functions
 
+    private void setPlayerTurn() {
 
+        if (Main.FILE_SCORE.exists() && Main.FILE_SCORE.length() != 0) {
+            Score score = JsonFileWriteRead.readFile(Main.FILE_SCORE);
+            Main.isPlayerTurn = ((score.getRoundCounter() % 2 == 0));
+        } else {
+            Main.isPlayerTurn = false;
+        }
     }
 
     public MatchStatus getStatus() {

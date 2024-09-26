@@ -52,14 +52,14 @@ public final class Main {
             match.play(mediumDifficultyPercentage);
             MatchStatus status = match.getStatus();
 
+
+
             Score score;
             if (FILE_SCORE.exists() && FILE_SCORE.length() != 0) {
                 score = JsonFileWriteRead.readFile(FILE_SCORE);
             } else {
                 score = new Score();
             }
-
-
             switch (status) {
                 case PLAYER_WON -> {
                     score.setPlayerScorePlusOne();
