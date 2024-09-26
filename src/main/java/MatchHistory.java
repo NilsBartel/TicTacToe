@@ -45,21 +45,30 @@ public class MatchHistory {
             newNumber = newNumber / 10;
         }
 
-        int counter = numbers.size() - 1;
-        for (int row = 0; row < 3; row++) {
-            for (int column = 0; column < 3; column++) {
-                if(numbers.get(counter) == PLAYER_INT) {
-                    board.setSymbol(row, column, Match.PLAYER_SYMBOL);
-                } else if (numbers.get(counter) == COMPUTER_INT) {
-                    board.setSymbol(row, column, Match.COMPUTER_SYMBOL);
-                } else {
-                    board.setSymbol(row, column, Match.EMPTY_SYMBOL);
-                }
-                counter--;
+        numbers = numbers.reversed();
+
+        int counter = 1;
+        for(int num : numbers ){
+            Position position = new Position(counter);
+            switch (num){
+                case PLAYER_INT:
+                    board.setSymbol(position.getRow(), position.getColumn(), Match.PLAYER_SYMBOL);
+                    break;
+                case COMPUTER_INT:
+                    board.setSymbol(position.getRow(), position.getColumn(), Match.COMPUTER_SYMBOL);
+                    break;
+                case EMPTY_FILED_INT:
+                    board.setSymbol(position.getRow(), position.getColumn(), Match.EMPTY_SYMBOL);
+                    break;
+
             }
+            counter++;
         }
         return board;
     }
+
+
+
 
     private void addIntToList(int match){
 

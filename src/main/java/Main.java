@@ -7,11 +7,9 @@ public final class Main {
     private static DifficultyState difficulty;
     public static final File FILE_SCORE = new File("score.txt");
     public static final File FILE_MATCH_HISTORY = new File("match_history.txt");
-    public static boolean isPlayerTurn;
 
     private Main() {
     }
-
 
 
     @SuppressWarnings("PMD.LawOfDemeter")
@@ -44,14 +42,12 @@ public final class Main {
 
         PlayerInput.askForDifficulty();
 
-        //for(int i = 0; i < 1000000; i++){
         do {
 
             Match match = new Match();
 
             match.play(mediumDifficultyPercentage);
             MatchStatus status = match.getStatus();
-
 
 
             Score score;
@@ -63,19 +59,18 @@ public final class Main {
             switch (status) {
                 case PLAYER_WON -> {
                     score.setPlayerScorePlusOne();
-                    Output.printWhoWon(isPlayerTurn);
+                    Output.printWhoWon(match.isIsPlayerTurn());
                 }
                 case COMPUTER_WON -> {
                     score.setComputerScorePlusOne();
-                    Output.printWhoWon(isPlayerTurn);
+                    Output.printWhoWon(match.isIsPlayerTurn());
                 }
-                case DRAW ->  {
+                case DRAW -> {
                     score.setDrawCountPlusOne();
                     Output.printDraw();
                 }
                 default -> System.out.println("Invalid match status");
             }
-
 
 
             Output.printScore(score);
@@ -84,17 +79,6 @@ public final class Main {
 
             JsonFileWriteRead.writeFile(FILE_SCORE, score);
         } while (PlayerInput.askPlayAgainWithHistory());
-
-
-
-
-
-
-        //}
-        //Output.printScore(playerScore, computerScore);
-        //Output.printRoundCounter(roundCounter);
-        //Output.printDrawCounter(drawCounter);
-
 
         Output.printGameEndMessage();
     }
@@ -106,5 +90,4 @@ public final class Main {
     public static void setDifficulty(DifficultyState difficulty) {
         Main.difficulty = difficulty;
     }
-
 }

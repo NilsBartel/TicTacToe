@@ -20,7 +20,6 @@ public final class JsonFileWriteRead {
         }
     }
 
-
     public static Score readFile(File fileName) {
         ObjectMapper mapper = new ObjectMapper();
 
@@ -29,22 +28,10 @@ public final class JsonFileWriteRead {
 
         } catch (IOException e) {
             System.out.println("error while reading file");
-            throw new RuntimeException(e);
         }
+        return null;
     }
 
-
-    public static MatchHistory readHistoryFile(File fileName){
-        ObjectMapper mapper = new ObjectMapper();
-
-        try{
-            return mapper.readValue(fileName, MatchHistory.class);
-
-        } catch (IOException e) {
-            System.out.println("error while reading file");
-            throw new RuntimeException(e);
-        }
-    }
 
     public static void writeHistoryFile(File fileName, MatchHistory matchHistory){
         ObjectMapper mapper = new ObjectMapper();
@@ -57,12 +44,17 @@ public final class JsonFileWriteRead {
         }
     }
 
+    public static MatchHistory readHistoryFile(File fileName){
+        ObjectMapper mapper = new ObjectMapper();
 
+        try{
+            return mapper.readValue(fileName, MatchHistory.class);
 
-
-
-
-
+        } catch (IOException e) {
+            System.out.println("error while reading file");
+            throw new RuntimeException(e);
+        }
+    }
 
 
 }

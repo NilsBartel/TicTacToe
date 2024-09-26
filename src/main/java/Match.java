@@ -7,6 +7,8 @@ public class Match {
     public static final char PLAYER_SYMBOL = 'o';
     public static final char COMPUTER_SYMBOL = 'x';
     public static final char EMPTY_SYMBOL = ' ';
+    private boolean isPlayerTurn;
+
 
 
 
@@ -29,7 +31,7 @@ public class Match {
             char currentSymbol;
 
             Position position;
-            if(Main.isPlayerTurn){
+            if(isPlayerTurn){
                 currentSymbol = PLAYER_SYMBOL;
                 position = PlayerInput.askForMove(board);
             } else{
@@ -47,7 +49,7 @@ public class Match {
                 break;
             }
 
-            Main.isPlayerTurn = !Main.isPlayerTurn;
+            isPlayerTurn = !isPlayerTurn;
         }
 
         writeBoardToHistoryFile(board, Main.FILE_MATCH_HISTORY);
@@ -93,9 +95,9 @@ public class Match {
 
         if (Main.FILE_SCORE.exists() && Main.FILE_SCORE.length() != 0) {
             Score score = JsonFileWriteRead.readFile(Main.FILE_SCORE);
-            Main.isPlayerTurn = ((score.getRoundCounter() % 2 == 0));
+            this.isPlayerTurn = score.getRoundCounter() % 2 == 0;
         } else {
-            Main.isPlayerTurn = false;
+            this.isPlayerTurn = false;
         }
     }
 
@@ -109,5 +111,13 @@ public class Match {
         } else {
             return COMPUTER_SYMBOL;
         }
+    }
+
+    public boolean isIsPlayerTurn() {
+        return isPlayerTurn;
+    }
+
+    public void setIsPlayerTurn(boolean isPlayerTurn) {
+        this.isPlayerTurn = isPlayerTurn;
     }
 }

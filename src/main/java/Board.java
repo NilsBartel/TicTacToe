@@ -54,6 +54,10 @@ public class Board {
         rows.get(row).setSymbol(column, symbol);
     }
 
+    public void setSymbol(int index, char symbol){
+
+    }
+
     public char getSymbol(int row, int column){
         return rows.get(row).getSymbol(column);
     }
