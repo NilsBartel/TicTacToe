@@ -7,7 +7,7 @@ public final class JsonFileWriteRead {
     private JsonFileWriteRead() {
     }
 
-
+    //TODO: just return null instead of throwing RuntimeException.
 
     public static void writeFile(File fileName, Score score){
         ObjectMapper mapper = new ObjectMapper();
@@ -15,8 +15,8 @@ public final class JsonFileWriteRead {
         try{
             mapper.writeValue(fileName, score);
         } catch (IOException e) {
-            System.out.println("error while writing file");
-            throw new RuntimeException(e);
+            System.out.println();
+            System.out.println("Error while writing file!");
         }
     }
 
@@ -27,7 +27,8 @@ public final class JsonFileWriteRead {
             return mapper.readValue(fileName, Score.class);
 
         } catch (IOException e) {
-            System.out.println("error while reading file");
+            System.out.println();
+            System.out.println("Error while reading file!");
         }
         return null;
     }
@@ -39,8 +40,8 @@ public final class JsonFileWriteRead {
         try{
             mapper.writeValue(fileName, matchHistory);
         } catch (IOException e) {
-            System.out.println("error while writing file");
-            throw new RuntimeException(e);
+            System.out.println();
+            System.out.println("Error while writing file!");
         }
     }
 
@@ -51,9 +52,10 @@ public final class JsonFileWriteRead {
             return mapper.readValue(fileName, MatchHistory.class);
 
         } catch (IOException e) {
-            System.out.println("error while reading file");
-            throw new RuntimeException(e);
+            System.out.println();
+            System.out.println("Error while reading file!");
         }
+        return null;
     }
 
 

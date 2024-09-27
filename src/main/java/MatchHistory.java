@@ -19,21 +19,22 @@ public class MatchHistory {
 
     private int convertBoardToInt(Board board) {
         int number = 0;
-        for (int row = 0; row < 3; row++) {
-            for (int column = 0; column < 3; column++) {
-                char symbol = board.getSymbol(row, column);
 
-                if (symbol == Match.PLAYER_SYMBOL) {
-                    number = number * 10 + PLAYER_INT;
-                } else if (symbol == Match.COMPUTER_SYMBOL) {
-                    number = number * 10 + COMPUTER_INT;
-                } else { // field is empty
-                    number = number * 10 + EMPTY_FILED_INT;
-                }
+        for (int i = 1; i < 10; i++){
+            Position position = new Position(i);
+            char symbol = board.getSymbol(position.getRow(), position.getColumn());
+            if (symbol == Match.PLAYER_SYMBOL) {
+                number = number * 10 + PLAYER_INT;
+            } else if (symbol == Match.COMPUTER_SYMBOL) {
+                number = number * 10 + COMPUTER_INT;
+            } else { // field is empty
+                number = number * 10 + EMPTY_FILED_INT;
             }
         }
+
          return number;
     }
+
 
     private Board convertIntToBoard(int number) {
         int newNumber = number;
@@ -60,7 +61,7 @@ public class MatchHistory {
                 case EMPTY_FILED_INT:
                     board.setSymbol(position.getRow(), position.getColumn(), Match.EMPTY_SYMBOL);
                     break;
-
+                default: board.setSymbol(position.getRow(), position.getColumn(), ' ');
             }
             counter++;
         }
@@ -81,16 +82,19 @@ public class MatchHistory {
     }
 
     public void printMatchHistory(){
-
-        MatchHistory matchHistory = JsonFileWriteRead.readHistoryFile(Main.FILE_MATCH_HISTORY);
-        List<Integer> list = matchHistory.getMatchList();
-        //List<Integer> list = matchList;
-        for(int i = 0; i < list.size(); i++){
-            Board boardTest = matchHistory.convertIntToBoard(list.get(i));
-            System.out.println("Board: " + (i+1));
-            boardTest.print();
-            System.out.println();
+        if (JsonFileWriteRead.readHistoryFile(Main.FILE_MATCH_HISTORY) != null) {
+            MatchHistory matchHistory = JsonFileWriteRead.readHistoryFile(Main.FILE_MATCH_HISTORY);
+            List<Integer> list = matchHistory.getMatchList();
+            for(int i = 0; i < list.size(); i++){
+                Board boardTest = matchHistory.convertIntToBoard(list.get(i));
+                System.out.println("Board: " + (i+1));
+                boardTest.print();
+                System.out.println();
+            }
+        } else {
+            System.out.println("No history found");
         }
+
     }
 
     public List<Integer> getMatchList() {

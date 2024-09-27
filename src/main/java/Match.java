@@ -21,6 +21,8 @@ public class Match {
     public void play(int mediumDifficulty) {
 
         this.status = MatchStatus.RUNNING;
+        Time time = new Time();
+        time.setStartTime();
 
         int moveCounter = 0;
         setPlayerTurn();
@@ -52,7 +54,11 @@ public class Match {
             isPlayerTurn = !isPlayerTurn;
         }
 
+
+        time.setEndTime();
         writeBoardToHistoryFile(board, Main.FILE_MATCH_HISTORY);
+        System.out.println();
+        System.out.println(time.getElapsedTimeInSeconds() + " seconds");
     }
 
 
@@ -78,7 +84,7 @@ public class Match {
 
     private void writeBoardToHistoryFile(Board board, File file) {
 
-        if (file.exists() && file.length() != 0) {
+        if (file.exists() && file.length() != 0 && JsonFileWriteRead.readHistoryFile(file) != null) {
             MatchHistory matchHistory = JsonFileWriteRead.readHistoryFile(file);
             matchHistory.addBoardToHistory(board);
             JsonFileWriteRead.writeHistoryFile(file, matchHistory);
@@ -93,7 +99,7 @@ public class Match {
 
     private void setPlayerTurn() {
 
-        if (Main.FILE_SCORE.exists() && Main.FILE_SCORE.length() != 0) {
+        if (Main.FILE_SCORE.exists() && Main.FILE_SCORE.length() != 0 && JsonFileWriteRead.readFile(Main.FILE_SCORE) != null) {
             Score score = JsonFileWriteRead.readFile(Main.FILE_SCORE);
             this.isPlayerTurn = score.getRoundCounter() % 2 == 0;
         } else {

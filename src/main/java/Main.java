@@ -42,6 +42,8 @@ public final class Main {
 
         PlayerInput.askForDifficulty();
 
+        Time time = new Time();
+        time.setStartTime();
         do {
 
             Match match = new Match();
@@ -51,11 +53,12 @@ public final class Main {
 
 
             Score score;
-            if (FILE_SCORE.exists() && FILE_SCORE.length() != 0) {
+            if (FILE_SCORE.exists() && FILE_SCORE.length() != 0 && JsonFileWriteRead.readFile(FILE_SCORE) != null) {
                 score = JsonFileWriteRead.readFile(FILE_SCORE);
             } else {
                 score = new Score();
             }
+
             switch (status) {
                 case PLAYER_WON -> {
                     score.setPlayerScorePlusOne();

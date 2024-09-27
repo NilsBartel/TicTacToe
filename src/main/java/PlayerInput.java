@@ -25,6 +25,7 @@ public final class PlayerInput {
         return new Position(number);
     }
 
+    @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
     public static boolean askPlayAgainWithHistory() {
         String response;
 
