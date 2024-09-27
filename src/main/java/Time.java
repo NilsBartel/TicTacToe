@@ -8,17 +8,22 @@ public class Time {
 
 
     public void setStartTime(){
-        startTime = System.nanoTime();
+        startTime = System.currentTimeMillis();
     }
 
     public void setEndTime(){
-        endTime = System.nanoTime();
+        endTime = System.currentTimeMillis();
     }
 
     public long getElapsedTimeInSeconds(){
-        return TimeUnit.NANOSECONDS.toSeconds(endTime - startTime);
-
+        return TimeUnit.MILLISECONDS.toSeconds(endTime - startTime);
     }
 
+    public long getStartTime() {
+        return startTime;
+    }
 
+    public long getEndTime() {
+        return endTime;
+    }
 }

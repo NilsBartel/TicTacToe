@@ -1,4 +1,5 @@
 import java.io.File;
+import java.util.List;
 
 public class Match {
 
@@ -56,9 +57,10 @@ public class Match {
 
 
         time.setEndTime();
-        writeBoardToHistoryFile(board, Main.FILE_MATCH_HISTORY);
-        System.out.println();
-        System.out.println(time.getElapsedTimeInSeconds() + " seconds");
+        System.out.println(TimeUtility.convertToSeconds(List.of(time.getStartTime(), time.getEndTime())));
+
+        writeToHistoryFile(board, time.getStartTime(), time.getEndTime(), Main.FILE_MATCH_HISTORY);
+
     }
 
 
@@ -82,15 +84,17 @@ public class Match {
         return false;
     }
 
-    private void writeBoardToHistoryFile(Board board, File file) {
+    private void writeToHistoryFile(Board board, Long firstTime, Long endTime, File file) {
 
         if (file.exists() && file.length() != 0 && JsonFileWriteRead.readHistoryFile(file) != null) {
             MatchHistory matchHistory = JsonFileWriteRead.readHistoryFile(file);
             matchHistory.addBoardToHistory(board);
+            matchHistory.addTimeStampsToList(firstTime, endTime);
             JsonFileWriteRead.writeHistoryFile(file, matchHistory);
         } else {
             MatchHistory matchHistory = new MatchHistory();
             matchHistory.addBoardToHistory(board);
+            matchHistory.addTimeStampsToList(firstTime, endTime);
             JsonFileWriteRead.writeHistoryFile(file, matchHistory);
         }
 

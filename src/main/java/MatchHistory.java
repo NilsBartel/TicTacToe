@@ -10,6 +10,8 @@ public class MatchHistory {
 
 
     private final List<Integer> matchList = new ArrayList<>();
+    //private final List<Long> oldTimeList = new ArrayList<>();
+    private final List<List<Long>> timesList = new ArrayList<>();
 
 
     public void addBoardToHistory(Board board) {
@@ -78,17 +80,37 @@ public class MatchHistory {
         if(matchList.size() > MATCH_HISTORY_LENGTH){
             matchList.remove(MATCH_HISTORY_LENGTH);
         }
+    }
 
+//    public void addTimeToList(long time){
+//
+//        oldTimeList.addFirst(time);
+//
+//        if(oldTimeList.size() > MATCH_HISTORY_LENGTH){
+//            oldTimeList.remove(MATCH_HISTORY_LENGTH);
+//        }
+//    }
+
+    public void addTimeStampsToList(long firstTime, long lastTime){
+
+        timesList.addFirst(List.of(firstTime, lastTime));
+        if(timesList.size() > MATCH_HISTORY_LENGTH){
+            timesList.remove(MATCH_HISTORY_LENGTH);
+        }
     }
 
     public void printMatchHistory(){
         if (JsonFileWriteRead.readHistoryFile(Main.FILE_MATCH_HISTORY) != null) {
             MatchHistory matchHistory = JsonFileWriteRead.readHistoryFile(Main.FILE_MATCH_HISTORY);
-            List<Integer> list = matchHistory.getMatchList();
-            for(int i = 0; i < list.size(); i++){
-                Board boardTest = matchHistory.convertIntToBoard(list.get(i));
+            List<Integer> matchList = matchHistory.getMatchList();
+            List<List<Long>> timesList = matchHistory.getTimesList();
+
+            for(int i = 0; i < matchList.size(); i++){
+                Board boardTest = matchHistory.convertIntToBoard(matchList.get(i));
                 System.out.println("Board: " + (i+1));
                 boardTest.print();
+                System.out.println(TimeUtility.convertToSeconds(timesList.get(i)) + " seconds");
+                TimeUtility.printDate(timesList.get(i).getFirst());
                 System.out.println();
             }
         } else {
@@ -102,4 +124,7 @@ public class MatchHistory {
     }
 
 
+    public List<List<Long>> getTimesList() {
+        return timesList;
+    }
 }

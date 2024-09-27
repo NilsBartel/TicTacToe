@@ -18,10 +18,7 @@
         <exclude name="OnlyOneReturn"/>
         <exclude name="ShortClassName"/>
         <exclude name="AtLeastOneConstructor"/>
-
-
     </rule>
-
     <rule ref="category/java/design.xml"/>
     <rule ref="category/java/errorprone.xml"/>
 
