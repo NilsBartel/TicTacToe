@@ -58,9 +58,6 @@ class ComputerMoveServiceTest {
                 // defend double fork
                 Arguments.of(generateBoard(new int[]{5,9}, new int[]{1}), 3),
                 Arguments.of(generateBoard(new int[]{1,9}, new int[]{5}), 2)
-
-
-
         );
     }
 

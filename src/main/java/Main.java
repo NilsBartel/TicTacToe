@@ -7,6 +7,9 @@ public final class Main {
     private static DifficultyState difficulty;
     public static final File FILE_SCORE = new File("score.txt");
     public static final File FILE_MATCH_HISTORY = new File("match_history.txt");
+    public static final File FILE_MATCH_HISTORY_NEW = new File("match_history_new.json");
+
+
 
     private Main() {
     }
@@ -52,13 +55,14 @@ public final class Main {
             MatchStatus status = match.getStatus();
 
 
-            Score score;
+            Score score = null;
             if (FILE_SCORE.exists() && FILE_SCORE.length() != 0 && JsonFileWriteRead.readFile(FILE_SCORE) != null) {
                 score = JsonFileWriteRead.readFile(FILE_SCORE);
-            } else {
+            }
+            if (score == null) {
                 score = new Score();
             }
-
+            
             switch (status) {
                 case PLAYER_WON -> {
                     score.setPlayerScorePlusOne();

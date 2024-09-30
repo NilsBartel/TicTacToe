@@ -1,3 +1,5 @@
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +41,7 @@ public class Board {
 
     }
 
+    @JsonIgnore
     public boolean isEmpty(){
         for(Row row : rows){
             for(Field field : row.getFields()){

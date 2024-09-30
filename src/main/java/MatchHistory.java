@@ -10,8 +10,8 @@ public class MatchHistory {
 
 
     private final List<Integer> matchList = new ArrayList<>();
-    //private final List<Long> oldTimeList = new ArrayList<>();
     private final List<List<Long>> timesList = new ArrayList<>();
+    private final List<Match> matches = new ArrayList<>();
 
 
     public void addBoardToHistory(Board board) {
@@ -71,8 +71,6 @@ public class MatchHistory {
     }
 
 
-
-
     private void addIntToList(int match){
 
         matchList.addFirst(match);
@@ -81,15 +79,6 @@ public class MatchHistory {
             matchList.remove(MATCH_HISTORY_LENGTH);
         }
     }
-
-//    public void addTimeToList(long time){
-//
-//        oldTimeList.addFirst(time);
-//
-//        if(oldTimeList.size() > MATCH_HISTORY_LENGTH){
-//            oldTimeList.remove(MATCH_HISTORY_LENGTH);
-//        }
-//    }
 
     public void addTimeStampsToList(long firstTime, long lastTime){
 
@@ -127,4 +116,5 @@ public class MatchHistory {
     public List<List<Long>> getTimesList() {
         return timesList;
     }
+
 }

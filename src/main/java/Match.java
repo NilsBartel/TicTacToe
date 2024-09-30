@@ -1,3 +1,5 @@
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.File;
 import java.util.List;
 
@@ -9,7 +11,8 @@ public class Match {
     public static final char COMPUTER_SYMBOL = 'x';
     public static final char EMPTY_SYMBOL = ' ';
     private boolean isPlayerTurn;
-
+    private long startTime;
+    private long endTime;
 
 
 
@@ -23,7 +26,7 @@ public class Match {
 
         this.status = MatchStatus.RUNNING;
         Time time = new Time();
-        time.setStartTime();
+        startTime = System.currentTimeMillis();
 
         int moveCounter = 0;
         setPlayerTurn();
@@ -56,10 +59,13 @@ public class Match {
         }
 
 
-        time.setEndTime();
-        System.out.println(TimeUtility.convertToSeconds(List.of(time.getStartTime(), time.getEndTime())));
+        endTime = System.currentTimeMillis();
+        //System.out.println(TimeUtility.convertToSeconds(List.of(time.getStartTime(), time.getEndTime())));
 
-        writeToHistoryFile(board, time.getStartTime(), time.getEndTime(), Main.FILE_MATCH_HISTORY);
+        writeToHistoryFile(board, startTime, endTime, Main.FILE_MATCH_HISTORY);
+        JsonFileWriteRead.writeHistoryFileMatch(this);
+        writeToNewHistoryFile();
+
 
     }
 
@@ -84,6 +90,24 @@ public class Match {
         return false;
     }
 
+    private void writeToNewHistoryFile() {
+        File file = Main.FILE_MATCH_HISTORY_NEW;
+
+        if (file.exists() && file.length() != 0 && JsonFileWriteRead.readToHistoryFile(file) != null) {
+            MatchHistoryJson history = JsonFileWriteRead.readToHistoryFile(file);
+            history.addMatch(this);
+            JsonFileWriteRead.writeToHistoryFile(file, history);
+        } else {
+            MatchHistoryJson history = new MatchHistoryJson();
+            history.addMatch(this);
+            JsonFileWriteRead.writeToHistoryFile(file, history);
+        }
+
+    }
+
+
+
+
     private void writeToHistoryFile(Board board, Long firstTime, Long endTime, File file) {
 
         if (file.exists() && file.length() != 0 && JsonFileWriteRead.readHistoryFile(file) != null) {
@@ -97,7 +121,6 @@ public class Match {
             matchHistory.addTimeStampsToList(firstTime, endTime);
             JsonFileWriteRead.writeHistoryFile(file, matchHistory);
         }
-
     }
 
 
@@ -123,11 +146,32 @@ public class Match {
         }
     }
 
+    public Board getBoard() {
+        return board;
+    }
+
+    @JsonIgnore
     public boolean isIsPlayerTurn() {
         return isPlayerTurn;
     }
 
     public void setIsPlayerTurn(boolean isPlayerTurn) {
         this.isPlayerTurn = isPlayerTurn;
+    }
+
+    public long getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(long startTime) {
+        this.startTime = startTime;
+    }
+
+    public long getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(long endTime) {
+        this.endTime = endTime;
     }
 }
