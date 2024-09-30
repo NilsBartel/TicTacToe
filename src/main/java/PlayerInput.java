@@ -84,7 +84,7 @@ public final class PlayerInput {
     }
 
 
-    private static boolean isInteger(String input) {
+    public static boolean isInteger(String input) {
 
         if (input == null) {
             return false;
