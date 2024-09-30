@@ -8,13 +8,7 @@ public final class Winner {
     public static boolean thereIsWinner(Board board, Position position, char currentSymbol) {
 
 
-
         int row = position.getRow();
-        //int column = position.getColumn();
-
-
-
-        //if(allEqualsSymbol(board.getRows().get(row).getFields(), currentSymbol)) {
         if(allEqualsSymbol(board.getFieldsInRow(row), currentSymbol)) {
             return true;
         }
@@ -22,7 +16,6 @@ public final class Winner {
 
         List<Field> column = new ArrayList<>();
         for(Row line : board.getRows()) {
-            //column.add(line.getFields().get(position.getColumn()));
             column.add(line.getField(position.getColumn()));
         }
         if(allEqualsSymbol(column, currentSymbol)) {
@@ -56,14 +49,6 @@ public final class Winner {
         }
         return true;
     }
-
-
-
-
-
-
-
-
 
 
 

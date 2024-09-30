@@ -9,7 +9,6 @@ public final class Main {
     public static final File FILE_MATCH_HISTORY = new File("match_history.json");
 
 
-
     private Main() {
     }
 

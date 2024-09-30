@@ -35,10 +35,7 @@ public class Board {
         int row = position.getRow();
         int column = position.getColumn();
 
-        // setSymbol(row, column, symbol)
-
         return rows.get(row).getSymbol(column) == ' ';
-
     }
 
     @JsonIgnore
