@@ -6,8 +6,7 @@ public final class Main {
 
     private static DifficultyState difficulty;
     public static final File FILE_SCORE = new File("score.txt");
-    public static final File FILE_MATCH_HISTORY = new File("match_history.txt");
-    public static final File FILE_MATCH_HISTORY_NEW = new File("match_history_new.json");
+    public static final File FILE_MATCH_HISTORY = new File("match_history.json");
 
 
 
@@ -45,8 +44,6 @@ public final class Main {
 
         PlayerInput.askForDifficulty();
 
-        Time time = new Time();
-        time.setStartTime();
         do {
 
             Match match = new Match();
@@ -56,8 +53,8 @@ public final class Main {
 
 
             Score score = null;
-            if (FILE_SCORE.exists() && FILE_SCORE.length() != 0 && JsonFileWriteRead.readFile(FILE_SCORE) != null) {
-                score = JsonFileWriteRead.readFile(FILE_SCORE);
+            if (FILE_SCORE.exists() && FILE_SCORE.length() != 0 && FileWriteRead.readFile(FILE_SCORE) != null) {
+                score = FileWriteRead.readFile(FILE_SCORE);
             }
             if (score == null) {
                 score = new Score();
@@ -84,7 +81,7 @@ public final class Main {
             Output.printDrawCounter(score);
             Output.printRoundCounter(score);
 
-            JsonFileWriteRead.writeFile(FILE_SCORE, score);
+            FileWriteRead.writeFile(FILE_SCORE, score);
         } while (PlayerInput.askPlayAgainWithHistory());
 
         Output.printGameEndMessage();

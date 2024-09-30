@@ -1,7 +1,6 @@
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.File;
-import java.util.List;
 
 public class Match {
 
@@ -25,7 +24,6 @@ public class Match {
     public void play(int mediumDifficulty) {
 
         this.status = MatchStatus.RUNNING;
-        Time time = new Time();
         startTime = System.currentTimeMillis();
 
         int moveCounter = 0;
@@ -60,13 +58,7 @@ public class Match {
 
 
         endTime = System.currentTimeMillis();
-        //System.out.println(TimeUtility.convertToSeconds(List.of(time.getStartTime(), time.getEndTime())));
-
-        writeToHistoryFile(board, startTime, endTime, Main.FILE_MATCH_HISTORY);
-        JsonFileWriteRead.writeHistoryFileMatch(this);
-        writeToNewHistoryFile();
-
-
+        writeToHistoryFile();
     }
 
 
@@ -90,48 +82,33 @@ public class Match {
         return false;
     }
 
-    private void writeToNewHistoryFile() {
-        File file = Main.FILE_MATCH_HISTORY_NEW;
+    private void writeToHistoryFile() {
+        File file = Main.FILE_MATCH_HISTORY;
 
-        if (file.exists() && file.length() != 0 && JsonFileWriteRead.readToHistoryFile(file) != null) {
-            MatchHistoryJson history = JsonFileWriteRead.readToHistoryFile(file);
+        if (file.exists() && file.length() != 0 && FileWriteRead.readFromHistoryFile(file) != null) {
+            MatchHistory history = FileWriteRead.readFromHistoryFile(file);
             history.addMatch(this);
-            JsonFileWriteRead.writeToHistoryFile(file, history);
+            FileWriteRead.writeToHistoryFile(file, history);
         } else {
-            MatchHistoryJson history = new MatchHistoryJson();
+            MatchHistory history = new MatchHistory();
             history.addMatch(this);
-            JsonFileWriteRead.writeToHistoryFile(file, history);
-        }
-
-    }
-
-
-
-
-    private void writeToHistoryFile(Board board, Long firstTime, Long endTime, File file) {
-
-        if (file.exists() && file.length() != 0 && JsonFileWriteRead.readHistoryFile(file) != null) {
-            MatchHistory matchHistory = JsonFileWriteRead.readHistoryFile(file);
-            matchHistory.addBoardToHistory(board);
-            matchHistory.addTimeStampsToList(firstTime, endTime);
-            JsonFileWriteRead.writeHistoryFile(file, matchHistory);
-        } else {
-            MatchHistory matchHistory = new MatchHistory();
-            matchHistory.addBoardToHistory(board);
-            matchHistory.addTimeStampsToList(firstTime, endTime);
-            JsonFileWriteRead.writeHistoryFile(file, matchHistory);
+            FileWriteRead.writeToHistoryFile(file, history);
         }
     }
 
 
     private void setPlayerTurn() {
 
-        if (Main.FILE_SCORE.exists() && Main.FILE_SCORE.length() != 0 && JsonFileWriteRead.readFile(Main.FILE_SCORE) != null) {
-            Score score = JsonFileWriteRead.readFile(Main.FILE_SCORE);
+        if (Main.FILE_SCORE.exists() && Main.FILE_SCORE.length() != 0 && FileWriteRead.readFile(Main.FILE_SCORE) != null) {
+            Score score = FileWriteRead.readFile(Main.FILE_SCORE);
             this.isPlayerTurn = score.getRoundCounter() % 2 == 0;
         } else {
             this.isPlayerTurn = false;
         }
+    }
+
+    public void printBoard() {
+        board.print();
     }
 
     public MatchStatus getStatus() {
@@ -174,4 +151,5 @@ public class Match {
     public void setEndTime(long endTime) {
         this.endTime = endTime;
     }
+
 }

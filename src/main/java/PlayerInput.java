@@ -40,12 +40,8 @@ public final class PlayerInput {
         }
 
         if("h".equals(response)) {
-            MatchHistoryJson history = new MatchHistoryJson();
+            MatchHistory history = new MatchHistory();
             history.printMatchHistory();
-
-//
-//            MatchHistory matchHistory = new MatchHistory();
-//            matchHistory.printMatchHistory();
             return askPlayAgain();
         }
 

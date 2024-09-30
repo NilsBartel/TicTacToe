@@ -1,6 +1,5 @@
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -9,8 +8,8 @@ public final class TimeUtility {
     }
 
 
-    public static long convertToSeconds(List<Long> timeList) {
-        return TimeUnit.MILLISECONDS.toSeconds(timeList.getLast() - timeList.getFirst());
+    public static long convertToSeconds(Long startTime, Long endTime) {
+        return TimeUnit.MILLISECONDS.toSeconds(endTime - startTime);
     }
 
     public static void printDate(Long time) {
