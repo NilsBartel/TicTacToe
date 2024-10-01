@@ -41,7 +41,7 @@ public final class Main {
         System.out.println("Welcome to TicTacToe!");
         System.out.println();
 
-        PlayerInput.askForDifficulty();
+        PlayerInput.getInstance().askForDifficulty();
 
         do {
 
@@ -52,8 +52,8 @@ public final class Main {
 
 
             Score score = null;
-            if (FILE_SCORE.exists() && FILE_SCORE.length() != 0 && FileWriteRead.readFile(FILE_SCORE) != null) {
-                score = FileWriteRead.readFile(FILE_SCORE);
+            if (FILE_SCORE.exists() && FILE_SCORE.length() != 0 && FileWriteRead.getInstance().readFile(FILE_SCORE) != null) {
+                score = FileWriteRead.getInstance().readFile(FILE_SCORE);
             }
             if (score == null) {
                 score = new Score();
@@ -80,8 +80,8 @@ public final class Main {
             Output.printDrawCounter(score);
             Output.printRoundCounter(score);
 
-            FileWriteRead.writeFile(FILE_SCORE, score);
-        } while (PlayerInput.askPlayAgainWithHistory());
+            FileWriteRead.getInstance().writeFile(FILE_SCORE, score);
+        } while (PlayerInput.getInstance().askPlayAgainWithHistory());
 
         Output.printGameEndMessage();
     }

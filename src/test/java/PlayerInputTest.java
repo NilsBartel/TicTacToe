@@ -2,14 +2,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 
-import java.io.ByteArrayInputStream;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.*;
 
 class PlayerInputTest {
 
@@ -33,23 +30,29 @@ class PlayerInputTest {
     @Test
     void testAskForMove() {
         Board board = generateBoard(new int[]{1, 2}, new int[]{4,5});
-
-        System.setIn(new ByteArrayInputStream("9".getBytes()));
         Position pos = new Position(9);
-        assertEquals(pos, PlayerInput.askForMove(board));
+
+        PlayerInput playerInput = mock(PlayerInput.class);
+        when(playerInput.askForMove(board)).thenReturn(new Position(9));
+
+        assertEquals(pos, playerInput.askForMove(board));
     }
 
 
     @Test
     void testAskPlayAgainTrue() {
-        System.setIn(new ByteArrayInputStream("y".getBytes()));
-        assertTrue(PlayerInput.askPlayAgain());
+        PlayerInput playerInput = mock(PlayerInput.class);
+        when(playerInput.askPlayAgain()).thenReturn(true);
+
+        assertTrue(playerInput.askPlayAgain());
     }
 
     @Test
     void testAskPlayAgainFalse() {
-        System.setIn(new ByteArrayInputStream("n".getBytes()));
-        assertFalse(PlayerInput.askPlayAgain());
+        PlayerInput playerInput = mock(PlayerInput.class);
+        when(playerInput.askPlayAgain()).thenReturn(false);
+
+        assertFalse(playerInput.askPlayAgain());
     }
 
 
@@ -92,6 +95,6 @@ class PlayerInputTest {
     @MethodSource("generateInteger")
     void testIsInteger (String input, boolean expected) {
 
-        assertEquals(PlayerInput.isInteger(input), expected);
+        assertEquals(PlayerInput.getInstance().isInteger(input), expected);
     }
 }

@@ -37,7 +37,7 @@ public class Match {
             Position position;
             if(isPlayerTurn){
                 currentSymbol = PLAYER_SYMBOL;
-                position = PlayerInput.askForMove(board);
+                position = PlayerInput.getInstance().askForMove(board);
             } else{
                 currentSymbol = COMPUTER_SYMBOL;
                 position = Difficulty.returnMove(board, mediumDifficulty);
@@ -85,22 +85,19 @@ public class Match {
     private void writeToHistoryFile() {
         File file = Main.FILE_MATCH_HISTORY;
 
+        MatchHistory history = new MatchHistory();
         if (file.exists() && file.length() != 0 && FileWriteRead.readFromHistoryFile(file) != null) {
-            MatchHistory history = FileWriteRead.readFromHistoryFile(file);
-            history.addMatch(this);
-            FileWriteRead.writeToHistoryFile(file, history);
-        } else {
-            MatchHistory history = new MatchHistory();
-            history.addMatch(this);
-            FileWriteRead.writeToHistoryFile(file, history);
+            history = FileWriteRead.readFromHistoryFile(file);
         }
+        history.addMatch(this);
+        FileWriteRead.getInstance().writeToHistoryFile(file, history);
     }
 
 
     private void setPlayerTurn() {
 
-        if (Main.FILE_SCORE.exists() && Main.FILE_SCORE.length() != 0 && FileWriteRead.readFile(Main.FILE_SCORE) != null) {
-            Score score = FileWriteRead.readFile(Main.FILE_SCORE);
+        if (Main.FILE_SCORE.exists() && Main.FILE_SCORE.length() != 0 && FileWriteRead.getInstance().readFile(Main.FILE_SCORE) != null) {
+            Score score = FileWriteRead.getInstance().readFile(Main.FILE_SCORE);
             this.isPlayerTurn = score.getRoundCounter() % 2 == 0;
         } else {
             this.isPlayerTurn = false;

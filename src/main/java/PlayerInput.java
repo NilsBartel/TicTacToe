@@ -3,16 +3,29 @@ import java.util.Scanner;
 public final class PlayerInput {
     private static final Scanner SCANNER = new Scanner(System.in);
     private static final String INVALID_INPUT = "This is not a valid input! Please try again.";
+    private static PlayerInput INSTANCE;
 
     private PlayerInput() {
     }
+    public static PlayerInput getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new PlayerInput();
+        }
+        return INSTANCE;
+    }
 
-    public static Position askForMove(Board board) {
+
+
+    private String scanner() {
+        return SCANNER.nextLine();
+    }
+
+    public Position askForMove(Board board) {
         String move;
         int number;
         while(true){
             System.out.println("Please pick a field (1-9)");
-            move = SCANNER.nextLine();
+            move = scanner();
 
             if(isInteger(move) && board.isValid(Integer.parseInt(move))){
                 number = Integer.parseInt(move);
@@ -26,17 +39,17 @@ public final class PlayerInput {
     }
 
     @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
-    public static boolean askPlayAgainWithHistory() {
+    public boolean askPlayAgainWithHistory() {
         String response;
 
         System.out.println();
         System.out.println("Do you want to play again? (Type y/n)");
         System.out.println("Or type (h) for history.");
-        response = SCANNER.nextLine();
+        response = scanner();
 
         while(! ("y".equals(response) || "n".equals(response) || "h".equals(response))) {
             System.out.println(INVALID_INPUT);
-            response = SCANNER.nextLine();
+            response = scanner();
         }
 
         if("h".equals(response)) {
@@ -48,28 +61,31 @@ public final class PlayerInput {
         return "y".equals(response);
     }
 
-    public static boolean askPlayAgain() {
+
+
+    public boolean askPlayAgain() {
         String response;
 
         System.out.println();
         System.out.println("Do you want to play again? (Type y/n)");
-        response = SCANNER.nextLine();
+        response = scanner();
 
         while(! ("y".equals(response) || "n".equals(response))) {
             System.out.println(INVALID_INPUT);
-            response = SCANNER.nextLine();
+            response = scanner();
         }
         return "y".equals(response);
     }
 
-    public static void askForDifficulty() {
+    public void askForDifficulty() {
         String response;
+        System.out.println();
         System.out.println("What difficulty would you like to play?   Easy, Medium, impossible?   (Type e/m/i)");
-        response = SCANNER.nextLine();
+        response = scanner();
 
         while(! ("e".equals(response) || "m".equals(response) || "i".equals(response))) {
             System.out.println(INVALID_INPUT);
-            response = SCANNER.nextLine();
+            response = scanner();
         }
 
         switch(response){
@@ -84,7 +100,7 @@ public final class PlayerInput {
     }
 
 
-    public static boolean isInteger(String input) {
+    public boolean isInteger(String input) {
 
         if (input == null) {
             return false;

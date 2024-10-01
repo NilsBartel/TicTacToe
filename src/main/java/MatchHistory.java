@@ -14,11 +14,10 @@ public class MatchHistory {
             int counter = 0;
             for(Match match : history.getMatches().reversed()){
                 counter++;
-                System.out.println();
-                System.out.println("Board: " + counter);
+                PrintService.printBoardNr(counter);
                 match.printBoard();
-                System.out.println(TimeUtility.convertToSeconds(match.getStartTime(), match.getEndTime()) + " seconds");
-                TimeUtility.printDate(match.getStartTime());
+                PrintService.printSecondsElapsed(match.getStartTime(), match.getEndTime());
+                PrintService.printDate(match.getStartTime());
             }
 
         } else {

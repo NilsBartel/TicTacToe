@@ -4,11 +4,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.*;
 
 public final class FileWriteRead {
+    private static FileWriteRead INSTANCE;
     private FileWriteRead() {
     }
 
+    public static FileWriteRead getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new FileWriteRead();
+        }
+        return INSTANCE;
+    }
 
-    public static void writeFile(File fileName, Score score){
+
+    public void writeFile(File fileName, Score score){
         ObjectMapper mapper = new ObjectMapper();
 
         try{
@@ -19,7 +27,7 @@ public final class FileWriteRead {
         }
     }
 
-    public static Score readFile(File fileName) {
+    public Score readFile(File fileName) {
         ObjectMapper mapper = new ObjectMapper();
 
         try{
@@ -35,7 +43,7 @@ public final class FileWriteRead {
 
 
 
-    public static void writeToHistoryFile(File file, MatchHistory matchHistoryJson) {
+    public void writeToHistoryFile(File file, MatchHistory matchHistoryJson) {
 
         ObjectMapper mapper = new ObjectMapper();
         try{
