@@ -4,15 +4,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.*;
 
 public final class FileWriteRead {
-    private static FileWriteRead INSTANCE;
+    private static FileWriteRead instance;
     private FileWriteRead() {
     }
 
     public static FileWriteRead getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new FileWriteRead();
+        if (instance == null) {
+            instance = new FileWriteRead();
         }
-        return INSTANCE;
+        return instance;
     }
 
 
@@ -54,7 +54,7 @@ public final class FileWriteRead {
         }
     }
 
-    public static MatchHistory readFromHistoryFile(File file) {
+    public MatchHistory readFromHistoryFile(File file) {
         ObjectMapper mapper = new ObjectMapper();
 
         try{

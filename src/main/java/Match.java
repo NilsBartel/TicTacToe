@@ -86,8 +86,8 @@ public class Match {
         File file = Main.FILE_MATCH_HISTORY;
 
         MatchHistory history = new MatchHistory();
-        if (file.exists() && file.length() != 0 && FileWriteRead.readFromHistoryFile(file) != null) {
-            history = FileWriteRead.readFromHistoryFile(file);
+        if (file.exists() && file.length() != 0 && FileWriteRead.getInstance().readFromHistoryFile(file) != null) {
+            history = FileWriteRead.getInstance().readFromHistoryFile(file);
         }
         history.addMatch(this);
         FileWriteRead.getInstance().writeToHistoryFile(file, history);
@@ -122,6 +122,10 @@ public class Match {
 
     public Board getBoard() {
         return board;
+    }
+
+    public void setSymbol(int row, int column, char symbol) {
+        board.setSymbol(row, column, symbol);
     }
 
     @JsonIgnore

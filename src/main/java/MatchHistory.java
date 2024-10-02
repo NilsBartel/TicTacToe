@@ -7,24 +7,23 @@ public class MatchHistory {
     private final List<Match> matches = new ArrayList<>();
 
 
-    public void printMatchHistory(){
-        if (FileWriteRead.readFromHistoryFile(Main.FILE_MATCH_HISTORY) != null) {
-            MatchHistory history = FileWriteRead.readFromHistoryFile(Main.FILE_MATCH_HISTORY);
+    public static MatchHistory fromFile() {
+        return FileWriteRead.getInstance().readFromHistoryFile(Main.FILE_MATCH_HISTORY);
+    }
 
+    public void printMatchHistory(MatchHistory history) {
+
+        if (history != null) {
             int counter = 0;
             for(Match match : history.getMatches().reversed()){
                 counter++;
-                PrintService.printBoardNr(counter);
+                PrintService.getInstance().printBoardNr(counter);
                 match.printBoard();
-                PrintService.printSecondsElapsed(match.getStartTime(), match.getEndTime());
-                PrintService.printDate(match.getStartTime());
+                PrintService.getInstance().printSecondsElapsed(match.getStartTime(), match.getEndTime());
+                PrintService.getInstance().printDate(match.getStartTime());
             }
-
-        } else {
-            System.out.println("No history found");
         }
     }
-
 
     public void addMatch(Match match) {
         matches.add(match);
@@ -37,4 +36,6 @@ public class MatchHistory {
     public List<Match> getMatches() {
         return matches;
     }
+
+
 }

@@ -3,15 +3,15 @@ import java.util.Scanner;
 public final class PlayerInput {
     private static final Scanner SCANNER = new Scanner(System.in);
     private static final String INVALID_INPUT = "This is not a valid input! Please try again.";
-    private static PlayerInput INSTANCE;
+    private static PlayerInput instance;
 
     private PlayerInput() {
     }
     public static PlayerInput getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new PlayerInput();
+        if (instance == null) {
+            instance = new PlayerInput();
         }
-        return INSTANCE;
+        return instance;
     }
 
 
@@ -53,8 +53,10 @@ public final class PlayerInput {
         }
 
         if("h".equals(response)) {
-            MatchHistory history = new MatchHistory();
-            history.printMatchHistory();
+            MatchHistory matchHistory = MatchHistory.fromFile();
+            if (matchHistory != null) {
+                matchHistory.printMatchHistory(MatchHistory.fromFile());
+            }
             return askPlayAgain();
         }
 
