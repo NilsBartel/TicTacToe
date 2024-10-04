@@ -1,33 +1,14 @@
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 class MatchHistoryTest {
 
 
-    private static Board generateBoard(int[] player, int[] computer) {
-        Board board = new Board();
 
-        for (int j : player) {
-            Position position = new Position(j);
-            board.getRows().get(position.getRow()).getFields().get(position.getColumn()).setSymbol(Match.PLAYER_SYMBOL);
-        }
-
-        for (int j : computer) {
-            Position position = new Position(j);
-            board.getRows().get(position.getRow()).getFields().get(position.getColumn()).setSymbol(Match.COMPUTER_SYMBOL);
-        }
-
-        return board;
-    }
-
-    private MatchHistory createMatchHistory() {
+    private MatchHistory createMatchHistory(PrintService printService) {
         MatchHistory matchHistory = new MatchHistory();
+        matchHistory.setPrintService(printService);
         Match match = new Match();
 
         match.setSymbol(0, 0, Match.PLAYER_SYMBOL);
@@ -44,25 +25,13 @@ class MatchHistoryTest {
         return matchHistory;
     }
 
-
-
-    @Test
-    void test() {
-        List<String> mockedList = mock(List.class);
-        mockedList.size();
-
-        verify(mockedList).size();
-    }
-
-
-
     @Test
     void printMatchHistoryTest() {
-        
-        MatchHistory matchHistory = createMatchHistory();
-        PrintService mockPrintService = mock(PrintService.class);
 
-        matchHistory.printMatchHistory(matchHistory);
+        PrintService mockPrintService = mock(PrintService.class);
+        MatchHistory matchHistory = createMatchHistory(mockPrintService);
+
+        matchHistory.printMatchHistory();
 
         verify(mockPrintService).printBoardNr(anyInt());
     }

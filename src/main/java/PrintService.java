@@ -1,4 +1,4 @@
-public class PrintService {
+public final class PrintService {
     private static PrintService instance;
 
     private PrintService() {
@@ -21,6 +21,10 @@ public class PrintService {
     public void printBoardNr(int counter) {
         System.out.println();
         System.out.println("Board: " + counter);
+    }
+
+    public void printBoard(Match match) {
+        match.printBoard();
     }
 
 }

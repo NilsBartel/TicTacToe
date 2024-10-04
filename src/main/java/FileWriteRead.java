@@ -64,7 +64,7 @@ public final class FileWriteRead {
             System.out.println();
             System.out.println("Error while reading file!");
         }
-        return null;
+        return new MatchHistory();
     }
 
 }
