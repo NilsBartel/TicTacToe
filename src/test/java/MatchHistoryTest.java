@@ -10,9 +10,6 @@ import static org.mockito.Mockito.*;
 class MatchHistoryTest {
 
 
-    //TODO: create object Match? or matchHistory? to feed to the when().then()
-
-    //TODO: generate board method from other tests
     private static Board generateBoard(int[] player, int[] computer) {
         Board board = new Board();
 
@@ -48,20 +45,6 @@ class MatchHistoryTest {
     }
 
 
-//    @Test
-//    void printTest() {
-//
-//        MatchHistory matchHistory = createMatchHistory();
-//        matchHistory.printMatch();
-//        //PrintService mockPrintService = mock(PrintService.class);
-//
-//
-//        //when(mockPrintService.printBoardNr(anyInt())).thenReturn(any());
-//
-//-
-//
-//        //verify(PrintService.getInstance()).printBoardNr(anyInt());
-//    }
 
     @Test
     void test() {
@@ -76,20 +59,11 @@ class MatchHistoryTest {
     @Test
     void printMatchHistoryTest() {
         
-        //FileWriteRead fileWriteRead = mock(FileWriteRead.class);
         MatchHistory matchHistory = createMatchHistory();
-        Match match = mock(Match.class);
         PrintService mockPrintService = mock(PrintService.class);
 
-        //when(fileWriteRead.readFromHistoryFile(new File(anyString()))).thenReturn(matchHistory);
-        //when(mockPrintService.printBoardNr(anyInt()).thenReturn(any());
         matchHistory.printMatchHistory(matchHistory);
 
-
-        //verify(mockPrintService).printBoardNr(anyInt());
-        //verify(match).printBoard();
         verify(mockPrintService).printBoardNr(anyInt());
-        //verify(matchHistory).printMatchHistory(any());
-
     }
 }

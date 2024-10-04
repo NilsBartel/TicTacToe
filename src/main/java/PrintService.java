@@ -23,9 +23,4 @@ public class PrintService {
         System.out.println("Board: " + counter);
     }
 
-
-
-
-
-
 }

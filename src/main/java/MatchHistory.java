@@ -6,6 +6,8 @@ public class MatchHistory {
 
     private final List<Match> matches = new ArrayList<>();
 
+    //TODO: constructor to get the instance
+    // injection, check Teams
 
     public static MatchHistory fromFile() {
         return FileWriteRead.getInstance().readFromHistoryFile(Main.FILE_MATCH_HISTORY);
@@ -36,6 +38,4 @@ public class MatchHistory {
     public List<Match> getMatches() {
         return matches;
     }
-
-
 }
