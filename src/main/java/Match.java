@@ -29,6 +29,8 @@ public class Match {
         int moveCounter = 0;
         setPlayerTurn();
 
+//        List<Row> rows = board.getRows();
+//        board.print(rows);
         board.print();
         System.out.println();
         while (true){
@@ -46,6 +48,8 @@ public class Match {
             board.setSymbol(position.getRow(), position.getColumn(), currentSymbol);
 
             System.out.println();
+//            rows = board.getRows();
+//            board.print(rows);
             board.print();
 
             moveCounter++;
@@ -85,26 +89,21 @@ public class Match {
     private void writeToHistoryFile() {
         File file = Main.FILE_MATCH_HISTORY;
 
-        MatchHistory history = new MatchHistory();
-        if (file.exists() && file.length() != 0 && FileWriteRead.getInstance().readFromHistoryFile(file) != null) {
-            history = FileWriteRead.getInstance().readFromHistoryFile(file);
-        }
+        MatchHistory history = FileWriteRead.getInstance().readFromHistoryFile(file);
+
         history.addMatch(this);
         FileWriteRead.getInstance().writeToHistoryFile(file, history);
     }
 
 
     private void setPlayerTurn() {
-
-        if (Main.FILE_SCORE.exists() && Main.FILE_SCORE.length() != 0 && FileWriteRead.getInstance().readFile(Main.FILE_SCORE) != null) {
-            Score score = FileWriteRead.getInstance().readFile(Main.FILE_SCORE);
-            this.isPlayerTurn = score.getRoundCounter() % 2 == 0;
-        } else {
-            this.isPlayerTurn = false;
-        }
+        Score score = FileWriteRead.getInstance().readFile(Main.FILE_SCORE);
+        this.isPlayerTurn = score.getRoundCounter() % 2 == 0;
     }
 
     public void printBoard() {
+//        List<Row> rows = board.getRows();
+//        board.print(rows);
         board.print();
     }
 
@@ -115,9 +114,10 @@ public class Match {
     public static char getOpponentsSymbol(char symbol) {
         if (symbol == COMPUTER_SYMBOL){
             return PLAYER_SYMBOL;
-        } else {
+        } else if (symbol == PLAYER_SYMBOL){
             return COMPUTER_SYMBOL;
         }
+        return symbol;
     }
 
     public Board getBoard() {

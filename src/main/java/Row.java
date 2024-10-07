@@ -3,8 +3,10 @@ import java.util.List;
 
 public class Row {
     List<Field> fields = new ArrayList<>();
+    PrintService printService;
 
     public Row() {
+        setPrintService(PrintService.getInstance());
         for(int column = 0; column<3; column++){
             fields.add(new Field());
         }
@@ -12,14 +14,13 @@ public class Row {
 
 
     public void print(){
-
         List<String> symbols = new ArrayList<>();
         for(Field field : fields){
             symbols.add(String.valueOf(field.getSymbol()));
         }
 
         String line = String.join(" | ", symbols);
-        System.out.println(line);
+        printService.printRow(line);
     }
 
     public List<Field> getFields() {
@@ -38,5 +39,7 @@ public class Row {
         return fields.get(column).getSymbol();
     }
 
-
+    public void setPrintService(PrintService printService) {
+        this.printService = printService;
+    }
 }

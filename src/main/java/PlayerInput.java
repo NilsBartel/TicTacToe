@@ -54,16 +54,12 @@ public final class PlayerInput {
 
         if("h".equals(response)) {
             MatchHistory matchHistory = MatchHistory.fromFile();
-            if (matchHistory != null) {
-                matchHistory.printMatchHistory();
-            }
+            matchHistory.printMatchHistory();
             return askPlayAgain();
         }
 
         return "y".equals(response);
     }
-
-
 
     public boolean askPlayAgain() {
         String response;
@@ -101,15 +97,13 @@ public final class PlayerInput {
         }
     }
 
-
+    @SuppressWarnings("PMD.UnusedLocalVariable")
     public boolean isInteger(String input) {
-
         if (input == null) {
             return false;
         }
         try {
             int num = Integer.parseInt(input);
-            //System.out.println(num);
         } catch (NumberFormatException nfe) {
             return false;
         }

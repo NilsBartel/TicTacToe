@@ -13,7 +13,6 @@ public class Board {
 
     public Board(){
         for(int row = 0; row<3; row++){
-
             rows.add(new Row());
         }
     }
@@ -25,17 +24,12 @@ public class Board {
     }
 
     public boolean isValid(int index){
-
         if(index < 1 || index > 9) {
             return false;
         }
 
-
         Position position = new Position(index);
-        int row = position.getRow();
-        int column = position.getColumn();
-
-        return rows.get(row).getSymbol(column) == ' ';
+        return rows.get(position.getRow()).getSymbol(position.getColumn()) == ' ';
     }
 
     @JsonIgnore
@@ -72,5 +66,9 @@ public class Board {
 
     public Field getField(int row , int column){
         return rows.get(row).getField(column);
+    }
+
+    public void setRows(List<Row> rows) {
+        this.rows = rows;
     }
 }

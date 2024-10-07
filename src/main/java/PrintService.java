@@ -1,3 +1,5 @@
+import java.util.List;
+
 public final class PrintService {
     private static PrintService instance;
 
@@ -25,6 +27,10 @@ public final class PrintService {
 
     public void printBoard(Match match) {
         match.printBoard();
+    }
+
+    public void printRow(String row) {
+        System.out.println(row);
     }
 
 }

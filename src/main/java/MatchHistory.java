@@ -4,17 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MatchHistory {
-    private static final int MAX_HISTORY_SIZE = 10;
+    public static final int MAX_HISTORY_SIZE = 10;
 
-    private List<Match> matches = new ArrayList<>();
+    private final List<Match> matches = new ArrayList<>();
 
     @JsonIgnore
     private PrintService printService;
-
-    public MatchHistory() {
-    }
-
-
 
 
     public static MatchHistory fromFile() {
@@ -27,15 +22,14 @@ public class MatchHistory {
 
     public void printMatchHistory() {
 
-            int counter = 0;
-            for(Match match : this.getMatches().reversed()){
-                counter++;
-                printService.printBoardNr(counter);
-                printService.printBoard(match);
-                printService.printSecondsElapsed(match.getStartTime(), match.getEndTime());
-                printService.printDate(match.getStartTime());
-            }
-
+        int counter = 0;
+        for(Match match : this.getMatches().reversed()){
+            counter++;
+            printService.printBoardNr(counter);
+            printService.printBoard(match);
+            printService.printSecondsElapsed(match.getStartTime(), match.getEndTime());
+            printService.printDate(match.getStartTime());
+        }
     }
 
     public void addMatch(Match match) {
@@ -57,4 +51,6 @@ public class MatchHistory {
     public void setPrintService(PrintService printService) {
         this.printService = printService;
     }
+
+
 }

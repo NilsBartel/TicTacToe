@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.*;
 
 public final class FileWriteRead {
+
     private static FileWriteRead instance;
     private FileWriteRead() {
     }
@@ -37,7 +38,7 @@ public final class FileWriteRead {
             System.out.println();
             System.out.println("Error while reading file!");
         }
-        return null;
+        return new Score();
     }
 
 

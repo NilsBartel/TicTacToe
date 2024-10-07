@@ -51,13 +51,14 @@ public final class Main {
             MatchStatus status = match.getStatus();
 
 
-            Score score = null;
-            if (FILE_SCORE.exists() && FILE_SCORE.length() != 0 && FileWriteRead.getInstance().readFile(FILE_SCORE) != null) {
-                score = FileWriteRead.getInstance().readFile(FILE_SCORE);
-            }
-            if (score == null) {
-                score = new Score();
-            }
+//            Score score ; // = null
+//            if (FILE_SCORE.exists() && FILE_SCORE.length() != 0) {   // && FileWriteRead.getInstance().readFile(FILE_SCORE) != null
+//                score = FileWriteRead.getInstance().readFile(FILE_SCORE);
+//            }
+//            if (score == null) {
+//                score = new Score();
+//            }
+            Score score = FileWriteRead.getInstance().readFile(FILE_SCORE);
             
             switch (status) {
                 case PLAYER_WON -> {
