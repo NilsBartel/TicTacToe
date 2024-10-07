@@ -3,7 +3,7 @@ import java.util.List;
 
 public class Row {
     List<Field> fields = new ArrayList<>();
-    PrintService printService;
+    private PrintService printService;
 
     public Row() {
         setPrintService(PrintService.getInstance());

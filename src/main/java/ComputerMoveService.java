@@ -61,8 +61,6 @@ public final class ComputerMoveService {
 
         // play a corner
         return takeACorner(board);
-
-
         // else it takes a random move
     }
 

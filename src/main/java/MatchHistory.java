@@ -32,10 +32,24 @@ public class MatchHistory {
         }
     }
 
-    public void addMatch(Match match) {
-        matches.add(match);
+
+    // 10
+    // if > 10 -> remove last and add
+    //  running: 11
+    //  running: 11
+    // end
+    //
+
+
+    public void addRunningMatch(Match match) {
+        this.matches.add(match);
+    }
+
+    public void addFinishedMatch(Match match) {
+        this.matches.add(match);
 
         if (matches.size() > MAX_HISTORY_SIZE) {
+
             matches.removeFirst();
         }
     }

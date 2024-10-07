@@ -25,10 +25,6 @@ public class Position {
             return true;
         }
         return !(object instanceof Position position) || index == position.index;
-//        if (!(object instanceof Position position)) {
-//            return false;
-//        }
-//        return index == position.index;
     }
 
     @Override

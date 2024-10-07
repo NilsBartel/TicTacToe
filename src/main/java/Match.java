@@ -29,8 +29,6 @@ public class Match {
         int moveCounter = 0;
         setPlayerTurn();
 
-//        List<Row> rows = board.getRows();
-//        board.print(rows);
         board.print();
         System.out.println();
         while (true){
@@ -46,10 +44,9 @@ public class Match {
             }
 
             board.setSymbol(position.getRow(), position.getColumn(), currentSymbol);
+            // isPlayerTurn = !isPlayerTurn;  TODO: move to here?
 
             System.out.println();
-//            rows = board.getRows();
-//            board.print(rows);
             board.print();
 
             moveCounter++;
@@ -58,6 +55,7 @@ public class Match {
             }
 
             isPlayerTurn = !isPlayerTurn;
+
         }
 
 
@@ -91,7 +89,7 @@ public class Match {
 
         MatchHistory history = FileWriteRead.getInstance().readFromHistoryFile(file);
 
-        history.addMatch(this);
+        history.addFinishedMatch(this);
         FileWriteRead.getInstance().writeToHistoryFile(file, history);
     }
 
@@ -102,8 +100,6 @@ public class Match {
     }
 
     public void printBoard() {
-//        List<Row> rows = board.getRows();
-//        board.print(rows);
         board.print();
     }
 

@@ -63,28 +63,28 @@ public final class Main {
             switch (status) {
                 case PLAYER_WON -> {
                     score.setPlayerScorePlusOne();
-                    Output.printWhoWon(match.isIsPlayerTurn());
+                    PrintService.getInstance().printWhoWon(match.isIsPlayerTurn());
                 }
                 case COMPUTER_WON -> {
                     score.setComputerScorePlusOne();
-                    Output.printWhoWon(match.isIsPlayerTurn());
+                    PrintService.getInstance().printWhoWon(match.isIsPlayerTurn());
                 }
                 case DRAW -> {
                     score.setDrawCountPlusOne();
-                    Output.printDraw();
+                    PrintService.getInstance().printDraw();
                 }
                 default -> System.out.println("Invalid match status");
             }
 
 
-            Output.printScore(score);
-            Output.printDrawCounter(score);
-            Output.printRoundCounter(score);
+            PrintService.getInstance().printScore(score);
+            PrintService.getInstance().printDrawCounter(score);
+            PrintService.getInstance().printRoundCounter(score);
 
             FileWriteRead.getInstance().writeFile(FILE_SCORE, score);
         } while (PlayerInput.getInstance().askPlayAgainWithHistory());
 
-        Output.printGameEndMessage();
+        PrintService.getInstance().printGameEndMessage();
     }
 
     public static DifficultyState getDifficulty() {

@@ -21,7 +21,7 @@ class MatchHistoryTest {
         match.setStartTime(1727709534293L);
         match.setEndTime(1727709537509L);
 
-        matchHistory.addMatch(match);
+        matchHistory.addFinishedMatch(match);
 
         return matchHistory;
     }
@@ -58,7 +58,7 @@ class MatchHistoryTest {
         MatchHistory matchHistory = new MatchHistory();
 
         for(int i = 0; i < MatchHistory.MAX_HISTORY_SIZE + 20; i++) {
-            matchHistory.addMatch(createMatchForTest());
+            matchHistory.addFinishedMatch(createMatchForTest());
         }
 
         assertTrue(matchHistory.getMatches().size() <= MatchHistory.MAX_HISTORY_SIZE);
