@@ -24,32 +24,27 @@ public class MatchHistory {
 
         int counter = 0;
         for(Match match : this.getMatches().reversed()){
-            counter++;
-            printService.printBoardNr(counter);
-            printService.printBoard(match);
-            printService.printSecondsElapsed(match.getStartTime(), match.getEndTime());
-            printService.printDate(match.getStartTime());
+
+            if(counter < MAX_HISTORY_SIZE && (match.getStatus() == MatchStatus.DRAW || match.getStatus() == MatchStatus.PLAYER_WON || match.getStatus() == MatchStatus.COMPUTER_WON)) {
+                counter++;
+                printService.printBoardNr(counter);
+                printService.printBoard(match);
+                printService.printSecondsElapsed(match.getStartTime(), match.getEndTime());
+                printService.printDate(match.getStartTime());
+            }
         }
     }
 
 
-    // 10
-    // if > 10 -> remove last and add
-    //  running: 11
-    //  running: 11
-    // end
-    //
-
-
-    public void addRunningMatch(Match match) {
+    public void addMatch(Match match) {
         this.matches.add(match);
     }
 
-    public void addFinishedMatch(Match match) {
+
+    public void addMatchOld(Match match) {
         this.matches.add(match);
 
         if (matches.size() > MAX_HISTORY_SIZE) {
-
             matches.removeFirst();
         }
     }

@@ -3,8 +3,6 @@ import java.io.File;
 
 public final class Main {
 
-
-    private static DifficultyState difficulty;
     public static final File FILE_SCORE = new File("score.txt");
     public static final File FILE_MATCH_HISTORY = new File("match_history.json");
 
@@ -36,18 +34,39 @@ public final class Main {
 //        int mediumDifficultyPercentage = input;
 
 
-        int mediumDifficultyPercentage = 40;
+        Match match = null;
 
-        System.out.println("Welcome to TicTacToe!");
-        System.out.println();
+        MatchHistory matchHistory = FileWriteRead.getInstance().readFromHistoryFile(FILE_MATCH_HISTORY);
 
-        PlayerInput.getInstance().askForDifficulty();
+        if (!matchHistory.getMatches().isEmpty() && matchHistory.getMatches().getLast().getStatus() == MatchStatus.RUNNING) { //TODO: LawOfDemeter ???
+            System.out.println("Welcome back, your last game has been restored.");
+            System.out.println();
+            match = matchHistory.getMatches().getLast();
+
+        } else {
+            System.out.println("Welcome to TicTacToe!");
+            System.out.println();
+            match = new Match();
+            match.setDifficulty(PlayerInput.getInstance().askForDifficulty());
+        }
+
+
+
+
+
+        //int mediumDifficultyPercentage = 40; //TODO: save in file???
+        //TODO: play again is wrong
+        //TODO: is the player turn correct??? (after reload)
+
+
 
         do {
 
-            Match match = new Match();
+            if(match == null || match.getStatus() != MatchStatus.RUNNING) {
+                match = new Match();
+            }
 
-            match.play(mediumDifficultyPercentage);
+            match.play();
             MatchStatus status = match.getStatus();
 
 
@@ -73,7 +92,7 @@ public final class Main {
                     score.setDrawCountPlusOne();
                     PrintService.getInstance().printDraw();
                 }
-                default -> System.out.println("Invalid match status");
+                default -> System.out.println("Invalid match status (in Main)");
             }
 
 
@@ -87,11 +106,4 @@ public final class Main {
         PrintService.getInstance().printGameEndMessage();
     }
 
-    public static DifficultyState getDifficulty() {
-        return difficulty;
-    }
-
-    public static void setDifficulty(DifficultyState difficulty) {
-        Main.difficulty = difficulty;
-    }
 }

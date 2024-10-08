@@ -75,7 +75,7 @@ public final class PlayerInput {
         return "y".equals(response);
     }
 
-    public void askForDifficulty() {
+    public DifficultyState askForDifficulty() {
         String response;
         System.out.println();
         System.out.println("What difficulty would you like to play?   Easy, Medium, impossible?   (Type e/m/i)");
@@ -86,15 +86,12 @@ public final class PlayerInput {
             response = myScanner();
         }
 
-        switch(response){
-            case "e": Main.setDifficulty(DifficultyState.EASY);
-            break;
-            case "m": Main.setDifficulty(DifficultyState.MEDIUM);
-            break;
-            case "i": Main.setDifficulty(DifficultyState.IMPOSSIBLE);
-            break;
-            default: {throw new IllegalStateException("Unexpected value: " + response);}
-        }
+        return switch (response) {
+            case "e" -> DifficultyState.EASY;
+            case "m" -> DifficultyState.MEDIUM;
+            case "i" -> DifficultyState.IMPOSSIBLE;
+            default -> throw new IllegalStateException("Unexpected value: " + response);
+        };
     }
 
     @SuppressWarnings("PMD.UnusedLocalVariable")

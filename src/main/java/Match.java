@@ -6,6 +6,7 @@ public class Match {
 
     private final Board board;
     private MatchStatus status;
+    private static DifficultyState difficulty;
     public static final char PLAYER_SYMBOL = 'o';
     public static final char COMPUTER_SYMBOL = 'x';
     public static final char EMPTY_SYMBOL = ' ';
@@ -21,13 +22,16 @@ public class Match {
     }
 
 
-    public void play(int mediumDifficulty) {
+    public void play() {
+
+        if (status == MatchStatus.NOT_STARTED) {
+            setPlayerTurn();
+        }
 
         this.status = MatchStatus.RUNNING;
         startTime = System.currentTimeMillis();
 
         int moveCounter = 0;
-        setPlayerTurn();
 
         board.print();
         System.out.println();
@@ -40,11 +44,12 @@ public class Match {
                 position = PlayerInput.getInstance().askForMove(board);
             } else{
                 currentSymbol = COMPUTER_SYMBOL;
-                position = Difficulty.returnMove(board, mediumDifficulty);
+                position = Difficulty.returnMove(board, difficulty);
             }
 
             board.setSymbol(position.getRow(), position.getColumn(), currentSymbol);
-            // isPlayerTurn = !isPlayerTurn;  TODO: move to here?
+
+
 
             System.out.println();
             board.print();
@@ -55,7 +60,7 @@ public class Match {
             }
 
             isPlayerTurn = !isPlayerTurn;
-
+            writeToHistoryFile();
         }
 
 
@@ -89,7 +94,7 @@ public class Match {
 
         MatchHistory history = FileWriteRead.getInstance().readFromHistoryFile(file);
 
-        history.addFinishedMatch(this);
+        history.addMatch(this);
         FileWriteRead.getInstance().writeToHistoryFile(file, history);
     }
 
@@ -124,7 +129,7 @@ public class Match {
         board.setSymbol(row, column, symbol);
     }
 
-    @JsonIgnore
+
     public boolean isIsPlayerTurn() {
         return isPlayerTurn;
     }
@@ -149,4 +154,11 @@ public class Match {
         this.endTime = endTime;
     }
 
+    public DifficultyState getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(DifficultyState difficulty) {
+        Match.difficulty = difficulty;
+    }
 }

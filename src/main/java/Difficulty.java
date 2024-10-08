@@ -2,22 +2,23 @@
 
 
 public final class Difficulty {
+    public static final int MEDIUM_DIFFICULTY_PERCENTAGE = 40;
     private Difficulty() {
     }
 
-    public static Position returnMove(Board board, int difficulty) {
+    public static Position returnMove(Board board, DifficultyState difficulty) {
 
-        switch (Main.getDifficulty()){
+        switch (difficulty){
             case EASY -> {
                 return ComputerMoveService.easyComputerMove(board);
             }
             case MEDIUM -> {
-                return ComputerMoveService.mediumComputerMove(board, difficulty);
+                return ComputerMoveService.mediumComputerMove(board, MEDIUM_DIFFICULTY_PERCENTAGE);
             }
             case IMPOSSIBLE -> {
                 return ComputerMoveService.impossibleComputerMove(board);
             }
-            default -> {throw new IllegalStateException("Unexpected value: " + difficulty);}
+            default -> {throw new IllegalStateException("Unexpected value: " + MEDIUM_DIFFICULTY_PERCENTAGE);}
         }
     }
 }
