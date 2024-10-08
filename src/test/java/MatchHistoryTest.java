@@ -20,6 +20,8 @@ class MatchHistoryTest {
         match.setIsPlayerTurn(true);
         match.setStartTime(1727709534293L);
         match.setEndTime(1727709537509L);
+        match.setDifficulty(DifficultyState.EASY);
+        match.setStatus(MatchStatus.DRAW);
 
         matchHistory.addMatchOld(match);
 

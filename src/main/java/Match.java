@@ -6,7 +6,7 @@ public class Match {
 
     private final Board board;
     private MatchStatus status;
-    private static DifficultyState difficulty;
+    private DifficultyState difficulty;
     public static final char PLAYER_SYMBOL = 'o';
     public static final char COMPUTER_SYMBOL = 'x';
     public static final char EMPTY_SYMBOL = ' ';
@@ -31,12 +31,11 @@ public class Match {
         this.status = MatchStatus.RUNNING;
         startTime = System.currentTimeMillis();
 
-        int moveCounter = 0;
-
         board.print();
         System.out.println();
         while (true){
             char currentSymbol;
+            System.out.println(difficulty);
 
             Position position;
             if(isPlayerTurn){
@@ -49,13 +48,10 @@ public class Match {
 
             board.setSymbol(position.getRow(), position.getColumn(), currentSymbol);
 
-
-
             System.out.println();
             board.print();
 
-            moveCounter++;
-            if(isGameOver(board, position, currentSymbol, moveCounter)){
+            if(isGameOver(board, position, currentSymbol)){
                 break;
             }
 
@@ -70,7 +66,7 @@ public class Match {
 
 
 
-    private boolean isGameOver(Board board, Position position, char currentSymbol, int moveCounter) {
+    private boolean isGameOver(Board board, Position position, char currentSymbol) {
 
         if (Winner.thereIsWinner(board, position, currentSymbol)) {
             if (currentSymbol == COMPUTER_SYMBOL){
@@ -81,11 +77,10 @@ public class Match {
             return true;
         }
 
-        if (moveCounter > 9-1) {
+        if (board.isFull()) {
             this.status = MatchStatus.DRAW;
             return true;
         }
-
         return false;
     }
 
@@ -159,6 +154,10 @@ public class Match {
     }
 
     public void setDifficulty(DifficultyState difficulty) {
-        Match.difficulty = difficulty;
+        this.difficulty = difficulty;
+    }
+
+    public void setStatus(MatchStatus status) {
+        this.status = status;
     }
 }

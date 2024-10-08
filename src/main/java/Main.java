@@ -34,20 +34,24 @@ public final class Main {
 //        int mediumDifficultyPercentage = input;
 
 
-        Match match = null;
+        Match match;
 
         MatchHistory matchHistory = FileWriteRead.getInstance().readFromHistoryFile(FILE_MATCH_HISTORY);
+        DifficultyState difficulty;
 
         if (!matchHistory.getMatches().isEmpty() && matchHistory.getMatches().getLast().getStatus() == MatchStatus.RUNNING) { //TODO: LawOfDemeter ???
             System.out.println("Welcome back, your last game has been restored.");
             System.out.println();
             match = matchHistory.getMatches().getLast();
+            difficulty = match.getDifficulty();
 
         } else {
             System.out.println("Welcome to TicTacToe!");
             System.out.println();
             match = new Match();
-            match.setDifficulty(PlayerInput.getInstance().askForDifficulty());
+            difficulty = PlayerInput.getInstance().askForDifficulty();
+            match.setDifficulty(difficulty);
+            //match.setDifficulty(PlayerInput.getInstance().askForDifficulty());
         }
 
 
@@ -62,21 +66,14 @@ public final class Main {
 
         do {
 
-            if(match == null || match.getStatus() != MatchStatus.RUNNING) {
+            if(match.getStatus() != MatchStatus.RUNNING && match.getStatus() != MatchStatus.NOT_STARTED) {
                 match = new Match();
+                match.setDifficulty(difficulty);
             }
 
             match.play();
             MatchStatus status = match.getStatus();
 
-
-//            Score score ; // = null
-//            if (FILE_SCORE.exists() && FILE_SCORE.length() != 0) {   // && FileWriteRead.getInstance().readFile(FILE_SCORE) != null
-//                score = FileWriteRead.getInstance().readFile(FILE_SCORE);
-//            }
-//            if (score == null) {
-//                score = new Score();
-//            }
             Score score = FileWriteRead.getInstance().readFile(FILE_SCORE);
             
             switch (status) {

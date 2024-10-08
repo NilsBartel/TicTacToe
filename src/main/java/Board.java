@@ -44,6 +44,18 @@ public class Board {
         return true;
     }
 
+    @JsonIgnore
+    public boolean isFull(){
+        for(Row row : rows){
+            for(Field field : row.getFields()){
+                if(field.getSymbol() == Match.EMPTY_SYMBOL) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     public void setSymbol(int row, int column, char symbol){
         rows.get(row).setSymbol(column, symbol);
     }
