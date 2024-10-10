@@ -1,10 +1,10 @@
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.File;
+import java.util.Objects;
 
 public class Match {
 
-    private final Board board;
+    private Board board; //final
     private MatchStatus status;
     private DifficultyState difficulty;
     public static final char PLAYER_SYMBOL = 'o';
@@ -19,28 +19,61 @@ public class Match {
     public Match() {
         this.board = new Board();
         this.status = MatchStatus.NOT_STARTED;
+        startTime = System.currentTimeMillis();
     }
 
 
-    public void play() {
+    public void play(MatchHistory matchHistory) {
 
         if (status == MatchStatus.NOT_STARTED) {
             setPlayerTurn();
         }
 
         this.status = MatchStatus.RUNNING;
-        startTime = System.currentTimeMillis();
+//        startTime = System.currentTimeMillis();
 
         board.print();
         System.out.println();
+
         while (true){
+
             char currentSymbol;
             System.out.println(difficulty);
 
             Position position;
             if(isPlayerTurn){
                 currentSymbol = PLAYER_SYMBOL;
+
+                //TODO: does not say game has ended when its already a new game (only when the last game is not "running")
+                //TODO: does the difficulty stay or change?
+
+
+
+                Match tempMatch = FileWriteRead.getInstance().readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast();
                 position = PlayerInput.getInstance().askForMove(board);
+
+                if (!tempMatch.equals(FileWriteRead.getInstance().readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast())) {
+                    do {
+                        if (!FileWriteRead.getInstance().readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast().isStatusEqual(MatchStatus.RUNNING)){         //TODO: display that the current game has ended and a new one is already plying
+
+                            System.out.println("The game you were playing has already been finished! too slow");
+                            this.status = MatchStatus.MATCH_ALREADY_FINISHED;
+                            return;
+                        }
+                        System.out.println();
+                        System.out.println("The Board has changed!");
+                        System.out.println();
+                        this.board = FileWriteRead.getInstance().readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast().getBoard();
+                        board.print();
+
+                        tempMatch = FileWriteRead.getInstance().readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast();
+                        position = PlayerInput.getInstance().askForMove(board);
+                    } while (!tempMatch.equals(FileWriteRead.getInstance().readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast()));
+                }
+
+
+
+
             } else{
                 currentSymbol = COMPUTER_SYMBOL;
                 position = Difficulty.returnMove(board, difficulty);
@@ -56,12 +89,24 @@ public class Match {
             }
 
             isPlayerTurn = !isPlayerTurn;
-            writeToHistoryFile();
+            writeToHistoryFile(matchHistory);
         }
 
 
         endTime = System.currentTimeMillis();
-        writeToHistoryFile();
+        writeToHistoryFile(matchHistory);
+    }
+
+    private void printForTest(Match tempMatch) {
+        System.out.println(this.getStatus() + "     " + tempMatch.getStatus());
+        System.out.println(this.getStartTime() + "     " + tempMatch.getStartTime());
+        System.out.println(this.getEndTime() + "     " + tempMatch.getEndTime());
+        System.out.println(this.getDifficulty() + "     " + tempMatch.getDifficulty());
+        System.out.println(this.isPlayerTurn + "     " + tempMatch.isPlayerTurn);
+        this.printBoard();
+        System.out.println("-----------------------------------");
+        tempMatch.printBoard();
+        System.out.println();
     }
 
 
@@ -84,12 +129,12 @@ public class Match {
         return false;
     }
 
-    private void writeToHistoryFile() {
+    private void writeToHistoryFile(MatchHistory history) {
         File file = Main.FILE_MATCH_HISTORY;
 
-        MatchHistory history = FileWriteRead.getInstance().readFromHistoryFile(file);
-
-        history.addMatch(this);
+        //MatchHistory history = FileWriteRead.getInstance().readFromHistoryFile(file);
+            //TODO: do I need this?
+        //history.addMatch(this);
         FileWriteRead.getInstance().writeToHistoryFile(file, history);
     }
 
@@ -105,6 +150,10 @@ public class Match {
 
     public MatchStatus getStatus() {
         return status;
+    }
+
+    public boolean isStatusEqual(MatchStatus newStatus) {
+        return this.status == newStatus;
     }
 
     public static char getOpponentsSymbol(char symbol) {
@@ -160,4 +209,25 @@ public class Match {
     public void setStatus(MatchStatus status) {
         this.status = status;
     }
+
+//    @Override
+//    public boolean equals(Object object) {
+//        if (this == object) return true;
+//        if (!(object instanceof Match match)) return false;
+//        return isPlayerTurn == match.isPlayerTurn && startTime == match.startTime && endTime == match.endTime && Objects.equals(board, match.board) && status == match.status && difficulty == match.difficulty;
+//    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (!(object instanceof Match match)) return false;
+        return isPlayerTurn == match.isPlayerTurn && startTime == match.startTime && endTime == match.endTime && board.equals(match.board) && status == match.status && difficulty == match.difficulty;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(board, status, difficulty, isPlayerTurn, startTime, endTime);
+    }
+
+
 }

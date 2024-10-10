@@ -1,5 +1,5 @@
 
-
+@SuppressWarnings("PMD.TooManyMethods")
 public final class PrintService {
     private static PrintService instance;
 

@@ -2,6 +2,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Board {
 
@@ -78,5 +79,18 @@ public class Board {
 
     public void setRows(List<Row> rows) {
         this.rows = rows;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (!(object instanceof Board board)) return false;
+        //return Objects.equals(rows, board.rows);
+        return rows.equals(board.rows);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(rows);
     }
 }

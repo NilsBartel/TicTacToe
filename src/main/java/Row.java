@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Row {
     List<Field> fields = new ArrayList<>();
@@ -39,7 +40,20 @@ public class Row {
         return fields.get(column).getSymbol();
     }
 
-    public void setPrintService(PrintService printService) {
+    public final void setPrintService(PrintService printService) {
         this.printService = printService;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (!(object instanceof Row row)) return false;
+        //return Objects.equals(fields, row.fields);
+        return fields.equals(row.fields);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(fields);
     }
 }

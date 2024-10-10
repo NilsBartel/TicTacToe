@@ -25,7 +25,7 @@ public class MatchHistory {
         int counter = 0;
         for(Match match : this.getMatches().reversed()){
 
-            if(counter < MAX_HISTORY_SIZE && (match.getStatus() == MatchStatus.DRAW || match.getStatus() == MatchStatus.PLAYER_WON || match.getStatus() == MatchStatus.COMPUTER_WON)) {
+            if(counter < MAX_HISTORY_SIZE && (match.isStatusEqual(MatchStatus.DRAW) || match.isStatusEqual(MatchStatus.PLAYER_WON)|| match.isStatusEqual(MatchStatus.COMPUTER_WON))) {  //match.getStatus() == MatchStatus.DRAW
                 counter++;
                 printService.printBoardNr(counter);
                 printService.printBoard(match);
@@ -34,6 +34,7 @@ public class MatchHistory {
             }
         }
     }
+
 
 
     public void addMatch(Match match) {

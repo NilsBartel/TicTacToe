@@ -4,5 +4,6 @@ public enum MatchStatus {
     RUNNING,
     PLAYER_WON,
     COMPUTER_WON,
-    DRAW
+    DRAW,
+    MATCH_ALREADY_FINISHED
 }

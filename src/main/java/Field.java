@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Field {
 
     private char symbol;
@@ -18,5 +20,15 @@ public class Field {
         this.symbol = symbol;
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (!(object instanceof Field field)) return false;
+        return symbol == field.symbol;
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(symbol);
+    }
 }
