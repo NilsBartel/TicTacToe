@@ -32,7 +32,7 @@ public final class Main {
         MatchHistory matchHistory = FileWriteRead.getInstance().readFromHistoryFile(FILE_MATCH_HISTORY);
         DifficultyState difficulty;
 
-        if (!matchHistory.getMatches().isEmpty() && matchHistory.getMatches().getLast().getStatus() == MatchStatus.RUNNING) {
+        if (!matchHistory.getMatches().isEmpty() && (matchHistory.getMatches().getLast().getStatus() == MatchStatus.RUNNING || matchHistory.getMatches().getLast().getStatus() == MatchStatus.NOT_STARTED)) {
             System.out.println("Welcome back, your last game has been restored.");
             System.out.println();
             match = matchHistory.getMatches().getLast();

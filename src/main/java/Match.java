@@ -54,12 +54,19 @@ public class Match {
 
                 if (!tempMatch.equals(FileWriteRead.getInstance().readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast())) {
                     do {
-                        if (!FileWriteRead.getInstance().readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast().isStatusEqual(MatchStatus.RUNNING)){         //TODO: display that the current game has ended and a new one is already plying
-
+                        if (!FileWriteRead.getInstance().compareToLastMatchState(MatchStatus.RUNNING)){         //TODO: display that the current game has ended and a new one is already plying               //readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast().isStatusEqual(MatchStatus.RUNNING)
+                            System.out.println();
                             System.out.println("The game you were playing has already been finished! too slow");
                             this.status = MatchStatus.MATCH_ALREADY_FINISHED;
                             return;
                         }
+
+                        if (!FileWriteRead.getInstance().compareToLastMatchStartTime(this.startTime)) {
+                            System.out.println();
+                            System.out.println("The game you were playing has already been finished! And a new one has started");
+
+                        }
+
                         System.out.println();
                         System.out.println("The Board has changed!");
                         System.out.println();

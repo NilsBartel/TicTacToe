@@ -68,4 +68,12 @@ public final class FileWriteRead {
         return new MatchHistory();
     }
 
+    public boolean compareToLastMatchState(MatchStatus matchStatus) {
+        return readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast().isStatusEqual(matchStatus);
+    }
+
+    public boolean compareToLastMatchStartTime(Long startTime) {
+        return readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast().getStartTime() == startTime;
+    }
+
 }
