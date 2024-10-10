@@ -32,15 +32,18 @@ public final class Main {
 
 
         do {
+            matchHistory = FileWriteRead.getInstance().readFromHistoryFile(FILE_MATCH_HISTORY);
 
-            if (!matchHistory.getMatches().isEmpty() && (matchHistory.getMatches().getLast().getStatus() == MatchStatus.RUNNING || matchHistory.getMatches().getLast().getStatus() == MatchStatus.NOT_STARTED)) {
+            if (!matchHistory.getMatches().isEmpty() && (matchHistory.getMatches().getLast().getStatus() == MatchStatus.RUNNING || matchHistory.getMatches().getLast().getStatus() == MatchStatus.NOT_STARTED || matchHistory.getMatches().getLast().getStatus() == MatchStatus.MATCH_ALREADY_FINISHED)) {
                 match = matchHistory.getMatches().getLast();
                 difficulty = match.getDifficulty();
+                System.out.println("loaded match");
             } else {
                 match = new Match();
                 match.setDifficulty(difficulty);
                 matchHistory.addMatch(match);
                 FileWriteRead.getInstance().writeToHistoryFile(FILE_MATCH_HISTORY, matchHistory);
+                System.out.println("new match");
             }
 
 

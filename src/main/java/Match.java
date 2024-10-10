@@ -33,53 +33,19 @@ public class Match {
         board.print();
         System.out.println();
 
+
         while (true){
 
             char currentSymbol;
-            System.out.println(difficulty);
 
             Position position;
             if(isPlayerTurn){
                 currentSymbol = PLAYER_SYMBOL;
 
-                //TODO: does not say game has ended when its already a new game (only when the last game is not "running")
-                //TODO: does the difficulty stay or change?
-
-
-
-                Match tempMatch = FileWriteRead.getInstance().readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast();
-                position = PlayerInput.getInstance().askForMove(board);
-
-                if (!tempMatch.equals(FileWriteRead.getInstance().readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast())) {
-                    do {
-                        if (!FileWriteRead.getInstance().compareToLastMatchState(MatchStatus.RUNNING)){
-                            System.out.println();
-                            System.out.println("The game you were playing has already been finished! too slow");
-                            this.status = MatchStatus.MATCH_ALREADY_FINISHED;
-                            return;
-                        }
-
-                        if (!FileWriteRead.getInstance().compareToLastMatchStartTime(this.startTime)) {
-                            System.out.println();
-                            System.out.println("The game you were playing has already been finished! And a new one has started");
-                            this.status = MatchStatus.MATCH_ALREADY_FINISHED;
-                            return;
-                        }
-
-                        System.out.println();
-                        System.out.println("The Board has changed!");
-                        System.out.println("New Board:");
-                        //this.board = FileWriteRead.getInstance().readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast().getBoard();
-                        board = FileWriteRead.getInstance().getLastBoard();
-                        board.print();
-
-                        tempMatch = FileWriteRead.getInstance().readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast();
-                        position = PlayerInput.getInstance().askForMove(board);
-                    } while (!tempMatch.equals(FileWriteRead.getInstance().readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast()));
+                position = playerMove(board);
+                if(position == null){
+                    return;
                 }
-
-
-
 
             } else{
                 currentSymbol = COMPUTER_SYMBOL;
@@ -104,6 +70,40 @@ public class Match {
         writeToHistoryFile(matchHistory);
     }
 
+    private Position playerMove(Board board) {
+
+        Match tempMatch = FileWriteRead.getInstance().readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast();
+        Position position = PlayerInput.getInstance().askForMove(board);
+
+        if (!tempMatch.equals(FileWriteRead.getInstance().readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast())) {
+            do {
+                if (!FileWriteRead.getInstance().compareToLastMatchState(MatchStatus.RUNNING)){
+                    System.out.println();
+                    System.out.println("The game you were playing has already been finished! too slow");
+                    this.status = MatchStatus.MATCH_ALREADY_FINISHED;
+                    return null;
+                }
+
+                if (!FileWriteRead.getInstance().compareToLastMatchStartTime(this.startTime)) {
+                    System.out.println();
+                    System.out.println("The game you were playing has already been finished! And a new one has started");
+                    this.status = MatchStatus.MATCH_ALREADY_FINISHED;
+                    return null;
+                }
+
+                System.out.println();
+                System.out.println("The Board has changed!");
+                System.out.println("New Board:");
+                this.board = FileWriteRead.getInstance().getLastBoard();
+                this.board.print();
+
+                tempMatch = FileWriteRead.getInstance().readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast();
+                position = PlayerInput.getInstance().askForMove(board);
+            } while (!tempMatch.equals(FileWriteRead.getInstance().readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast()));
+        }
+
+        return position;
+    }
 
     private boolean isGameOver(Board board, Position position, char currentSymbol) {
 
