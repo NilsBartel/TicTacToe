@@ -1,5 +1,4 @@
 
-import java.io.File;
 import java.util.Objects;
 
 public class Match {
@@ -30,7 +29,6 @@ public class Match {
         }
 
         this.status = MatchStatus.RUNNING;
-//        startTime = System.currentTimeMillis();
 
         board.print();
         System.out.println();
@@ -54,7 +52,7 @@ public class Match {
 
                 if (!tempMatch.equals(FileWriteRead.getInstance().readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast())) {
                     do {
-                        if (!FileWriteRead.getInstance().compareToLastMatchState(MatchStatus.RUNNING)){         //TODO: display that the current game has ended and a new one is already plying               //readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast().isStatusEqual(MatchStatus.RUNNING)
+                        if (!FileWriteRead.getInstance().compareToLastMatchState(MatchStatus.RUNNING)){
                             System.out.println();
                             System.out.println("The game you were playing has already been finished! too slow");
                             this.status = MatchStatus.MATCH_ALREADY_FINISHED;
@@ -64,13 +62,15 @@ public class Match {
                         if (!FileWriteRead.getInstance().compareToLastMatchStartTime(this.startTime)) {
                             System.out.println();
                             System.out.println("The game you were playing has already been finished! And a new one has started");
-
+                            this.status = MatchStatus.MATCH_ALREADY_FINISHED;
+                            return;
                         }
 
                         System.out.println();
                         System.out.println("The Board has changed!");
-                        System.out.println();
-                        this.board = FileWriteRead.getInstance().readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast().getBoard();
+                        System.out.println("New Board:");
+                        //this.board = FileWriteRead.getInstance().readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast().getBoard();
+                        board = FileWriteRead.getInstance().getLastBoard();
                         board.print();
 
                         tempMatch = FileWriteRead.getInstance().readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast();
@@ -104,19 +104,6 @@ public class Match {
         writeToHistoryFile(matchHistory);
     }
 
-    private void printForTest(Match tempMatch) {
-        System.out.println(this.getStatus() + "     " + tempMatch.getStatus());
-        System.out.println(this.getStartTime() + "     " + tempMatch.getStartTime());
-        System.out.println(this.getEndTime() + "     " + tempMatch.getEndTime());
-        System.out.println(this.getDifficulty() + "     " + tempMatch.getDifficulty());
-        System.out.println(this.isPlayerTurn + "     " + tempMatch.isPlayerTurn);
-        this.printBoard();
-        System.out.println("-----------------------------------");
-        tempMatch.printBoard();
-        System.out.println();
-    }
-
-
 
     private boolean isGameOver(Board board, Position position, char currentSymbol) {
 
@@ -137,12 +124,7 @@ public class Match {
     }
 
     private void writeToHistoryFile(MatchHistory history) {
-        File file = Main.FILE_MATCH_HISTORY;
-
-        //MatchHistory history = FileWriteRead.getInstance().readFromHistoryFile(file);
-            //TODO: do I need this?
-        //history.addMatch(this);
-        FileWriteRead.getInstance().writeToHistoryFile(file, history);
+        FileWriteRead.getInstance().writeToHistoryFile(Main.FILE_MATCH_HISTORY, history);
     }
 
 
@@ -217,17 +199,14 @@ public class Match {
         this.status = status;
     }
 
-//    @Override
-//    public boolean equals(Object object) {
-//        if (this == object) return true;
-//        if (!(object instanceof Match match)) return false;
-//        return isPlayerTurn == match.isPlayerTurn && startTime == match.startTime && endTime == match.endTime && Objects.equals(board, match.board) && status == match.status && difficulty == match.difficulty;
-//    }
-
     @Override
     public boolean equals(Object object) {
-        if (this == object) return true;
-        if (!(object instanceof Match match)) return false;
+        if (this == object) {
+            return true;
+        }
+        if (!(object instanceof Match match)) {
+            return false;
+        }
         return isPlayerTurn == match.isPlayerTurn && startTime == match.startTime && endTime == match.endTime && board.equals(match.board) && status == match.status && difficulty == match.difficulty;
     }
 

@@ -22,9 +22,10 @@ public class Field {
 
     @Override
     public boolean equals(Object object) {
-        if (this == object) return true;
-        if (!(object instanceof Field field)) return false;
-        return symbol == field.symbol;
+        if (this == object) {
+            return true;
+        }
+        return !(object instanceof Field field) || symbol == field.symbol;
     }
 
     @Override

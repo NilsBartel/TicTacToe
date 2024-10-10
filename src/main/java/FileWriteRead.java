@@ -76,4 +76,13 @@ public final class FileWriteRead {
         return readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast().getStartTime() == startTime;
     }
 
+    public Match getLastMatch() {
+        return readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast();
+    }
+
+    public Board getLastBoard() {
+        return readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast().getBoard();
+
+    }
+
 }

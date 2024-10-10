@@ -46,10 +46,10 @@ public class Row {
 
     @Override
     public boolean equals(Object object) {
-        if (this == object) return true;
-        if (!(object instanceof Row row)) return false;
-        //return Objects.equals(fields, row.fields);
-        return fields.equals(row.fields);
+        if (this == object) {
+            return true;
+        }
+        return !(object instanceof Row row) || fields.equals(row.fields);
     }
 
     @Override

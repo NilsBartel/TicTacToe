@@ -83,10 +83,10 @@ public class Board {
 
     @Override
     public boolean equals(Object object) {
-        if (this == object) return true;
-        if (!(object instanceof Board board)) return false;
-        //return Objects.equals(rows, board.rows);
-        return rows.equals(board.rows);
+        if (this == object){
+            return true;
+        }
+        return !(object instanceof Board board) || rows.equals(board.rows);
     }
 
     @Override

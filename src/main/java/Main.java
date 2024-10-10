@@ -10,52 +10,37 @@ public final class Main {
     private Main() {
     }
         //TODO: Tests (for after restart)
-        // have the tempHistory in its own class?
+
 
     @SuppressWarnings("PMD.LawOfDemeter")
     public static void main(String[] args) {
 
-//        Match match1 = new Match();
-//        Match match2 = new Match();
-//        System.out.println(match1.equals(match2));
-
-//        Board board1 = new Board();
-//        Board board2 = new Board();
-//        System.out.println(board1.equals(board2));
-
-//        Field field1 = new Field();
-//        Field field2 = new Field();
-//        System.out.println(field1.equals(field2));
-
         Match match;
 
         MatchHistory matchHistory = FileWriteRead.getInstance().readFromHistoryFile(FILE_MATCH_HISTORY);
-        DifficultyState difficulty;
+        DifficultyState difficulty = null;
 
         if (!matchHistory.getMatches().isEmpty() && (matchHistory.getMatches().getLast().getStatus() == MatchStatus.RUNNING || matchHistory.getMatches().getLast().getStatus() == MatchStatus.NOT_STARTED)) {
             System.out.println("Welcome back, your last game has been restored.");
             System.out.println();
-            match = matchHistory.getMatches().getLast();
-            difficulty = match.getDifficulty();
 
         } else {
             System.out.println("Welcome to TicTacToe!");
             System.out.println();
-            match = new Match();
-            matchHistory.addMatch(match);
             difficulty = PlayerInput.getInstance().askForDifficulty();
-            match.setDifficulty(difficulty);
         }
 
 
-        //TODO: when both games have finished and they both start their own game (one after another), second one also starts its own game even tho the first one already has one...
-
         do {
-            if(match.isStatusEqual(MatchStatus.DRAW) || match.isStatusEqual(MatchStatus.PLAYER_WON)|| match.isStatusEqual(MatchStatus.COMPUTER_WON) || match.isStatusEqual(MatchStatus.MATCH_ALREADY_FINISHED) ) {
-                //TODO: can i add all of those together ^^^^   (like one state that still keeps all these states)
+
+            if (!matchHistory.getMatches().isEmpty() && (matchHistory.getMatches().getLast().getStatus() == MatchStatus.RUNNING || matchHistory.getMatches().getLast().getStatus() == MatchStatus.NOT_STARTED)) {
+                match = matchHistory.getMatches().getLast();
+                difficulty = match.getDifficulty();
+            } else {
                 match = new Match();
-                matchHistory.addMatch(match);
                 match.setDifficulty(difficulty);
+                matchHistory.addMatch(match);
+                FileWriteRead.getInstance().writeToHistoryFile(FILE_MATCH_HISTORY, matchHistory);
             }
 
 
