@@ -72,4 +72,12 @@ public final class PrintService {
         System.out.println("Draw counter: " + score.getDrawCount());
     }
 
+    public void printTest1(){
+        System.out.println("test1");
+    }
+
+    public void printTest2(){
+        System.out.println("test2");
+    }
+
 }

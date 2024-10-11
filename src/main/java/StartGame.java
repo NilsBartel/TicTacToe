@@ -1,53 +1,38 @@
 public class StartGame {
 
+    private PrintService printService;
+    private PlayerInput playerInput;
+    private FileWriteRead fileWriteRead;
+    private Match match;
+    //TODO: do i need all these?
+
 
     //@SuppressWarnings("PMD.LawOfDemeter")
     public void start() {
-        Match match;
 
-        MatchHistory matchHistory = FileWriteRead.getInstance().readFromHistoryFile(Main.FILE_MATCH_HISTORY);
+        MatchHistory matchHistory = fileWriteRead.readFromHistoryFile(Main.FILE_MATCH_HISTORY);
         DifficultyState difficulty = null;
 
-        if (!matchHistory.getMatches().isEmpty() && (matchHistory.compareLastStatus(MatchStatus.RUNNING) || matchHistory.compareLastStatus(MatchStatus.NOT_STARTED))) {
-            System.out.println("Welcome back, your last game has been restored.");
-            System.out.println();
-
-        } else {
-            System.out.println("Welcome to TicTacToe!");
-            System.out.println();
-            difficulty = PlayerInput.getInstance().askForDifficulty();
+        if (!StartGameUtil.loadAbandonedGame(matchHistory)) {
+            difficulty = playerInput.askForDifficulty();
         }
 
 
         do {
-            matchHistory = FileWriteRead.getInstance().readFromHistoryFile(Main.FILE_MATCH_HISTORY);
-            if (!matchHistory.getMatches().isEmpty() && (matchHistory.compareLastStatus(MatchStatus.RUNNING) || matchHistory.compareLastStatus(MatchStatus.NOT_STARTED) || matchHistory.compareLastStatus(MatchStatus.MATCH_ALREADY_FINISHED))) {
 
-                match = matchHistory.getMatches().getLast();
-                difficulty = match.getDifficulty();
-                System.out.println("loaded match");
-            } else {
-                match = new Match();
-                match.setDifficulty(difficulty);
-                matchHistory.addMatch(match);
-                FileWriteRead.getInstance().writeToHistoryFile(Main.FILE_MATCH_HISTORY, matchHistory);
-                System.out.println("new match");
-            }
-
-
+            matchHistory = fileWriteRead.readFromHistoryFile(Main.FILE_MATCH_HISTORY);
+            match = StartGameUtil.returnRunningOrNewMatch(matchHistory, difficulty); //TODO: test this StartGameUtil
 
             match.play(matchHistory);
 
             Score score = updateScore(match);
-            PrintService.getInstance().printScore(score);
-            PrintService.getInstance().printDrawCounter(score);
-            PrintService.getInstance().printRoundCounter(score);
+            displayScore(score);
 
+        } while (playerInput.askPlayAgainWithHistory());
 
-        } while (PlayerInput.getInstance().askPlayAgainWithHistory());
-
-        PrintService.getInstance().printGameEndMessage();
+        printService.printGameEndMessage();
     }
+
 
     private Score updateScore(Match match) {
         MatchStatus status = match.getStatus();
@@ -69,12 +54,45 @@ public class StartGame {
             case MATCH_ALREADY_FINISHED -> {
                 //TODO: do something (not print out or the score stuff)?
             }
-            default -> System.out.println("Invalid match status (in Main)");
+            case NOT_STARTED, RUNNING -> {}
+            default -> System.out.println("Invalid match status (in StartGame)");
         }
         FileWriteRead.getInstance().writeFile(Main.FILE_SCORE, score);
 
         return score;
     }
 
+    private void displayScore(Score score) {
+        PrintService.getInstance().printScore(score);
+        PrintService.getInstance().printDrawCounter(score);
+        PrintService.getInstance().printRoundCounter(score);
+    }
 
+    public PrintService getPrintService() {
+        return printService;
+    }
+
+    public void setPrintService(PrintService printService) {
+        this.printService = printService;
+    }
+
+    public PlayerInput getPlayerInput() {
+        return playerInput;
+    }
+
+    public void setPlayerInput(PlayerInput playerInput) {
+        this.playerInput = playerInput;
+    }
+
+    public FileWriteRead getFileWriteRead() {
+        return fileWriteRead;
+    }
+
+    public void setFileWriteRead(FileWriteRead fileWriteRead) {
+        this.fileWriteRead = fileWriteRead;
+    }
+
+    public void setMatch(Match match) {
+        this.match = match;
+    }
 }

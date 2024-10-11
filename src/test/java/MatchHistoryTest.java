@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
@@ -23,7 +24,7 @@ class MatchHistoryTest {
         match.setDifficulty(DifficultyState.EASY);
         match.setStatus(MatchStatus.DRAW);
 
-        matchHistory.addMatchOld(match);
+        matchHistory.addMatch(match);
 
         return matchHistory;
     }
@@ -58,11 +59,10 @@ class MatchHistoryTest {
     @Test
     void addMatchTest() {
         MatchHistory matchHistory = new MatchHistory();
+        int testInt = matchHistory.getMatches().size();
 
-        for(int i = 0; i < MatchHistory.MAX_HISTORY_SIZE + 20; i++) {
-            matchHistory.addMatchOld(createMatchForTest());
-        }
+        matchHistory.addMatch(createMatchForTest());
 
-        assertTrue(matchHistory.getMatches().size() <= MatchHistory.MAX_HISTORY_SIZE);
+        assertEquals(matchHistory.getMatches().size(), testInt + 1);
     }
 }

@@ -41,17 +41,12 @@ public class MatchHistory {
         this.matches.add(match);
     }
 
-
-    public void addMatchOld(Match match) {  //TODO: ??? Do i need this ???
-        this.matches.add(match);
-
-        if (matches.size() > MAX_HISTORY_SIZE) {
-            matches.removeFirst();
-        }
+    private MatchStatus getLastStatus() {
+        return this.matches.getLast().getStatus();
     }
 
     public boolean compareLastStatus(MatchStatus status) {
-        return this.matches.getLast().getStatus() == status;
+        return getLastStatus() == status;
     }
 
     public List<Match> getMatches() {
