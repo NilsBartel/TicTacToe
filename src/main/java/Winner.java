@@ -51,16 +51,7 @@ public final class Winner {
         return true;
     }
 
-    public static void test(Board board) {
-        List<Field> rows = new ArrayList<>();
 
-        for (Row row : board.getRows()) {
-            rows.addAll(row.getFields());
-            //rows.add(row.getField());
-            System.out.println(rows);
-
-        }
-    }
 
     public static List<Position> findWinningRow(Board board, char winningSymbol) {
 
@@ -85,7 +76,6 @@ public final class Winner {
             }
             counter += 3;
         }
-        positions.clear();
         counter = 1;
 
 
@@ -110,7 +100,6 @@ public final class Winner {
         }
 
 
-        positions.clear();
 
         List<Field> diagonalLeftRight = new ArrayList<>();
         for(Position pos : Board.DIAGONAL_TOP_LEFT_BOTTOM_RIGHT){
@@ -120,15 +109,9 @@ public final class Winner {
         if(allEqualsSymbol(diagonalLeftRight, winningSymbol)) {
             return positions;
         }
-
-
-
-
-
-
-
-
         positions.clear();
+
+
 
         List<Field> diagonalRightLeft = new ArrayList<>();
         for(Position pos : Board.DIAGONAL_TOP_RIGHT_BOTTOM_LEFT){
@@ -140,18 +123,6 @@ public final class Winner {
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-        // do that for all the types (row, column, diagonal
 
         System.out.println("returned null");
         return null;
