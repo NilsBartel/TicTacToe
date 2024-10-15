@@ -9,7 +9,7 @@ class RowTest {
 
     @Test
     void printTest() {
-        Row row = new Row();
+        Row row = new Row(1);
         PrintService mockPrintService = mock(PrintService.class);
         row.setPrintService(mockPrintService);
 

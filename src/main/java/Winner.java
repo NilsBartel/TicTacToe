@@ -55,49 +55,39 @@ public final class Winner {
 
     public static List<Position> findWinningRow(Board board, char winningSymbol) {
 
-        //TODO:
-        // guck ob das erste symbol der reihe mit dem "winningSymbol" übereinstimmen
-
-        List<Field> rows = new ArrayList<>();
+        
         List<Position> positions = new ArrayList<>();
-        int counter = 1;
 
         //Row
-        for (Row row : board.getRows()) {
-            rows.addAll(row.getFields());
-            if(allEqualsSymbol(rows, winningSymbol)) {
-                positions.add(new Position(counter));
-                positions.add(new Position(counter+1));
-                positions.add(new Position(counter+2));
-
+        List<Field> list = new ArrayList<>();
+        for (int row = 0; row<3; row++) {
+            for (int column = 0; column<3; column++) {
+                list.add(board.getField(row, column));
+                positions.add(new Position(row, column));
+            }
+            if(allEqualsSymbol(list, winningSymbol)) {
                 return positions;
             } else {
-                rows.clear();
+                list.clear();
             }
-            counter += 3;
+            positions.clear();
         }
-        counter = 1;
 
 
         //Column
-        List<Field> columns = new ArrayList<>();
         for (int column = 0; column<3; column++) {
             for (int row = 0; row<3; row++) {
-                columns.add(board.getField(row, column));
-                //TODO maybe one for-each?
-
+                list.add(board.getField(row, column));
+                positions.add(new Position(row, column));
             }
-            if(allEqualsSymbol(columns, winningSymbol)) {
-                positions.add(new Position(counter));
-                positions.add(new Position(counter+3));
-                positions.add(new Position(counter+6));
-
+            if(allEqualsSymbol(list, winningSymbol)) {
                 return positions;
             } else {
-                columns.clear();
+                list.clear();
             }
-            counter++;
+            positions.clear();
         }
+
 
 
 
@@ -122,21 +112,7 @@ public final class Winner {
             return positions;
         }
 
-
-
-        System.out.println("returned null");
         return null;
     }
-
-//    private static List<Position> convertToPositions(List<Field> fields) {
-//
-//        List<Position> positions = new ArrayList<>();
-//        for(Field field : fields) {
-//            Row row;
-//            row.g
-//        }
-//    }
-
-
 
 }

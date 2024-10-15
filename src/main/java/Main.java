@@ -10,14 +10,14 @@ public final class Main {
     private Main() {
     }
 
-
+    //TODO: make it run a certain amount of times again against random
 
     public static void main(String[] args) {
 
-        AnalyseService.findBestWinningLine();
+        //AnalyseService.findBestWinningLine();
 
-//        StartGame startGame = new StartGame();
-//        startGame.start();
+        StartGame startGame = new StartGame();
+        startGame.start();
     }
 
 }

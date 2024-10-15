@@ -3,10 +3,8 @@ import java.util.*;
 public class AnalyseService {
 
 
-    //TODO: make Field.class have a Position?
     public static void findBestWinningLine(){
 
-        //Map<List<Position>, Integer> map = createMap();
         MatchHistory matchHistory = MatchHistory.fromFile();
         Map<List<Position>, Integer> map = new HashMap<>();
         List<List<Position>> wins = new ArrayList<>();
@@ -27,15 +25,17 @@ public class AnalyseService {
         }
 
 
-
         List<Position> winPositions = Collections.max(map.entrySet(), Map.Entry.comparingByValue()).getKey();
+        int count =  Collections.max(map.entrySet(), Map.Entry.comparingByValue()).getValue();
+
         for (Position position : winPositions) {
             System.out.print(position.getIndex() + " ");
         }
+        System.out.println("- Happened "+count+" times.");
 
     }
 
-    private static char getWinnerSymbol(MatchStatus status) {
+    private static Character getWinnerSymbol(MatchStatus status) {
         switch (status) {
             case COMPUTER_WON -> {
                 return Match.COMPUTER_SYMBOL;
@@ -44,9 +44,8 @@ public class AnalyseService {
                 return Match.PLAYER_SYMBOL;
             }
             default -> {
-                return 'p'; //TODO:
+                return null;
             }
-
         }
     }
 
