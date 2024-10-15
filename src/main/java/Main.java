@@ -9,18 +9,15 @@ public final class Main {
 
     private Main() {
     }
-        //TODO: Tests (for after restart)
-        //TODO: when second game starts at the right time (when no match is started) you can change the difficulty
+
 
 
     public static void main(String[] args) {
-        StartGame startGame = new StartGame();
-        startGame.setPlayerInput(PlayerInput.getInstance());
-        startGame.setFileWriteRead(FileWriteRead.getInstance());
-        startGame.setPrintService(PrintService.getInstance());
 
+        AnalyseService.findBestWinningLine();
 
-        startGame.start();
+//        StartGame startGame = new StartGame();
+//        startGame.start();
     }
 
 }

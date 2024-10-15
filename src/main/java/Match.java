@@ -35,6 +35,7 @@ public class Match {
 
 
         while (true){
+            System.out.println("difficulty: " + difficulty);
 
             char currentSymbol;
 
@@ -133,6 +134,7 @@ public class Match {
         this.isPlayerTurn = score.getRoundCounter() % 2 == 0;
     }
 
+
     public void printBoard() {
         board.print();
     }
@@ -217,3 +219,5 @@ public class Match {
 
 
 }
+
+
