@@ -51,17 +51,7 @@ public final class PrintService {
             }
             System.out.println("- Happened "+count+" times.");
         }
-
-//        List<Position> winPositions = Collections.max(map.entrySet(), Map.Entry.comparingByValue()).getKey();
-//        int count =  Collections.max(map.entrySet(), Map.Entry.comparingByValue()).getValue();
-//        map.remove(winPositions);
-//
-//        for (Position position : winPositions) {
-//            System.out.print(position.getIndex() + " ");
-//        }
-//        System.out.println("- Happened "+count+" times.");
     }
-
 
 
 

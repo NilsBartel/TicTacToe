@@ -23,11 +23,15 @@ public final class Winner {
             return true;
         }
 
-        if (checkDiagonalTopLeftBottomRight(board, currentSymbol)) {
-            return true;
-        }
 
-        return checkDiagonalTopRightBottomLeft(board, currentSymbol);
+
+        return checkDiagonalTopLeftBottomRight(board, currentSymbol) || checkDiagonalTopRightBottomLeft(board, currentSymbol);
+
+//        if (checkDiagonalTopLeftBottomRight(board, currentSymbol)) {
+//            return true;
+//        }
+//
+//        return checkDiagonalTopRightBottomLeft(board, currentSymbol);
     }
 
     private static boolean checkDiagonalTopLeftBottomRight(Board board, char currentSymbol){

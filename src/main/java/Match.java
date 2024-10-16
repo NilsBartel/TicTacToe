@@ -35,7 +35,6 @@ public class Match {
 
 
         while (true){
-            //System.out.println("difficulty: " + difficulty);
 
             char currentSymbol;
 

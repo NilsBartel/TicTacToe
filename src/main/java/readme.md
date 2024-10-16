@@ -5,9 +5,10 @@ This is a Tic Tac Toe game that is build with Java and played in the command lin
 
 
 ## Description:
-The game can only be played against the computer. After each round the score is displayed
-and the player is asked if he wants to play another match. There are also 3 different
-difficulties to choose from at the startup up the game.
+The game can only be played against the computer, but there are three different difficulties. After each round the score\
+is displayed and the player is asked if he wants to play another match.\
+The game also has a match history that can be viewed after each game, as well as an analysing tool that can check the\
+match history and print the most used moves that were used to win.
 <br>
 <br>
 ### Difficulties:
@@ -16,7 +17,7 @@ difficulties to choose from at the startup up the game.
 **Impossible:** where the computer only plays the best moves and the player can't win anymore.
 
 ## Use cases:
-You want to get really good at TicTacToe? Then try out the game now! **ONLY 9.99!!!**
+You want to get really good at TicTacToe? Then try out the game now!
 
 ## Getting started:
 + you can't download this game because I don't know how to do that.
@@ -26,23 +27,5 @@ You want to get really good at TicTacToe? Then try out the game now! **ONLY 9.99
     mvn compile exec:java
 ```   
 + choose a difficulty and just start playing.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

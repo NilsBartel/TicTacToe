@@ -15,13 +15,11 @@ public final class AnalyseService {
 
     public Map<List<Position>, Integer> findBestWinningLine(MatchHistory matchHistory) {
 
-        //MatchHistory matchHistory = MatchHistory.fromFile(file);
-
         Map<List<Position>, Integer> map = new HashMap<>();
         List<List<Position>> wins = new ArrayList<>();
 
         for (Match match : matchHistory.getMatches()) {
-            if (match.getStatus() == MatchStatus.COMPUTER_WON || match.getStatus() == MatchStatus.PLAYER_WON){
+            if (match.isStatusEqual(MatchStatus.COMPUTER_WON) || match.isStatusEqual(MatchStatus.PLAYER_WON)) { //match.getStatus() == MatchStatus.COMPUTER_WON || match.getStatus() == MatchStatus.PLAYER_WON ||
                 wins.add(Winner.findWinningRow(match.getBoard(), getWinnerSymbol(match.getStatus())));
             }
         }
@@ -35,27 +33,7 @@ public final class AnalyseService {
             }
         }
 
-//        for (int i = 0; i < map.size(); i++) {
-//            List<Position> winPositions = Collections.max(map.entrySet(), Map.Entry.comparingByValue()).getKey();
-//            int count =  Collections.max(map.entrySet(), Map.Entry.comparingByValue()).getValue();
-//            map.remove(winPositions);
-//
-//            for (Position position : winPositions) {
-//                System.out.print(position.getIndex() + " ");
-//            }
-//            System.out.println("- Happened "+count+" times.");
-        //}
-//        List<Position> winPositions = Collections.max(map.entrySet(), Map.Entry.comparingByValue()).getKey();
-//        int count =  Collections.max(map.entrySet(), Map.Entry.comparingByValue()).getValue();
-//        map.remove(winPositions);
-//
-//        for (Position position : winPositions) {
-//            System.out.print(position.getIndex() + " ");
-//        }
-//        System.out.println("- Happened "+count+" times.");
-
         return map;
-
     }
 
     private Character getWinnerSymbol(MatchStatus status) {

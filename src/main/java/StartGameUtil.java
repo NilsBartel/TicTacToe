@@ -18,7 +18,7 @@ public final class StartGameUtil {
                 match.setDifficulty(PlayerInput.getInstance().askForDifficulty());
             }
             matchHistory.addMatch(match);
-            //fileWriteRead.writeToHistoryFile(Main.FILE_MATCH_HISTORY, matchHistory);
+            fileWriteRead.writeToHistoryFile(Main.FILE_MATCH_HISTORY, matchHistory);
         }
 
         return match;
