@@ -1,5 +1,6 @@
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,10 +13,10 @@ public class MatchHistory {
     private PrintService printService;
 
 
-    public static MatchHistory fromFile() {
+    public static MatchHistory fromFile(File file) {
         PrintService printService = PrintService.getInstance();
 
-        MatchHistory history = FileWriteRead.getInstance().readFromHistoryFile(Main.FILE_MATCH_HISTORY);
+        MatchHistory history = FileWriteRead.getInstance().readFromHistoryFile(file);
         history.setPrintService(printService);
         return history;
     }

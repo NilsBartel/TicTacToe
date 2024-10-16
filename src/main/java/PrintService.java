@@ -1,3 +1,6 @@
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings("PMD.TooManyMethods")
 public final class PrintService {
@@ -33,6 +36,30 @@ public final class PrintService {
 
     public void printRow(String row) {
         System.out.println(row);
+    }
+
+    public void printAnalysedWinPositions(Map<List<Position>, Integer> map) {
+
+        int size = map.size();
+        for (int i = 0; i < size; i++) {
+            List<Position> winPositions = Collections.max(map.entrySet(), Map.Entry.comparingByValue()).getKey();
+            int count =  Collections.max(map.entrySet(), Map.Entry.comparingByValue()).getValue();
+            map.remove(winPositions);
+
+            for (Position position : winPositions) {
+                System.out.print(position.getIndex() + " ");
+            }
+            System.out.println("- Happened "+count+" times.");
+        }
+
+//        List<Position> winPositions = Collections.max(map.entrySet(), Map.Entry.comparingByValue()).getKey();
+//        int count =  Collections.max(map.entrySet(), Map.Entry.comparingByValue()).getValue();
+//        map.remove(winPositions);
+//
+//        for (Position position : winPositions) {
+//            System.out.print(position.getIndex() + " ");
+//        }
+//        System.out.println("- Happened "+count+" times.");
     }
 
 

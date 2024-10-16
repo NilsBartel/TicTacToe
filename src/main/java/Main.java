@@ -18,6 +18,9 @@ public final class Main {
 
         StartGame startGame = new StartGame();
         startGame.start();
+
+//        MakeComputerPlayRandom random = new MakeComputerPlayRandom();
+//        random.start();
     }
 
 }

@@ -35,7 +35,7 @@ public class Match {
 
 
         while (true){
-            System.out.println("difficulty: " + difficulty);
+            //System.out.println("difficulty: " + difficulty);
 
             char currentSymbol;
 
@@ -44,6 +44,7 @@ public class Match {
                 currentSymbol = PLAYER_SYMBOL;
 
                 position = playerMove(board);
+                //position = ComputerMoveService.randomMove(board);
                 if(position == null){
                     return;
                 }
@@ -126,6 +127,8 @@ public class Match {
 
     private void writeToHistoryFile(MatchHistory history) {
         FileWriteRead.getInstance().writeToHistoryFile(Main.FILE_MATCH_HISTORY, history);
+        //FileWriteRead.getInstance().writeToHistoryFile(MakeComputerPlayRandom.HISTORY_FILE_TEST, history);
+
     }
 
 

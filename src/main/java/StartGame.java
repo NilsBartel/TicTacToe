@@ -20,7 +20,8 @@ public class StartGame {
             Score score = StartGameUtil.updateScore(match, fileWriteRead, printService);
             displayScore(score);
 
-            AnalyseService.findBestWinningLine();
+            matchHistory = fileWriteRead.readFromHistoryFile(Main.FILE_MATCH_HISTORY);
+            printService.printAnalysedWinPositions(AnalyseService.getInstance().findBestWinningLine(matchHistory));
         } while (playerInput.askPlayAgainWithHistory());
 
         printService.printGameEndMessage();

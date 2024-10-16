@@ -1,0 +1,804 @@
+{
+  "matches": [
+    {
+      "board": {
+        "rows": [
+          {
+            "fields": [
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": "x"
+              },
+              {
+                "symbol": " "
+              }
+            ]
+          },
+          {
+            "fields": [
+              {
+                "symbol": "x"
+              },
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": " "
+              }
+            ]
+          },
+          {
+            "fields": [
+              {
+                "symbol": " "
+              },
+              {
+                "symbol": "x"
+              },
+              {
+                "symbol": "o"
+              }
+            ]
+          }
+        ]
+      },
+      "status": "PLAYER_WON",
+      "difficulty": "EASY",
+      "isPlayerTurn": true,
+      "startTime": 1729072039314,
+      "endTime": 1729072046045
+    },
+    {
+      "board": {
+        "rows": [
+          {
+            "fields": [
+              {
+                "symbol": "x"
+              },
+              {
+                "symbol": "x"
+              },
+              {
+                "symbol": "x"
+              }
+            ]
+          },
+          {
+            "fields": [
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": " "
+              }
+            ]
+          },
+          {
+            "fields": [
+              {
+                "symbol": " "
+              },
+              {
+                "symbol": " "
+              },
+              {
+                "symbol": "o"
+              }
+            ]
+          }
+        ]
+      },
+      "status": "COMPUTER_WON",
+      "difficulty": "IMPOSSIBLE",
+      "isPlayerTurn": false,
+      "startTime": 1729072057389,
+      "endTime": 1729072077518
+    },
+    {
+      "board": {
+        "rows": [
+          {
+            "fields": [
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": "x"
+              }
+            ]
+          },
+          {
+            "fields": [
+              {
+                "symbol": "x"
+              },
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": "x"
+              }
+            ]
+          },
+          {
+            "fields": [
+              {
+                "symbol": " "
+              },
+              {
+                "symbol": " "
+              },
+              {
+                "symbol": "x"
+              }
+            ]
+          }
+        ]
+      },
+      "status": "COMPUTER_WON",
+      "difficulty": "EASY",
+      "isPlayerTurn": false,
+      "startTime": 1729073850140,
+      "endTime": 1729073855734
+    },
+    {
+      "board": {
+        "rows": [
+          {
+            "fields": [
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": " "
+              },
+              {
+                "symbol": " "
+              }
+            ]
+          },
+          {
+            "fields": [
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": "x"
+              },
+              {
+                "symbol": "x"
+              }
+            ]
+          },
+          {
+            "fields": [
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": " "
+              },
+              {
+                "symbol": " "
+              }
+            ]
+          }
+        ]
+      },
+      "status": "PLAYER_WON",
+      "difficulty": "EASY",
+      "isPlayerTurn": true,
+      "startTime": 1729073860871,
+      "endTime": 1729073864427
+    },
+    {
+      "board": {
+        "rows": [
+          {
+            "fields": [
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": " "
+              },
+              {
+                "symbol": "x"
+              }
+            ]
+          },
+          {
+            "fields": [
+              {
+                "symbol": " "
+              },
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": "x"
+              }
+            ]
+          },
+          {
+            "fields": [
+              {
+                "symbol": " "
+              },
+              {
+                "symbol": "x"
+              },
+              {
+                "symbol": "o"
+              }
+            ]
+          }
+        ]
+      },
+      "status": "PLAYER_WON",
+      "difficulty": "EASY",
+      "isPlayerTurn": true,
+      "startTime": 1729073919335,
+      "endTime": 1729073924812
+    },
+    {
+      "board": {
+        "rows": [
+          {
+            "fields": [
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": "o"
+              }
+            ]
+          },
+          {
+            "fields": [
+              {
+                "symbol": " "
+              },
+              {
+                "symbol": " "
+              },
+              {
+                "symbol": "x"
+              }
+            ]
+          },
+          {
+            "fields": [
+              {
+                "symbol": " "
+              },
+              {
+                "symbol": " "
+              },
+              {
+                "symbol": "x"
+              }
+            ]
+          }
+        ]
+      },
+      "status": "PLAYER_WON",
+      "difficulty": "EASY",
+      "isPlayerTurn": true,
+      "startTime": 1729074680091,
+      "endTime": 1729074686437
+    },
+    {
+      "board": {
+        "rows": [
+          {
+            "fields": [
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": "x"
+              }
+            ]
+          },
+          {
+            "fields": [
+              {
+                "symbol": "x"
+              },
+              {
+                "symbol": "x"
+              },
+              {
+                "symbol": "x"
+              }
+            ]
+          },
+          {
+            "fields": [
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": "x"
+              }
+            ]
+          }
+        ]
+      },
+      "status": "COMPUTER_WON",
+      "difficulty": "EASY",
+      "isPlayerTurn": false,
+      "startTime": 1729074690678,
+      "endTime": 1729074700264
+    },
+    {
+      "board": {
+        "rows": [
+          {
+            "fields": [
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": " "
+              },
+              {
+                "symbol": "x"
+              }
+            ]
+          },
+          {
+            "fields": [
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": "o"
+              }
+            ]
+          },
+          {
+            "fields": [
+              {
+                "symbol": "x"
+              },
+              {
+                "symbol": " "
+              },
+              {
+                "symbol": "x"
+              }
+            ]
+          }
+        ]
+      },
+      "status": "PLAYER_WON",
+      "difficulty": "EASY",
+      "isPlayerTurn": true,
+      "startTime": 1729074738682,
+      "endTime": 1729074749741
+    },
+    {
+      "board": {
+        "rows": [
+          {
+            "fields": [
+              {
+                "symbol": "x"
+              },
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": "o"
+              }
+            ]
+          },
+          {
+            "fields": [
+              {
+                "symbol": "x"
+              },
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": "x"
+              }
+            ]
+          },
+          {
+            "fields": [
+              {
+                "symbol": "x"
+              },
+              {
+                "symbol": " "
+              },
+              {
+                "symbol": " "
+              }
+            ]
+          }
+        ]
+      },
+      "status": "COMPUTER_WON",
+      "difficulty": "EASY",
+      "isPlayerTurn": false,
+      "startTime": 1729074805992,
+      "endTime": 1729074812895
+    },
+    {
+      "board": {
+        "rows": [
+          {
+            "fields": [
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": "x"
+              }
+            ]
+          },
+          {
+            "fields": [
+              {
+                "symbol": "x"
+              },
+              {
+                "symbol": "x"
+              },
+              {
+                "symbol": "x"
+              }
+            ]
+          },
+          {
+            "fields": [
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": " "
+              },
+              {
+                "symbol": "o"
+              }
+            ]
+          }
+        ]
+      },
+      "status": "COMPUTER_WON",
+      "difficulty": "IMPOSSIBLE",
+      "isPlayerTurn": false,
+      "startTime": 1729075013669,
+      "endTime": 1729075029398
+    },
+    {
+      "board": {
+        "rows": [
+          {
+            "fields": [
+              {
+                "symbol": "x"
+              },
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": "x"
+              }
+            ]
+          },
+          {
+            "fields": [
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": "x"
+              }
+            ]
+          },
+          {
+            "fields": [
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": "x"
+              },
+              {
+                "symbol": "x"
+              }
+            ]
+          }
+        ]
+      },
+      "status": "COMPUTER_WON",
+      "difficulty": "MEDIUM",
+      "isPlayerTurn": false,
+      "startTime": 1729075073210,
+      "endTime": 1729075131304
+    },
+    {
+      "board": {
+        "rows": [
+          {
+            "fields": [
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": "x"
+              }
+            ]
+          },
+          {
+            "fields": [
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": "x"
+              },
+              {
+                "symbol": " "
+              }
+            ]
+          },
+          {
+            "fields": [
+              {
+                "symbol": "x"
+              },
+              {
+                "symbol": " "
+              },
+              {
+                "symbol": " "
+              }
+            ]
+          }
+        ]
+      },
+      "status": "COMPUTER_WON",
+      "difficulty": "MEDIUM",
+      "isPlayerTurn": false,
+      "startTime": 1729075292423,
+      "endTime": 1729075298769
+    },
+    {
+      "board": {
+        "rows": [
+          {
+            "fields": [
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": "x"
+              },
+              {
+                "symbol": " "
+              }
+            ]
+          },
+          {
+            "fields": [
+              {
+                "symbol": " "
+              },
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": "x"
+              }
+            ]
+          },
+          {
+            "fields": [
+              {
+                "symbol": " "
+              },
+              {
+                "symbol": "x"
+              },
+              {
+                "symbol": "o"
+              }
+            ]
+          }
+        ]
+      },
+      "status": "PLAYER_WON",
+      "difficulty": "EASY",
+      "isPlayerTurn": true,
+      "startTime": 1729075354115,
+      "endTime": 1729075359337
+    },
+    {
+      "board": {
+        "rows": [
+          {
+            "fields": [
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": "o"
+              }
+            ]
+          },
+          {
+            "fields": [
+              {
+                "symbol": " "
+              },
+              {
+                "symbol": " "
+              },
+              {
+                "symbol": " "
+              }
+            ]
+          },
+          {
+            "fields": [
+              {
+                "symbol": " "
+              },
+              {
+                "symbol": "x"
+              },
+              {
+                "symbol": "x"
+              }
+            ]
+          }
+        ]
+      },
+      "status": "PLAYER_WON",
+      "difficulty": "EASY",
+      "isPlayerTurn": true,
+      "startTime": 1729075644757,
+      "endTime": 1729075649380
+    },
+    {
+      "board": {
+        "rows": [
+          {
+            "fields": [
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": "x"
+              },
+              {
+                "symbol": " "
+              }
+            ]
+          },
+          {
+            "fields": [
+              {
+                "symbol": " "
+              },
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": "x"
+              }
+            ]
+          },
+          {
+            "fields": [
+              {
+                "symbol": "x"
+              },
+              {
+                "symbol": " "
+              },
+              {
+                "symbol": "o"
+              }
+            ]
+          }
+        ]
+      },
+      "status": "PLAYER_WON",
+      "difficulty": "EASY",
+      "isPlayerTurn": true,
+      "startTime": 1729075756896,
+      "endTime": 1729075761356
+    },
+    {
+      "board": {
+        "rows": [
+          {
+            "fields": [
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": "o"
+              },
+              {
+                "symbol": "o"
+              }
+            ]
+          },
+          {
+            "fields": [
+              {
+                "symbol": "x"
+              },
+              {
+                "symbol": " "
+              },
+              {
+                "symbol": " "
+              }
+            ]
+          },
+          {
+            "fields": [
+              {
+                "symbol": " "
+              },
+              {
+                "symbol": "x"
+              },
+              {
+                "symbol": " "
+              }
+            ]
+          }
+        ]
+      },
+      "status": "PLAYER_WON",
+      "difficulty": "EASY",
+      "isPlayerTurn": true,
+      "startTime": 1729075825614,
+      "endTime": 1729075830781
+    }
+  ]
+}

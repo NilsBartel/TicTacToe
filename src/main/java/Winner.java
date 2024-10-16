@@ -23,16 +23,22 @@ public final class Winner {
             return true;
         }
 
+        if (checkDiagonalTopLeftBottomRight(board, currentSymbol)) {
+            return true;
+        }
 
+        return checkDiagonalTopRightBottomLeft(board, currentSymbol);
+    }
+
+    private static boolean checkDiagonalTopLeftBottomRight(Board board, char currentSymbol){
         List<Field> diagonalLeftRight = new ArrayList<>();
         for(Position pos : Board.DIAGONAL_TOP_LEFT_BOTTOM_RIGHT){
             diagonalLeftRight.add(board.getField(pos.getRow(), pos.getColumn()));
         }
-        if(allEqualsSymbol(diagonalLeftRight, currentSymbol)) {
-            return true;
-        }
+        return allEqualsSymbol(diagonalLeftRight, currentSymbol);
+    }
 
-
+    private static boolean checkDiagonalTopRightBottomLeft(Board board, char currentSymbol){
         List<Field> diagonalRightLeft = new ArrayList<>();
         for(Position pos : Board.DIAGONAL_TOP_RIGHT_BOTTOM_LEFT){
             diagonalRightLeft.add(board.getField(pos.getRow(), pos.getColumn()));
@@ -89,30 +95,17 @@ public final class Winner {
         }
 
 
-
-
-        List<Field> diagonalLeftRight = new ArrayList<>();
-        for(Position pos : Board.DIAGONAL_TOP_LEFT_BOTTOM_RIGHT){
-            positions.add(pos);
-            diagonalLeftRight.add(board.getField(pos.getRow(), pos.getColumn()));
-        }
-        if(allEqualsSymbol(diagonalLeftRight, winningSymbol)) {
-            return positions;
-        }
-        positions.clear();
-
-
-
-        List<Field> diagonalRightLeft = new ArrayList<>();
-        for(Position pos : Board.DIAGONAL_TOP_RIGHT_BOTTOM_LEFT){
-            positions.add(pos);
-            diagonalRightLeft.add(board.getField(pos.getRow(), pos.getColumn()));
-        }
-        if (allEqualsSymbol(diagonalRightLeft, winningSymbol)) {
-            return positions;
+        if (checkDiagonalTopLeftBottomRight(board, winningSymbol)) {
+            return Board.DIAGONAL_TOP_LEFT_BOTTOM_RIGHT;
         }
 
-        return null;
+
+        if (checkDiagonalTopRightBottomLeft(board, winningSymbol)) {
+            return Board.DIAGONAL_TOP_RIGHT_BOTTOM_LEFT;
+        }
+
+
+        return positions;
     }
 
 }
