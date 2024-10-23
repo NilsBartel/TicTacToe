@@ -18,15 +18,14 @@ public final class StartGameUtil {
                 match.setDifficulty(PlayerInput.getInstance().askForDifficulty());
             }
             matchHistory.addMatch(match);
-            fileWriteRead.writeToHistoryFile(FileService.getInstance().getFILE_MATCH_HISTORY(), matchHistory);
+            fileWriteRead.writeToHistoryFile(FileService.getInstance().getFileMatchHistory(), matchHistory);
         }
 
         return match;
     }
 
-    public static Score updateScore(Match match, FileWriteRead fileWriteRead, PrintService printService, MatchHistory matchHistory) {
+    public static Score updateScore(Match match, PrintService printService, MatchHistory matchHistory) {
         MatchStatus status = match.getStatus();
-        //Score score = fileWriteRead.readFile(FileService.getInstance().getFILE_SCORE());
         Score score = matchHistory.getScore();
 
         switch (status) {
@@ -48,41 +47,9 @@ public final class StartGameUtil {
             default -> printService.printInvalidStatus();
         }
         matchHistory.updateScore(score);
-        //fileWriteRead.writeFile(FileService.getInstance().getFILE_SCORE(), score);
 
         return score;
     }
-
-    public static Score updateScoreForRandom(Match match, FileWriteRead fileWriteRead, PrintService printService) {
-        MatchStatus status = match.getStatus();
-        Score score = fileWriteRead.readFile(MakeComputerPlayRandom.SCORE_FILE_TEST);
-
-        switch (status) {
-            case PLAYER_WON -> {
-                score.setPlayerScorePlusOne();
-                //printService.printWhoWon(match.isIsPlayerTurn());
-            }
-            case COMPUTER_WON -> {
-                score.setComputerScorePlusOne();
-                //printService.printWhoWon(match.isIsPlayerTurn());
-            }
-            case DRAW -> {
-                score.setDrawCountPlusOne();
-                //printService.printDraw();
-            }
-            case MATCH_ALREADY_FINISHED -> {
-            }
-            case NOT_STARTED, RUNNING -> {}
-            default -> printService.printInvalidStatus();
-        }
-        fileWriteRead.writeFile(MakeComputerPlayRandom.SCORE_FILE_TEST, score);
-
-        return score;
-    }
-
-
-
-
 
 
 

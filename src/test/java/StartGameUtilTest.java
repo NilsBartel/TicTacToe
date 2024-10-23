@@ -105,16 +105,14 @@ class StartGameUtilTest {
         }
         @Test
         void updateScoreTest_Draw() {
-            FileWriteRead mockFileWriteRead = mock(FileWriteRead.class);
             PrintService mockPrintService = mock(PrintService.class);
             MatchHistory mockHistory = mock(MatchHistory.class);
             Match match = generateMatchForTest_Draw();
             Score score = new Score();
-            when(mockFileWriteRead.readFile(any())).thenReturn(score);  //todo here
             when(mockHistory.getScore()).thenReturn(score);
             doNothing().when(mockHistory).updateScore(any());
 
-            score = StartGameUtil.updateScore(match, mockFileWriteRead, mockPrintService, mockHistory);
+            score = StartGameUtil.updateScore(match, mockPrintService, mockHistory);
 
             assertEquals(1, score.getDrawCount());
         }
@@ -136,16 +134,14 @@ class StartGameUtilTest {
     }
     @Test
     void updateScoreTest_PlayerWin() {
-        FileWriteRead mockFileWriteRead = mock(FileWriteRead.class);
         PrintService mockPrintService = mock(PrintService.class);
         MatchHistory mockHistory = mock(MatchHistory.class);
         Match match = generateMatchForTest_PlayerWin();
         Score score = new Score();
-        when(mockFileWriteRead.readFile(any())).thenReturn(score); //TODO: can this be removed? on all 3
         when(mockHistory.getScore()).thenReturn(score);
         doNothing().when(mockHistory).updateScore(any());
 
-        score = StartGameUtil.updateScore(match, mockFileWriteRead, mockPrintService, mockHistory);
+        score = StartGameUtil.updateScore(match, mockPrintService, mockHistory);
 
         assertEquals(1, score.getPlayerScore());
     }
@@ -167,16 +163,14 @@ class StartGameUtilTest {
     }
     @Test
     void updateScoreTest_ComputerWin() {
-        FileWriteRead mockFileWriteRead = mock(FileWriteRead.class);
         PrintService mockPrintService = mock(PrintService.class);
         MatchHistory mockHistory = mock(MatchHistory.class);
         Match match = generateMatchForTest_ComputerWin();
         Score score = new Score();
-        when(mockFileWriteRead.readFile(any())).thenReturn(score); //TOdo: here
         when(mockHistory.getScore()).thenReturn(score);
         doNothing().when(mockHistory).updateScore(any());
 
-        score = StartGameUtil.updateScore(match, mockFileWriteRead, mockPrintService, mockHistory);
+        score = StartGameUtil.updateScore(match, mockPrintService, mockHistory);
 
         assertEquals(1, score.getComputerScore());
     }

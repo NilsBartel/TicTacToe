@@ -2,6 +2,8 @@ import java.io.File;
 
 public final class FileService {
     private static FileService instance;
+    private File fileMatchHistory;
+
     private FileService() {
     }
     public static FileService getInstance() {
@@ -11,19 +13,15 @@ public final class FileService {
         return instance;
     }
 
-    private final File FILE_SCORE = new File("score.txt");
-    private File FILE_MATCH_HISTORY;
+
 
 
     public void setFileName(String fileName) {
-        FILE_MATCH_HISTORY = new File("matchHistory"+fileName+".json");
+        fileMatchHistory = new File("matchHistory"+fileName+".json");
     }
 
-    public File getFILE_MATCH_HISTORY() {
-        return FILE_MATCH_HISTORY;
+    public File getFileMatchHistory() {
+        return fileMatchHistory;
     }
 
-    public File getFILE_SCORE() {
-        return FILE_SCORE;
-    }
 }

@@ -12,20 +12,18 @@ public class StartGame {
         DifficultyState difficulty = null;
         do {
 
-            MatchHistory matchHistory = fileWriteRead.readFromHistoryFile(FileService.getInstance().getFILE_MATCH_HISTORY());
+            MatchHistory matchHistory = fileWriteRead.readFromHistoryFile(FileService.getInstance().getFileMatchHistory());
             Match match = StartGameUtil.returnRunningOrNewMatch(matchHistory, difficulty, fileWriteRead);
             difficulty = match.getDifficulty();
 
-
             match.play(matchHistory);
 
-            Score score = StartGameUtil.updateScore(match, fileWriteRead, printService, matchHistory);
-            //Score score = matchHistory.getScores().getFirst();
+            Score score = StartGameUtil.updateScore(match, printService, matchHistory);
 
             displayScore(score);
-            fileWriteRead.writeToHistoryFile(FileService.getInstance().getFILE_MATCH_HISTORY(), matchHistory);
+            fileWriteRead.writeToHistoryFile(FileService.getInstance().getFileMatchHistory(), matchHistory);
 
-            matchHistory = fileWriteRead.readFromHistoryFile(FileService.getInstance().getFILE_MATCH_HISTORY());
+            matchHistory = fileWriteRead.readFromHistoryFile(FileService.getInstance().getFileMatchHistory());
             printService.printAnalysedWinPositions(AnalyseService.getInstance().findBestWinningLine(matchHistory));
         } while (playerInput.askPlayAgainWithHistory());
 

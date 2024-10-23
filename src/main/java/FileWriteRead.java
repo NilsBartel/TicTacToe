@@ -17,33 +17,6 @@ public final class FileWriteRead {
     }
 
 
-    public void writeFile(File fileName, Score score){
-        ObjectMapper mapper = new ObjectMapper();
-
-        try{
-            mapper.writeValue(fileName, score);
-        } catch (IOException e) {
-            System.out.println();
-            System.out.println("Error while writing file!");
-        }
-    }
-
-    public Score readFile(File fileName) {
-        ObjectMapper mapper = new ObjectMapper();
-
-        try{
-            return mapper.readValue(fileName, Score.class);
-
-        } catch (IOException e) {
-            System.out.println();
-            System.out.println("Error while reading file!");
-        }
-        return new Score();
-    }
-
-
-
-
     public void writeToHistoryFile(File file, MatchHistory matchHistoryJson) {
 
         ObjectMapper mapper = new ObjectMapper();
@@ -68,19 +41,19 @@ public final class FileWriteRead {
     }
 
     public boolean compareToLastMatchState(MatchStatus matchStatus) {
-        return readFromHistoryFile(FileService.getInstance().getFILE_MATCH_HISTORY()).getMatches().getLast().isStatusEqual(matchStatus);
+        return readFromHistoryFile(FileService.getInstance().getFileMatchHistory()).getMatches().getLast().isStatusEqual(matchStatus);
     }
 
     public boolean compareToLastMatchStartTime(Long startTime) {
-        return readFromHistoryFile(FileService.getInstance().getFILE_MATCH_HISTORY()).getMatches().getLast().getStartTime() == startTime;
+        return readFromHistoryFile(FileService.getInstance().getFileMatchHistory()).getMatches().getLast().getStartTime() == startTime;
     }
 
     public Match getLastMatch() {
-        return readFromHistoryFile(FileService.getInstance().getFILE_MATCH_HISTORY()).getMatches().getLast();
+        return readFromHistoryFile(FileService.getInstance().getFileMatchHistory()).getMatches().getLast();
     }
 
     public Board getLastBoard() {
-        return readFromHistoryFile(FileService.getInstance().getFILE_MATCH_HISTORY()).getMatches().getLast().getBoard();
+        return readFromHistoryFile(FileService.getInstance().getFileMatchHistory()).getMatches().getLast().getBoard();
     }
 
 

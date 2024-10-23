@@ -21,7 +21,7 @@ public class MakeComputerPlayRandom {
 
             match.play(matchHistory);
 
-            score = StartGameUtil.updateScoreForRandom(match, fileWriteRead, printService);
+            score = StartGameUtil.updateScore(match, printService, matchHistory);
         }
 
 

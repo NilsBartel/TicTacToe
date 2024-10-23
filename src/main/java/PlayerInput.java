@@ -53,7 +53,7 @@ public final class PlayerInput {
         }
 
         if("h".equals(response)) {
-            MatchHistory matchHistory = MatchHistory.fromFile(FileService.getInstance().getFILE_MATCH_HISTORY());
+            MatchHistory matchHistory = MatchHistory.fromFile(FileService.getInstance().getFileMatchHistory());
             matchHistory.printMatchHistory();
             return askPlayAgain();
         }
