@@ -19,7 +19,7 @@ public final class AnalyseService {
         List<List<Position>> wins = new ArrayList<>();
 
         for (Match match : matchHistory.getMatches()) {
-            if (match.isStatusEqual(MatchStatus.COMPUTER_WON) || match.isStatusEqual(MatchStatus.PLAYER_WON)) { //match.getStatus() == MatchStatus.COMPUTER_WON || match.getStatus() == MatchStatus.PLAYER_WON ||
+            if (match.isStatusEqual(MatchStatus.COMPUTER_WON) || match.isStatusEqual(MatchStatus.PLAYER_WON)) {
                 wins.add(Winner.findWinningRow(match.getBoard(), getWinnerSymbol(match.getStatus())));
             }
         }

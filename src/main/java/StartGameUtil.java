@@ -18,15 +18,16 @@ public final class StartGameUtil {
                 match.setDifficulty(PlayerInput.getInstance().askForDifficulty());
             }
             matchHistory.addMatch(match);
-            fileWriteRead.writeToHistoryFile(Main.FILE_MATCH_HISTORY, matchHistory);
+            fileWriteRead.writeToHistoryFile(FileService.getInstance().getFILE_MATCH_HISTORY(), matchHistory);
         }
 
         return match;
     }
 
-    public static Score updateScore(Match match, FileWriteRead fileWriteRead, PrintService printService) {
+    public static Score updateScore(Match match, FileWriteRead fileWriteRead, PrintService printService, MatchHistory matchHistory) {
         MatchStatus status = match.getStatus();
-        Score score = fileWriteRead.readFile(Main.FILE_SCORE);
+        //Score score = fileWriteRead.readFile(FileService.getInstance().getFILE_SCORE());
+        Score score = matchHistory.getScore();
 
         switch (status) {
             case PLAYER_WON -> {
@@ -46,7 +47,8 @@ public final class StartGameUtil {
             case NOT_STARTED, RUNNING -> {}
             default -> printService.printInvalidStatus();
         }
-        fileWriteRead.writeFile(Main.FILE_SCORE, score);
+        matchHistory.updateScore(score);
+        //fileWriteRead.writeFile(FileService.getInstance().getFILE_SCORE(), score);
 
         return score;
     }

@@ -8,6 +8,8 @@ public class MatchHistory {
     public static final int MAX_HISTORY_SIZE = 10;
 
     private final List<Match> matches = new ArrayList<>();
+    private Score score;
+    //private List<Score> scores = new ArrayList<>();
 
     @JsonIgnore
     private PrintService printService;
@@ -42,6 +44,10 @@ public class MatchHistory {
         this.matches.add(match);
     }
 
+    public void updateScore(Score score) {
+        this.score = score;
+    }
+
     private MatchStatus getLastStatus() {
         return this.matches.getLast().getStatus();
     }
@@ -52,6 +58,17 @@ public class MatchHistory {
 
     public List<Match> getMatches() {
         return matches;
+    }
+
+    public Score getScore() {
+        if(score == null) {
+            score = new Score();
+        }
+        return score;
+    }
+
+    public void setScores(Score score) {
+        this.score = score;
     }
 
     public PrintService getPrintService() {

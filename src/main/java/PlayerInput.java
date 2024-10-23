@@ -53,7 +53,7 @@ public final class PlayerInput {
         }
 
         if("h".equals(response)) {
-            MatchHistory matchHistory = MatchHistory.fromFile(Main.FILE_MATCH_HISTORY);
+            MatchHistory matchHistory = MatchHistory.fromFile(FileService.getInstance().getFILE_MATCH_HISTORY());
             matchHistory.printMatchHistory();
             return askPlayAgain();
         }
@@ -105,6 +105,15 @@ public final class PlayerInput {
             return false;
         }
         return true;
+    }
+
+    public String askForName(){
+        String response;
+        System.out.println();
+        System.out.println("What is your name?");
+        response = myScanner();
+
+        return response;
     }
 
 

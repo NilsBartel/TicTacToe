@@ -73,10 +73,10 @@ public class Match {
 
     private Position playerMove(Board board) {
 
-        Match tempMatch = FileWriteRead.getInstance().readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast();
+        Match tempMatch = FileWriteRead.getInstance().readFromHistoryFile(FileService.getInstance().getFILE_MATCH_HISTORY()).getMatches().getLast();
         Position position = PlayerInput.getInstance().askForMove(board);
 
-        if (!tempMatch.equals(FileWriteRead.getInstance().readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast())) {
+        if (!tempMatch.equals(FileWriteRead.getInstance().readFromHistoryFile(FileService.getInstance().getFILE_MATCH_HISTORY()).getMatches().getLast())) {
             do {
                 if (!FileWriteRead.getInstance().compareToLastMatchState(MatchStatus.RUNNING)){
                     System.out.println();
@@ -98,9 +98,9 @@ public class Match {
                 this.board = FileWriteRead.getInstance().getLastBoard();
                 this.board.print();
 
-                tempMatch = FileWriteRead.getInstance().readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast();
+                tempMatch = FileWriteRead.getInstance().readFromHistoryFile(FileService.getInstance().getFILE_MATCH_HISTORY()).getMatches().getLast();
                 position = PlayerInput.getInstance().askForMove(board);
-            } while (!tempMatch.equals(FileWriteRead.getInstance().readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast()));
+            } while (!tempMatch.equals(FileWriteRead.getInstance().readFromHistoryFile(FileService.getInstance().getFILE_MATCH_HISTORY()).getMatches().getLast()));
         }
 
         return position;
@@ -125,14 +125,14 @@ public class Match {
     }
 
     private void writeToHistoryFile(MatchHistory history) {
-        FileWriteRead.getInstance().writeToHistoryFile(Main.FILE_MATCH_HISTORY, history);
+        FileWriteRead.getInstance().writeToHistoryFile(FileService.getInstance().getFILE_MATCH_HISTORY(), history);
         //FileWriteRead.getInstance().writeToHistoryFile(MakeComputerPlayRandom.HISTORY_FILE_TEST, history);
 
     }
 
 
     private void setPlayerTurn() {
-        Score score = FileWriteRead.getInstance().readFile(Main.FILE_SCORE);
+        Score score = FileWriteRead.getInstance().readFile(FileService.getInstance().getFILE_SCORE());
         this.isPlayerTurn = score.getRoundCounter() % 2 == 0;
     }
 

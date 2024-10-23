@@ -60,7 +60,6 @@ public final class FileWriteRead {
 
         try{
             return mapper.readValue(file, MatchHistory.class);
-
         } catch (IOException e) {
             System.out.println();
             System.out.println("Error while reading file!");
@@ -69,20 +68,19 @@ public final class FileWriteRead {
     }
 
     public boolean compareToLastMatchState(MatchStatus matchStatus) {
-        return readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast().isStatusEqual(matchStatus);
+        return readFromHistoryFile(FileService.getInstance().getFILE_MATCH_HISTORY()).getMatches().getLast().isStatusEqual(matchStatus);
     }
 
     public boolean compareToLastMatchStartTime(Long startTime) {
-        return readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast().getStartTime() == startTime;
+        return readFromHistoryFile(FileService.getInstance().getFILE_MATCH_HISTORY()).getMatches().getLast().getStartTime() == startTime;
     }
 
     public Match getLastMatch() {
-        return readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast();
+        return readFromHistoryFile(FileService.getInstance().getFILE_MATCH_HISTORY()).getMatches().getLast();
     }
 
     public Board getLastBoard() {
-        return readFromHistoryFile(Main.FILE_MATCH_HISTORY).getMatches().getLast().getBoard();
-
+        return readFromHistoryFile(FileService.getInstance().getFILE_MATCH_HISTORY()).getMatches().getLast().getBoard();
     }
 
 
