@@ -111,9 +111,8 @@ public final class Winner {
             case COMPUTER_WON -> printService.printComputerWon();
             case PLAYER_WON -> printService.printPlayerWon();
             case DRAW -> printService.printDraw();
-            case NOT_STARTED, RUNNING, MATCH_ALREADY_FINISHED -> {
-                System.out.println("Match not finished!");
-            }
+            case NOT_STARTED, RUNNING, MATCH_ALREADY_FINISHED -> System.out.println("Match not finished!");
+
             default -> printService.printInvalidStatus();
         }
     }

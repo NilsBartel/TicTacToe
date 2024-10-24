@@ -12,18 +12,11 @@ public class Score {
 
     public Score updateScore(MatchStatus status) {
         switch (status) {
-            case PLAYER_WON -> {
-                playerScore++;
-            }
-            case COMPUTER_WON -> {
-                computerScore++;
-            }
-            case DRAW -> {
-                drawCount++;
-            }
-            case MATCH_ALREADY_FINISHED -> {
-            }
-            case NOT_STARTED, RUNNING -> {}
+            case PLAYER_WON -> playerScore++;
+            case COMPUTER_WON -> computerScore++;
+            case DRAW -> drawCount++;
+            case NOT_STARTED, RUNNING, MATCH_ALREADY_FINISHED -> System.out.println("Match not finished!");
+
             default -> PrintService.getInstance().printInvalidStatus();
         }
         return this;
