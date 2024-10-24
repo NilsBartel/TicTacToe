@@ -8,6 +8,32 @@ public class Score {
 
 
 
+
+
+    public Score updateScore(MatchStatus status) {
+        switch (status) {
+            case PLAYER_WON -> {
+                playerScore++;
+            }
+            case COMPUTER_WON -> {
+                computerScore++;
+            }
+            case DRAW -> {
+                drawCount++;
+            }
+            case MATCH_ALREADY_FINISHED -> {
+            }
+            case NOT_STARTED, RUNNING -> {}
+            default -> PrintService.getInstance().printInvalidStatus();
+        }
+        return this;
+    }
+
+
+
+
+
+
     public int getPlayerScore() {
         return playerScore;
     }
@@ -16,9 +42,6 @@ public class Score {
         this.playerScore = playerScore;
     }
 
-    public void setPlayerScorePlusOne(){
-        this.playerScore += 1;
-    }
 
     public int getComputerScore() {
         return computerScore;
@@ -28,9 +51,6 @@ public class Score {
         this.computerScore = computerScore;
     }
 
-    public void setComputerScorePlusOne(){
-        this.computerScore += 1;
-    }
 
     public int getDrawCount() {
         return drawCount;
@@ -40,9 +60,6 @@ public class Score {
         this.drawCount = drawCount;
     }
 
-    public void setDrawCountPlusOne(){
-        this.drawCount += 1;
-    }
 
     @JsonIgnore
     public int getRoundCounter(){

@@ -24,32 +24,32 @@ public final class StartGameUtil {
         return match;
     }
 
-    public static Score updateScore(Match match, PrintService printService, MatchHistory matchHistory) {
-        MatchStatus status = match.getStatus();
-        Score score = matchHistory.getScore();
-
-        switch (status) {
-            case PLAYER_WON -> {
-                score.setPlayerScorePlusOne();
-                printService.printWhoWon(match.isIsPlayerTurn());
-            }
-            case COMPUTER_WON -> {
-                score.setComputerScorePlusOne();
-                printService.printWhoWon(match.isIsPlayerTurn());
-            }
-            case DRAW -> {
-                score.setDrawCountPlusOne();
-                printService.printDraw();
-            }
-            case MATCH_ALREADY_FINISHED -> {
-            }
-            case NOT_STARTED, RUNNING -> {}
-            default -> printService.printInvalidStatus();
-        }
-        matchHistory.updateScore(score);
-
-        return score;
-    }
+//    public static Score updateScore(Match match, PrintService printService, MatchHistory matchHistory) {
+//        MatchStatus status = match.getStatus();
+//        Score score = matchHistory.getScore();
+//
+//        switch (status) {
+//            case PLAYER_WON -> {
+//                score.setPlayerScorePlusOne();
+//                printService.printWhoWon(match.isIsPlayerTurn());
+//            }
+//            case COMPUTER_WON -> {
+//                score.setComputerScorePlusOne();
+//                printService.printWhoWon(match.isIsPlayerTurn());
+//            }
+//            case DRAW -> {
+//                score.setDrawCountPlusOne();
+//                printService.printDraw();
+//            }
+//            case MATCH_ALREADY_FINISHED -> {
+//            }
+//            case NOT_STARTED, RUNNING -> {}
+//            default -> printService.printInvalidStatus();
+//        }
+//        matchHistory.updateScore(score);
+//
+//        return score;
+//    }
 
 
 

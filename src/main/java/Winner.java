@@ -24,14 +24,7 @@ public final class Winner {
         }
 
 
-
         return checkDiagonalTopLeftBottomRight(board, currentSymbol) || checkDiagonalTopRightBottomLeft(board, currentSymbol);
-
-//        if (checkDiagonalTopLeftBottomRight(board, currentSymbol)) {
-//            return true;
-//        }
-//
-//        return checkDiagonalTopRightBottomLeft(board, currentSymbol);
     }
 
     private static boolean checkDiagonalTopLeftBottomRight(Board board, char currentSymbol){
@@ -110,6 +103,19 @@ public final class Winner {
 
 
         return positions;
+    }
+
+    public static void printWhoWon(MatchStatus matchStatus) {
+        PrintService printService = PrintService.getInstance();
+        switch (matchStatus) {
+            case COMPUTER_WON -> printService.printComputerWon();
+            case PLAYER_WON -> printService.printPlayerWon();
+            case DRAW -> printService.printDraw();
+            case NOT_STARTED, RUNNING, MATCH_ALREADY_FINISHED -> {
+                System.out.println("Match not finished!");
+            }
+            default -> printService.printInvalidStatus();
+        }
     }
 
 }

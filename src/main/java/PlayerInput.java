@@ -39,15 +39,16 @@ public final class PlayerInput {
     }
 
     @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
-    public boolean askPlayAgainWithHistory() {
+    public boolean askPlayAgain() {
         String response;
 
         System.out.println();
         System.out.println("Do you want to play again? (Type y/n)");
-        System.out.println("Or type (h) for history.");
+        System.out.println("type (h) for history.");
+        System.out.println("type (a) to analyse Match History.");
         response = myScanner();
 
-        while(! ("y".equals(response) || "n".equals(response) || "h".equals(response))) {
+        while(! ("y".equals(response) || "n".equals(response) || "h".equals(response) || "a".equals(response))) {
             System.out.println(INVALID_INPUT);
             response = myScanner();
         }
@@ -58,20 +59,13 @@ public final class PlayerInput {
             return askPlayAgain();
         }
 
-        return "y".equals(response);
-    }
-
-    public boolean askPlayAgain() {
-        String response;
-
-        System.out.println();
-        System.out.println("Do you want to play again? (Type y/n)");
-        response = myScanner();
-
-        while(! ("y".equals(response) || "n".equals(response))) {
-            System.out.println(INVALID_INPUT);
-            response = myScanner();
+        if("a".equals(response)) {
+            MatchHistory matchHistory =  MatchHistory.fromFile(FileService.getInstance().getFileMatchHistory());
+            PrintService.getInstance().printAnalysedWinPositions(AnalyseService.getInstance().findBestWinningLine(matchHistory));
+            return askPlayAgain();
         }
+
+
         return "y".equals(response);
     }
 

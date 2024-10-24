@@ -44,9 +44,9 @@ public class MatchHistory {
         this.matches.add(match);
     }
 
-    public void updateScore(Score score) {
-        this.score = score;
-    }
+//    public void updateScore(Score score) {
+//        this.score = score;
+//    }
 
     private MatchStatus getLastStatus() {
         return this.matches.getLast().getStatus();
@@ -58,6 +58,11 @@ public class MatchHistory {
 
     public List<Match> getMatches() {
         return matches;
+    }
+
+    public void updateScore(MatchStatus status) {
+        this.score = score.updateScore(status);
+
     }
 
     public Score getScore() {

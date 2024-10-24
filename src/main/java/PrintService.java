@@ -41,6 +41,7 @@ public final class PrintService {
     public void printAnalysedWinPositions(Map<List<Position>, Integer> map) {
 
         int size = map.size();
+        System.out.println();
         for (int i = 0; i < size; i++) {
             List<Position> winPositions = Collections.max(map.entrySet(), Map.Entry.comparingByValue()).getKey();
             int count =  Collections.max(map.entrySet(), Map.Entry.comparingByValue()).getValue();
@@ -54,24 +55,24 @@ public final class PrintService {
     }
 
 
-
-    public void printWhoWon(boolean isPlayerTurn) {
+    public void printComputerWon(){
         System.out.println();
-        if (isPlayerTurn) {
-            System.out.println("player wins!");
-        } else {
-            System.out.println("computer wins");
-        }
+        System.out.println("computer wins!");
+    }
+
+    public void printPlayerWon() {
+        System.out.println();
+        System.out.println("player wins!");
     }
 
     public void printDraw() {
         System.out.println();
-        System.out.println("Draw");
+        System.out.println("Draw!");
     }
 
     public void printGameEndMessage() {
         System.out.println();
-        System.out.println("Game end");
+        System.out.println("Game end!");
     }
 
     public void printScore(Score score) {
@@ -90,7 +91,7 @@ public final class PrintService {
     }
 
     public void printInvalidStatus() {
-        System.out.println("Invalid match status (in StartGame)");
+        System.out.println("Invalid match status!");
     }
 
 }

@@ -18,14 +18,15 @@ public class StartGame {
 
             match.play(matchHistory);
 
-            Score score = StartGameUtil.updateScore(match, printService, matchHistory);
+            Winner.printWhoWon(match.getStatus());
+            matchHistory.updateScore(match.getStatus());
 
-            displayScore(score);
+
+            displayScore(matchHistory.getScore());
             fileWriteRead.writeToHistoryFile(FileService.getInstance().getFileMatchHistory(), matchHistory);
 
-            matchHistory = fileWriteRead.readFromHistoryFile(FileService.getInstance().getFileMatchHistory());
-            printService.printAnalysedWinPositions(AnalyseService.getInstance().findBestWinningLine(matchHistory));
-        } while (playerInput.askPlayAgainWithHistory());
+
+        } while (playerInput.askPlayAgain());
 
         printService.printGameEndMessage();
     }

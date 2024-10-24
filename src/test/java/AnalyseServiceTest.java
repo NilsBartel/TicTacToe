@@ -24,7 +24,7 @@ class AnalyseServiceTest {
     }
     @Test
     void analyseTest() {
-        File file = new File("testMatchHistory.json");
+        File file = new File("/Users/nilsbartel/IdeaProjects/TicTacToe/src/test/java/testMatchHistory.json");
         AnalyseService analyseService = AnalyseService.getInstance();
         MatchHistory matchHistory = MatchHistory.fromFile(file);
 
@@ -51,7 +51,7 @@ class AnalyseServiceTest {
     }
     @Test
     void analyseTest2() {
-        File file = new File("testMatchHistory2.json");
+        File file = new File("/Users/nilsbartel/IdeaProjects/TicTacToe/src/test/java/testMatchHistory2.json");
         AnalyseService analyseService = AnalyseService.getInstance();
         MatchHistory matchHistory = MatchHistory.fromFile(file);
 
