@@ -50,7 +50,7 @@ public final class PrintService {
             for (Position position : winPositions) {
                 System.out.print(position.getIndex() + " ");
             }
-            System.out.println("- Happened "+count+" times.");
+            System.out.println("- Won "+count+" times.");
         }
     }
 
@@ -78,7 +78,7 @@ public final class PrintService {
     public void printScore(Score score) {
         System.out.println();
         System.out.println("Score:");
-        System.out.println("player: "+ score.getPlayerScore() + "\t" + "computer: " + score.getComputerScore());
+        System.out.println("player: " + score.getPlayerScore() + "\t computer: " + score.getComputerScore());
     }
 
     public void printRoundCounter(Score score) {

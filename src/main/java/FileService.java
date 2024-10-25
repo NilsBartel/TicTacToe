@@ -3,6 +3,7 @@ import java.io.File;
 public final class FileService {
     private static FileService instance;
     private File fileMatchHistory;
+    private final File fileUserData = new File("userData.json");
 
     private FileService() {
     }
@@ -14,8 +15,6 @@ public final class FileService {
     }
 
 
-
-
     public void setFileName(String fileName) {
         fileMatchHistory = new File("matchHistory"+fileName+".json");
     }
@@ -24,4 +23,7 @@ public final class FileService {
         return fileMatchHistory;
     }
 
+    public File getFileUserData() {
+        return fileUserData;
+    }
 }

@@ -110,5 +110,45 @@ public final class PlayerInput {
         return response;
     }
 
+    public String askForUsername(){
+        String response;
+        System.out.println();
+        System.out.println("What is your username?");
+        response = myScanner();
+        return response;
+    }
+
+    public String askForPassword(){
+        String response;
+        System.out.println();
+        System.out.println("What is your password?");
+        response = myScanner();
+        return response;
+    }
+
+    public String askForNewUserName() {
+        String response;
+        System.out.println();
+        System.out.println(" Please choose a Username.");
+        response = myScanner();
+        while (response.length() < LogIn.userNameMinLength){
+            System.out.println("User name too short, please try again.");
+            response = myScanner();
+        }
+        return response;
+    }
+
+    public String askForNewPassword() {
+        String response;
+        System.out.println();
+        System.out.println("Please choose a Password.");
+        response = myScanner();
+        while (response.length() < LogIn.passwordMinLength){
+            System.out.println("Password too short, please try again.");
+            response = myScanner();
+        }
+        return response;
+    }
+
 
 }

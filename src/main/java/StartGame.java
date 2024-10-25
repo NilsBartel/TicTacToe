@@ -7,7 +7,15 @@ public class StartGame {
         FileWriteRead fileWriteRead = FileWriteRead.getInstance();
 
 
-        FileService.getInstance().setFileName(playerInput.askForName());
+        //FileService.getInstance().setFileName(playerInput.askForName()); //TODO: do my stuff here     OLD STUFF
+
+        User user = fileWriteRead.readFromUserFile(FileService.getInstance().getFileUserData());
+        String userName = playerInput.askForUsername();
+        userName = LogIn.validateUser(userName, user);
+        FileService.getInstance().setFileName(userName);
+
+
+
 
         DifficultyState difficulty = null;
         do {
@@ -30,8 +38,6 @@ public class StartGame {
 
         printService.printGameEndMessage();
     }
-
-
 
 
     private void displayScore(Score score) {
