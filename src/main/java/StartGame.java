@@ -6,12 +6,16 @@ public class StartGame {
         PlayerInput playerInput = PlayerInput.getInstance();
         FileWriteRead fileWriteRead = FileWriteRead.getInstance();
 
+        System.out.println("Welcome to TicTacToe!");
 
-        //FileService.getInstance().setFileName(playerInput.askForName()); //TODO: do my stuff here     OLD STUFF
-
-        User user = fileWriteRead.readFromUserFile(FileService.getInstance().getFileUserData());
+        Users user = fileWriteRead.readFromUserFile(FileService.getInstance().getFileUserData());
         String userName = playerInput.askForUsername();
         userName = LogIn.validateUser(userName, user);
+        if (userName == null) {
+            System.out.println("Returned to start!");
+            this.start();
+        }
+        System.out.println("Successfully logged in!");
         FileService.getInstance().setFileName(userName);
 
 

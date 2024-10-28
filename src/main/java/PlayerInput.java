@@ -46,9 +46,10 @@ public final class PlayerInput {
         System.out.println("Do you want to play again? (Type y/n)");
         System.out.println("type (h) for history.");
         System.out.println("type (a) to analyse Match History.");
+        System.out.println("type (q) to Log Out.");
         response = myScanner();
 
-        while(! ("y".equals(response) || "n".equals(response) || "h".equals(response) || "a".equals(response))) {
+        while(! ("y".equals(response) || "n".equals(response) || "h".equals(response) || "a".equals(response) || "q".equals(response))) {
             System.out.println(INVALID_INPUT);
             response = myScanner();
         }
@@ -63,6 +64,14 @@ public final class PlayerInput {
             MatchHistory matchHistory =  MatchHistory.fromFile(FileService.getInstance().getFileMatchHistory());
             PrintService.getInstance().printAnalysedWinPositions(AnalyseService.getInstance().findBestWinningLine(matchHistory));
             return askPlayAgain();
+        }
+
+        if("q".equals(response)) {
+            System.out.println();
+            System.out.println("Logged out successfully!");
+            System.out.println();
+            StartGame startGame = new StartGame();
+            startGame.start();
         }
 
 
@@ -115,6 +124,10 @@ public final class PlayerInput {
         System.out.println();
         System.out.println("What is your username?");
         response = myScanner();
+        while (response.length() < LogIn.USERNAME_MIN_LENGTH){
+            System.out.println("name too short, please try again.");
+            response = myScanner();
+        }
         return response;
     }
 
@@ -123,6 +136,7 @@ public final class PlayerInput {
         System.out.println();
         System.out.println("What is your password?");
         response = myScanner();
+
         return response;
     }
 
@@ -131,7 +145,7 @@ public final class PlayerInput {
         System.out.println();
         System.out.println(" Please choose a Username.");
         response = myScanner();
-        while (response.length() < LogIn.userNameMinLength){
+        while (response.length() < LogIn.USERNAME_MIN_LENGTH){
             System.out.println("User name too short, please try again.");
             response = myScanner();
         }
@@ -143,7 +157,7 @@ public final class PlayerInput {
         System.out.println();
         System.out.println("Please choose a Password.");
         response = myScanner();
-        while (response.length() < LogIn.passwordMinLength){
+        while (response.length() < LogIn.PASSWORD_MIN_LENGTH){
             System.out.println("Password too short, please try again.");
             response = myScanner();
         }

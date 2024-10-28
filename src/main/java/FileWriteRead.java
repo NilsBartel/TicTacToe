@@ -43,7 +43,7 @@ public final class FileWriteRead {
 
 
 
-    public void writeToUserFile(File file, User user) {
+    public void writeToUserFile(File file, Users user) {
 
         ObjectMapper mapper = new ObjectMapper();
         try{
@@ -53,16 +53,16 @@ public final class FileWriteRead {
             System.out.println("Error while writing  to User file!");
         }
     }
-    public User readFromUserFile(File file) {
+    public Users readFromUserFile(File file) {
         ObjectMapper mapper = new ObjectMapper();
 
         try{
-            return mapper.readValue(file, User.class);
+            return mapper.readValue(file, Users.class);
         } catch (IOException e) {
             System.out.println();
             System.out.println("Error while reading from User file!");
         }
-        return new User();
+        return new Users();
     }
 
 

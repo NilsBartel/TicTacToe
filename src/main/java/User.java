@@ -1,33 +1,63 @@
-import java.util.HashMap;
-import java.util.Map;
-
 public class User {
 
 
-    private Map<String, String> map = new HashMap<>();
+    private String userName;
+    private String password;
+    private final String QUESTION1 = "Name of your first Pet?";
+    private final String QUESTION2 = "City your were born in?";
+    private String answer1;
+    private String answer2;
 
 
-
-
-    public boolean validateUserName(String userName) {
-        return map.containsKey(userName);
+    public User(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
     }
 
-    public boolean validatePassword(String userName, String password) {
-        return map.get(userName).equals(password);
+
+
+
+
+
+
+
+    public String getQUESTION1() {
+        return QUESTION1;
     }
 
-
-
-    public void addUser(String userName, String password) {
-        map.put(userName, password);
+    public String getQUESTION2() {
+        return QUESTION2;
     }
 
-    public Map<String, String> getMap() {
-        return map;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setMap(Map<String, String> map) {
-        this.map = map;
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getAnswer1() {
+        return answer1;
+    }
+
+    public void setAnswer1(String answer1) {
+        this.answer1 = answer1;
+    }
+
+    public String getAnswer2() {
+        return answer2;
+    }
+
+    public void setAnswer2(String answer2) {
+        this.answer2 = answer2;
     }
 }
