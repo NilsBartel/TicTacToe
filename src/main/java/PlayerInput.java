@@ -110,16 +110,7 @@ public final class PlayerInput {
         return true;
     }
 
-    public String askForName(){
-        String response;
-        System.out.println();
-        System.out.println("What is your name?");
-        response = myScanner();
-
-        return response;
-    }
-
-    public String askForUsername(){
+    public String askForUserName(){
         String response;
         System.out.println();
         System.out.println("What is your username?");
@@ -143,7 +134,7 @@ public final class PlayerInput {
     public String askForNewUserName() {
         String response;
         System.out.println();
-        System.out.println(" Please choose a Username.");
+        System.out.println("Please choose a Username.");
         response = myScanner();
         while (response.length() < LogIn.USERNAME_MIN_LENGTH){
             System.out.println("User name too short, please try again.");
@@ -162,6 +153,33 @@ public final class PlayerInput {
             response = myScanner();
         }
         return response;
+    }
+
+    public String askRecoveryQuestion1() {
+        String response;
+        System.out.println();
+        System.out.println(User.getQUESTION1());
+        response = myScanner();
+        return response;
+    }
+    public String askRecoveryQuestion2() {
+        String response;
+        System.out.println();
+        System.out.println(User.getQUESTION2());
+        response = myScanner();
+        return response;
+    }
+
+    public boolean askPasswordReset() {
+        String response;
+        System.out.println();
+        System.out.println("Do you want to reset your password? (Type y/n)");
+        response = myScanner();
+        while(! ("y".equals(response) || "n".equals(response))) {
+            System.out.println(INVALID_INPUT);
+            response = myScanner();
+        }
+        return response.equals("y");
     }
 
 

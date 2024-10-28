@@ -6,17 +6,39 @@ public class StartGame {
         PlayerInput playerInput = PlayerInput.getInstance();
         FileWriteRead fileWriteRead = FileWriteRead.getInstance();
 
-        System.out.println("Welcome to TicTacToe!");
 
-        Users user = fileWriteRead.readFromUserFile(FileService.getInstance().getFileUserData());
-        String userName = playerInput.askForUsername();
-        userName = LogIn.validateUser(userName, user);
-        if (userName == null) {
-            System.out.println("Returned to start!");
-            this.start();
+
+        Users users = fileWriteRead.readFromUserFile(FileService.getInstance().getFileUserData());
+
+        if (!LogIn.logInUser(users)) {
+            System.out.println();
+            System.out.println("Login failed");
+            start();
         }
         System.out.println("Successfully logged in!");
-        FileService.getInstance().setFileName(userName);
+
+
+
+
+
+//        String userName = playerInput.askForUserName();
+//
+//        if (LogIn.userNameExists(userName, users)) {
+//            if (LogIn.validateUser(userName, users)) {
+//
+//            }
+//        } else {
+//            userName = LogIn.createUser(users);
+//        }
+//
+//
+//        userName = LogIn.validateUser(userName, users);
+//        if (userName == null) {
+//            System.out.println("Returned to start!");
+//            this.start();
+//        }
+//        System.out.println("Successfully logged in!");
+//        FileService.getInstance().setFileName(userName);
 
 
 
