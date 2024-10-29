@@ -1,7 +1,7 @@
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
-public class HashService {
-
+public final class HashService {
+    private HashService() {}
 
 
 

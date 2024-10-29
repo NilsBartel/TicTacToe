@@ -1,4 +1,3 @@
-import at.favre.lib.crypto.bcrypt.BCrypt;
 
 public final class Main {
 

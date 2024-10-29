@@ -36,15 +36,18 @@ public class StartMenu {
                 } else {
                     openMenu();
                 }
+                break;
             }
             case "b": {
                 String userName = LogIn.createUser(users);
                 FileService.getInstance().setFileName(userName);
                 StartGame startGame = new StartGame();
                 startGame.start();
+                break;
             }
             case "q": {
                 System.exit(0);
+                break;
             }
             default: {
             }

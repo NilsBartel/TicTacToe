@@ -172,6 +172,7 @@ public final class PlayerInput {
         return response;
     }
 
+    @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
     public boolean askPasswordReset() {
         String response;
         System.out.println();
@@ -181,7 +182,7 @@ public final class PlayerInput {
             System.out.println(INVALID_INPUT);
             response = myScanner();
         }
-        return response.equals("y");
+        return "y".equals(response);
     }
 
 

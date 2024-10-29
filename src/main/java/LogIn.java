@@ -1,9 +1,10 @@
-public class LogIn {
+public final class LogIn {
 
     public static final int USERNAME_MIN_LENGTH = 3;
     public static final int PASSWORD_MIN_LENGTH = 4;
     public static final int PASSWORD_MAX_TRIES = 3;
 
+    private LogIn() {}
 
 
     public static boolean logInUser(Users users, String userName){
@@ -12,11 +13,7 @@ public class LogIn {
         if(userNameExists(userName, users)){
 
             password = PlayerInput.getInstance().askForPassword();
-            if(checkPassword(userName, password, users)){
-                return true;
-            } else {
-                return resetPassword(userName, users);
-            }
+            return checkPassword(userName, password, users) || resetPassword(userName, users);
 
         } else {
             System.out.println("User " + userName + " doesn't exist!");
@@ -31,7 +28,8 @@ public class LogIn {
         System.out.println();
         System.out.println("No user found, creating new account!");
 
-        do {
+
+        while(true) {
             userName = PlayerInput.getInstance().askForNewUserName();
             if (!userNameExists(userName, users)) {
                 String password = PlayerInput.getInstance().askForNewPassword();
@@ -41,8 +39,7 @@ public class LogIn {
                 users.addUser1(user);
                 break;
             }
-        } while (true);
-
+        }
 
         FileWriteRead.getInstance().writeToUserFile(FileService.getInstance().getFileUserData(), users);
         System.out.println("created new user: " + userName);
@@ -53,11 +50,10 @@ public class LogIn {
     private static boolean checkPassword(String userName, String password, Users users) {
 
         int counter = PASSWORD_MAX_TRIES;
-
-
         User user = users.getUser(userName);
+        String tempPassword = password;
 
-        while (!HashService.verify(password, user.getPassword())) {
+        while (!HashService.verify(tempPassword, user.getPassword())) {
             counter--;
             if (counter == 0) {
                 System.out.println();
@@ -66,13 +62,13 @@ public class LogIn {
                 return false;
             }
             System.out.println("Password does not match, please try again! (tries left: " + counter + ")");
-            password = PlayerInput.getInstance().askForPassword();
+            tempPassword = PlayerInput.getInstance().askForPassword();
         }
         return true;
     }
 
     public static boolean userNameExists(String userName, Users users) {
-        for (User user : users.getUsers()) {
+        for (User user : users.getUserList()) {
             if (user.getUserName().equals(userName)) {
                 return true;
             }
@@ -107,7 +103,7 @@ public class LogIn {
         boolean bool2 = false;
         User user = users.getUser(userName);
         String userAnswer1 = PlayerInput.getInstance().askRecoveryQuestion1();
-        if ((HashService.verify(userAnswer1, user.getAnswer1()))) {
+        if (HashService.verify(userAnswer1, user.getAnswer1())) {
             System.out.println("answer correct");
             bool1 = true;
         } else {
@@ -115,7 +111,7 @@ public class LogIn {
         }
 
         String userAnswer2 = PlayerInput.getInstance().askRecoveryQuestion2();
-        if ((HashService.verify(userAnswer2, user.getAnswer2()))) {
+        if (HashService.verify(userAnswer2, user.getAnswer2())) {
             System.out.println("answer correct");
             bool2 = true;
         } else {
