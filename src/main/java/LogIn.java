@@ -6,14 +6,11 @@ public class LogIn {
 
 
 
-
-
-    public static boolean logInUser(Users users){
-        String userName = PlayerInput.getInstance().askForUserName();
+    public static boolean logInUser(Users users, String userName){
         String password;
 
         if(userNameExists(userName, users)){
-            FileService.getInstance().setFileName(userName);
+
             password = PlayerInput.getInstance().askForPassword();
             if(checkPassword(userName, password, users)){
                 return true;
@@ -21,66 +18,12 @@ public class LogIn {
                 return resetPassword(userName, users);
             }
 
-
-
-
         } else {
-            userName = createUser(users);
-            FileService.getInstance().setFileName(userName);
-            return true;
+            System.out.println("User " + userName + " doesn't exist!");
+            System.out.println();
+            return false;
         }
-
-
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-    public static boolean validateUser(String userName, Users users) {
-        String password;
-
-        password = PlayerInput.getInstance().askForPassword();
-
-
-        if (checkPassword(userName, password, users)){
-            return true;
-        }
-        return resetPassword(userName, users);
-
-
-//
-//
-//        if (!checkPassword(userName, password, users)) {
-//
-//            if (PlayerInput.getInstance().askPasswordReset()) {
-//                if (resetPassword(userName, users)) {
-//                    FileWriteRead.getInstance().writeToUserFile(FileService.getInstance().getFileUserData(), users);
-//                    return userName;
-//                }
-//            }
-//            return null;
-//        }
-//
-//
-//
-//        return userName;
-    }
-
-
-
-
-
-
-
 
 
     public static String createUser(Users users) {
@@ -144,7 +87,7 @@ public class LogIn {
         }
 
 
-       if (checkResetQuestions(userName, users)) {
+       if (checkSecurityQuestions(userName, users)) {
            String newPassword = PlayerInput.getInstance().askForNewPassword();
            User user = users.getUser(userName);
            user.setPassword(HashService.hash(newPassword));
@@ -158,22 +101,20 @@ public class LogIn {
        }
     }
 
-    private static Boolean checkResetQuestions(String userName, Users users) {
+    private static Boolean checkSecurityQuestions(String userName, Users users) {
 
-
-        String userAnswer1 = PlayerInput.getInstance().askRecoveryQuestion1();
-        String userAnswer2 = PlayerInput.getInstance().askRecoveryQuestion2();
         boolean bool1 = false;
         boolean bool2 = false;
-
         User user = users.getUser(userName);
-
+        String userAnswer1 = PlayerInput.getInstance().askRecoveryQuestion1();
         if ((HashService.verify(userAnswer1, user.getAnswer1()))) {
             System.out.println("answer correct");
             bool1 = true;
         } else {
             System.out.println("answer incorrect");
         }
+
+        String userAnswer2 = PlayerInput.getInstance().askRecoveryQuestion2();
         if ((HashService.verify(userAnswer2, user.getAnswer2()))) {
             System.out.println("answer correct");
             bool2 = true;

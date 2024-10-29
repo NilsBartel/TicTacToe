@@ -8,14 +8,14 @@ public class StartGame {
 
 
 
-        Users users = fileWriteRead.readFromUserFile(FileService.getInstance().getFileUserData());
+//        Users users = fileWriteRead.readFromUserFile(FileService.getInstance().getFileUserData());
 
-        if (!LogIn.logInUser(users)) {
-            System.out.println();
-            System.out.println("Login failed");
-            start();
-        }
-        System.out.println("Successfully logged in!");
+//        if (!LogIn.logInUser(users)) {
+//            System.out.println();
+//            System.out.println("Login failed");
+//            start();
+//        }
+//        System.out.println("Successfully logged in!");
 
 
 

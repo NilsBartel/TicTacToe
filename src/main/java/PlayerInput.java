@@ -68,10 +68,12 @@ public final class PlayerInput {
 
         if("q".equals(response)) {
             System.out.println();
+            System.out.println();
+            System.out.println();
             System.out.println("Logged out successfully!");
             System.out.println();
-            StartGame startGame = new StartGame();
-            startGame.start();
+            StartMenu startMenu = new StartMenu();
+            startMenu.openMenu();
         }
 
 
