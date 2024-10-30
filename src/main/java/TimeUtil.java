@@ -3,8 +3,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-public final class TimeUtility {
-    private TimeUtility() {
+public final class TimeUtil {
+    private TimeUtil() {
     }
 
 

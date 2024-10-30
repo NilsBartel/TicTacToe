@@ -43,7 +43,6 @@ public class Match {
                 currentSymbol = PLAYER_SYMBOL;
 
                 position = playerMove(board);
-                //position = ComputerMoveService.randomMove(board);
                 if(position == null){
                     return;
                 }
@@ -73,10 +72,10 @@ public class Match {
 
     private Position playerMove(Board board) {
 
-        Match tempMatch = FileWriteRead.getInstance().readFromHistoryFile(FileService.getInstance().getFileMatchHistory()).getMatches().getLast();
+        Match tempMatch = FileWriteRead.getInstance().readFromHistoryFile(FileUtil.getInstance().getFileMatchHistory()).getMatches().getLast();
         Position position = PlayerInput.getInstance().askForMove(board);
 
-        if (!tempMatch.equals(FileWriteRead.getInstance().readFromHistoryFile(FileService.getInstance().getFileMatchHistory()).getMatches().getLast())) {
+        if (!tempMatch.equals(FileWriteRead.getInstance().readFromHistoryFile(FileUtil.getInstance().getFileMatchHistory()).getMatches().getLast())) {
             do {
                 if (!FileWriteRead.getInstance().compareToLastMatchState(MatchStatus.RUNNING)){
                     System.out.println();
@@ -98,9 +97,9 @@ public class Match {
                 this.board = FileWriteRead.getInstance().getLastBoard();
                 this.board.print();
 
-                tempMatch = FileWriteRead.getInstance().readFromHistoryFile(FileService.getInstance().getFileMatchHistory()).getMatches().getLast();
+                tempMatch = FileWriteRead.getInstance().readFromHistoryFile(FileUtil.getInstance().getFileMatchHistory()).getMatches().getLast();
                 position = PlayerInput.getInstance().askForMove(board);
-            } while (!tempMatch.equals(FileWriteRead.getInstance().readFromHistoryFile(FileService.getInstance().getFileMatchHistory()).getMatches().getLast()));
+            } while (!tempMatch.equals(FileWriteRead.getInstance().readFromHistoryFile(FileUtil.getInstance().getFileMatchHistory()).getMatches().getLast()));
         }
 
         return position;
@@ -125,7 +124,7 @@ public class Match {
     }
 
     private void writeToHistoryFile(MatchHistory history) {
-        FileWriteRead.getInstance().writeToHistoryFile(FileService.getInstance().getFileMatchHistory(), history);
+        FileWriteRead.getInstance().writeToHistoryFile(FileUtil.getInstance().getFileMatchHistory(), history);
     }
 
 

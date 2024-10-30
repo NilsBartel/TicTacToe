@@ -10,7 +10,6 @@ public class StartMenu {
 
 
     public void openMenu(){
-        System.out.println("Welcome to TicTacToe!");
         System.out.println();
         System.out.println("Type (a) to Log in.");
         System.out.println("Type (b) to create a new account.");
@@ -22,43 +21,37 @@ public class StartMenu {
             response = myScanner();
         }
 
+        String userName;
+        Users users = FileWriteRead.getInstance().readFromUserFile(FileUtil.getInstance().getFileUserData());
 
-        Users users = FileWriteRead.getInstance().readFromUserFile(FileService.getInstance().getFileUserData());
-
+        PlayerInput playerInput = PlayerInput.getInstance();
+        LogInOutput logInOutput = LogInOutput.getInstance();
 
         switch(response) {
             case "a": {
-                String userName = PlayerInput.getInstance().askForUserName();
-                FileService.getInstance().setFileName(userName);
-                if(LogIn.logInUser(users, userName)) {
-                    StartGame startGame = new StartGame();
-                    startGame.start();
-                } else {
+                userName = playerInput.askForUserName();
+
+                if(!LogIn.getInstance().logInUser(users, userName, playerInput, logInOutput)) {
                     openMenu();
                 }
                 break;
             }
             case "b": {
-                String userName = LogIn.createUser(users);
-                FileService.getInstance().setFileName(userName);
-                StartGame startGame = new StartGame();
-                startGame.start();
+                userName = LogIn.getInstance().createUser(users);
                 break;
             }
             case "q": {
                 System.exit(0);
-                break;
             }
             default: {
+                userName = null;
             }
         }
+
+        FileUtil.getInstance().setFileName(userName);
+        StartGame startGame = new StartGame();
+        startGame.start();
     }
-
-
-
-
-
-
 
 
 }

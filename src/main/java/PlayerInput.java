@@ -55,13 +55,13 @@ public final class PlayerInput {
         }
 
         if("h".equals(response)) {
-            MatchHistory matchHistory = MatchHistory.fromFile(FileService.getInstance().getFileMatchHistory());
+            MatchHistory matchHistory = MatchHistory.fromFile(FileUtil.getInstance().getFileMatchHistory());
             matchHistory.printMatchHistory();
             return askPlayAgain();
         }
 
         if("a".equals(response)) {
-            MatchHistory matchHistory =  MatchHistory.fromFile(FileService.getInstance().getFileMatchHistory());
+            MatchHistory matchHistory =  MatchHistory.fromFile(FileUtil.getInstance().getFileMatchHistory());
             PrintService.getInstance().printAnalysedWinPositions(AnalyseService.getInstance().findBestWinningLine(matchHistory));
             return askPlayAgain();
         }

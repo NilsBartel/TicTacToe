@@ -16,11 +16,11 @@ public final class PrintService {
     }
 
     public void printSecondsElapsed(Long startTime, Long endTime) {
-        System.out.println(TimeUtility.convertToSeconds(startTime, endTime) + " seconds");
+        System.out.println(TimeUtil.convertToSeconds(startTime, endTime) + " seconds");
     }
 
     public void printDate(Long milliseconds) {
-        TimeUtility.printDate(milliseconds);
+        TimeUtil.printDate(milliseconds);
     }
 
     public void printBoardNr(int counter) {

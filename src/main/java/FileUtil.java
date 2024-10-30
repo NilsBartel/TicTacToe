@@ -1,18 +1,40 @@
 import java.io.File;
 
-public final class FileService {
-    private static FileService instance;
+public final class FileUtil {
+    private static FileUtil instance;
     private File fileMatchHistory;
     private final File fileUserData = new File("userData.json");
 
-    private FileService() {
+    private FileUtil() {
     }
-    public static FileService getInstance() {
+    public static FileUtil getInstance() {
         if (instance == null) {
-            instance = new FileService();
+            instance = new FileUtil();
         }
         return instance;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public void setFileName(String fileName) {

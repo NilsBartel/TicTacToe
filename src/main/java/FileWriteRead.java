@@ -71,19 +71,19 @@ public final class FileWriteRead {
 
 
     public boolean compareToLastMatchState(MatchStatus matchStatus) {
-        return readFromHistoryFile(FileService.getInstance().getFileMatchHistory()).getMatches().getLast().isStatusEqual(matchStatus);
+        return readFromHistoryFile(FileUtil.getInstance().getFileMatchHistory()).getMatches().getLast().isStatusEqual(matchStatus);
     }
 
     public boolean compareToLastMatchStartTime(Long startTime) {
-        return readFromHistoryFile(FileService.getInstance().getFileMatchHistory()).getMatches().getLast().getStartTime() == startTime;
+        return readFromHistoryFile(FileUtil.getInstance().getFileMatchHistory()).getMatches().getLast().getStartTime() == startTime;
     }
 
     public Match getLastMatch() {
-        return readFromHistoryFile(FileService.getInstance().getFileMatchHistory()).getMatches().getLast();
+        return readFromHistoryFile(FileUtil.getInstance().getFileMatchHistory()).getMatches().getLast();
     }
 
     public Board getLastBoard() {
-        return readFromHistoryFile(FileService.getInstance().getFileMatchHistory()).getMatches().getLast().getBoard();
+        return readFromHistoryFile(FileUtil.getInstance().getFileMatchHistory()).getMatches().getLast().getBoard();
     }
 
 
