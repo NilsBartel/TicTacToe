@@ -16,11 +16,13 @@ public final class LogIn {
         String password;
         password = playerInput.askForPassword();
 
-        if(userNameExists(userName, users)){
-            return PasswordUtil.checkPassword(password, users.getPassword(userName));
-        } else {
-            return false;
-        }
+//        if(userNameExists(userName, users)){
+//            return PasswordUtil.checkPassword(password, users.getPassword(userName));
+//        } else {
+//            return false;
+//        }
+        return userNameExists(userName, users) && PasswordUtil.checkPassword(password, users.getPassword(userName));
+
     }
 
 

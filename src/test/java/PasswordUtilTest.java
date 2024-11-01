@@ -7,6 +7,8 @@ import java.io.File;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class PasswordUtilTest {
 
@@ -72,19 +74,52 @@ class PasswordUtilTest {
     void resetPasswordTestTrue(){
         File file = new File("src/test/java/testUserData.json");
         Users users = FileWriteRead.getInstance().readFromUserFile(file);
-        Users tempUsers = users;
+        Users tempUsers = FileWriteRead.getInstance().readFromUserFile(file);
         String userName = "nils";
+        String answer1 = "hans";
+        String answer2 = "hamburg";
+        String newPassword = "hallo123..ÄÖ";
+        PlayerInput mockPlayerInput = mock(PlayerInput.class);
+        LogInOutput mockLogInOutput = mock(LogInOutput.class);
 
-       boolean bool = PasswordUtil.resetPassword(userName, tempUsers, file);
+        when(mockPlayerInput.askRecoveryQuestion1()).thenReturn(answer1);
+        when(mockPlayerInput.askRecoveryQuestion2()).thenReturn(answer2);
+        when(mockPlayerInput.crateNewPassword()).thenReturn(newPassword);
+
+
+       boolean bool = PasswordUtil.resetPassword(userName, tempUsers, file, mockPlayerInput, mockLogInOutput);
 
        assertTrue(bool);
+       assertTrue(PasswordUtil.checkPassword(newPassword, tempUsers.getPassword(userName)));
 
 
-
-
-
+        FileWriteRead.getInstance().writeToUserFile(file, users);
     }
 
+
+    @Test
+    void resetPasswordTestFalse(){
+        File file = new File("src/test/java/testUserData.json");
+        Users users = FileWriteRead.getInstance().readFromUserFile(file);
+        Users tempUsers = FileWriteRead.getInstance().readFromUserFile(file);
+        String userName = "nils";
+        String answer1 = "hans";
+        String answer2 = "wrong city";
+        String newPassword = "hallo123..ÄÖ";
+        PlayerInput mockPlayerInput = mock(PlayerInput.class);
+        LogInOutput mockLogInOutput = mock(LogInOutput.class);
+
+        when(mockPlayerInput.askRecoveryQuestion1()).thenReturn(answer1);
+        when(mockPlayerInput.askRecoveryQuestion2()).thenReturn(answer2);
+        when(mockPlayerInput.crateNewPassword()).thenReturn(newPassword);
+
+
+        boolean bool = PasswordUtil.resetPassword(userName, tempUsers, file, mockPlayerInput, mockLogInOutput);
+
+        assertFalse(bool);
+
+        FileWriteRead.getInstance().writeToUserFile(file, users);
+    }
 
 
 

@@ -17,7 +17,7 @@ public class StartMenu {
         System.out.println("Type (q) to quit game.");
 
         String response = myScanner();
-        while(! ("a".equals(response) || ("r".equals(response) || "b".equals(response) || "q".equals(response)))) {
+        while(! ("a".equals(response) || "r".equals(response) || "b".equals(response) || "q".equals(response))) {
             System.out.println("invalid input");
             response = myScanner();
         }
@@ -40,7 +40,7 @@ public class StartMenu {
             }
             case "r": {
                 userName = playerInput.askForUserName();
-                while(!PasswordUtil.resetPassword(userName, users, FileUtil.getInstance().getFileUserData())) {
+                while(!PasswordUtil.resetPassword(userName, users, FileUtil.getInstance().getFileUserData(), PlayerInput.getInstance(), LogInOutput.getInstance())) {
                     System.out.println("failed to reset password");
                 }
                 break;
