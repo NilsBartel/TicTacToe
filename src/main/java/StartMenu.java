@@ -12,11 +12,12 @@ public class StartMenu {
     public void openMenu(){
         System.out.println();
         System.out.println("Type (a) to Log in.");
+        System.out.println("Type (r) to reset password.");
         System.out.println("Type (b) to create a new account.");
         System.out.println("Type (q) to quit game.");
 
         String response = myScanner();
-        while(! ("a".equals(response) || "b".equals(response) || "q".equals(response))) {
+        while(! ("a".equals(response) || ("r".equals(response) || "b".equals(response) || "q".equals(response)))) {
             System.out.println("invalid input");
             response = myScanner();
         }
@@ -25,14 +26,22 @@ public class StartMenu {
         Users users = FileWriteRead.getInstance().readFromUserFile(FileUtil.getInstance().getFileUserData());
 
         PlayerInput playerInput = PlayerInput.getInstance();
-        LogInOutput logInOutput = LogInOutput.getInstance();
 
         switch(response) {
             case "a": {
                 userName = playerInput.askForUserName();
 
-                if(!LogIn.getInstance().logInUser(users, userName, playerInput, logInOutput)) {
+                if(!LogIn.getInstance().logInUser(users, userName, playerInput)) {
+                    System.out.println();
+                    System.out.println("Wrong username or password");
                     openMenu();
+                }
+                break;
+            }
+            case "r": {
+                userName = playerInput.askForUserName();
+                while(!PasswordUtil.resetPassword(userName, users, FileUtil.getInstance().getFileUserData())) {
+                    System.out.println("failed to reset password");
                 }
                 break;
             }

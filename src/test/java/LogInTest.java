@@ -8,6 +8,17 @@ import static org.mockito.Mockito.when;
 
 class LogInTest {
 
+    // testUserData.json daten
+    //nils
+    //nilspassword
+    //hans
+    //hamburg
+
+    //test
+    //test
+    //test
+    //test
+
 
     @Test
     void userNameExistsTest(){
@@ -34,7 +45,6 @@ class LogInTest {
     @Test
     void loginUserTestTrue(){
         PlayerInput mockPlayerInput = mock(PlayerInput.class);
-        LogInOutput mockLogInOutput = mock(LogInOutput.class);
 
         Users users = FileWriteRead.getInstance().readFromUserFile(new File("src/test/java/testUserData.json"));
         String userName = "nils";
@@ -42,7 +52,7 @@ class LogInTest {
         when(mockPlayerInput.askForPassword()).thenReturn(password);
 
 
-        boolean bool = LogIn.getInstance().logInUser(users, userName, mockPlayerInput, mockLogInOutput);
+        boolean bool = LogIn.getInstance().logInUser(users, userName, mockPlayerInput);
 
         assertTrue(bool);
     }
@@ -50,12 +60,11 @@ class LogInTest {
     @Test
     void loginUserTestFalse(){
         PlayerInput mockPlayerInput = mock(PlayerInput.class);
-        LogInOutput mockLogInOutput = mock(LogInOutput.class);
 
         Users users = FileWriteRead.getInstance().readFromUserFile(new File("src/test/java/testUserData.json"));
         String userName = "wrong userName";
 
-        boolean bool = LogIn.getInstance().logInUser(users, userName, mockPlayerInput, mockLogInOutput);
+        boolean bool = LogIn.getInstance().logInUser(users, userName, mockPlayerInput);
 
         assertFalse(bool);
     }

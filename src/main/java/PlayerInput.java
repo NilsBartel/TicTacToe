@@ -117,10 +117,7 @@ public final class PlayerInput {
         System.out.println();
         System.out.println("What is your username?");
         response = myScanner();
-        while (response.length() < LogIn.USERNAME_MIN_LENGTH){
-            System.out.println("name too short, please try again.");
-            response = myScanner();
-        }
+
         return response;
     }
 
