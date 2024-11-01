@@ -133,7 +133,7 @@ public final class PlayerInput {
         return response;
     }
 
-    public String askForNewUserName() {
+    public String createNewUserName() {
         String response;
         System.out.println();
         System.out.println("Please choose a Username.");
@@ -145,13 +145,18 @@ public final class PlayerInput {
         return response;
     }
 
-    public String askForNewPassword() {
+    public String crateNewPassword() {
         String response;
         System.out.println();
         System.out.println("Please choose a Password.");
+        System.out.println("Use at least 1 of each:");
+        System.out.println("- upper case and lower case letters");
+        System.out.println("- number");
+        System.out.println("- special character");
+        System.out.println("- 8 < ... > 32 characters");
         response = myScanner();
-        while (response.length() < LogIn.PASSWORD_MIN_LENGTH){
-            System.out.println("Password too short, please try again.");
+        while (!PasswordUtil.isPasswordValid(response)){
+            System.out.println("Password not valid, please try again.");
             response = myScanner();
         }
         return response;

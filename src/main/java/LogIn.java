@@ -1,4 +1,3 @@
-import java.io.File;
 
 public final class LogIn {
 
@@ -21,7 +20,9 @@ public final class LogIn {
         if(userNameExists(userName, users)){
 
             password = playerInput.askForPassword();
-            return checkPassword(userName, password, users) || resetPassword(userName, users);
+            //String storedPassword = users.getPassword(userName); //TODO: 3 tries
+            return PasswordUtil.checkPassword(password, users.getPassword(userName));
+            //return checkPassword(userName, password, users) || resetPassword(userName, users);
 
         } else {
             logInOutput.printUserNotFound(userName);
@@ -35,9 +36,9 @@ public final class LogIn {
         String userName;
 
         while(true) {
-            userName = playerInput.askForNewUserName();
+            userName = playerInput.createNewUserName();
             if (!userNameExists(userName, users)) {
-                String password = playerInput.askForNewPassword();
+                String password = playerInput.crateNewPassword();
                 String question1 = playerInput.askRecoveryQuestion1();
                 String question2 = playerInput.askRecoveryQuestion2();
                 User user = new User(userName, HashService.hash(password), HashService.hash(question1), HashService.hash(question2));
@@ -61,23 +62,23 @@ public final class LogIn {
         return false;
     }
 
-    private boolean checkPassword(String userName, String password, Users users) {
-
-        int counter = PASSWORD_MAX_TRIES;
-        User user = users.getUser(userName);
-        String tempPassword = password;
-
-        while (!HashService.verify(tempPassword, user.getPassword())) {
-            counter--;
-            if (counter == 0) {
-                LogInOutput.getInstance().toManyInvalidTries();
-                return false;
-            }
-            LogInOutput.getInstance().triesLeft(counter);
-            tempPassword = PlayerInput.getInstance().askForPassword();
-        }
-        return true;
-    }
+//    private boolean checkPassword(String userName, String password, Users users) {
+//
+//        int counter = PASSWORD_MAX_TRIES;
+//        User user = users.getUser(userName);
+//        String tempPassword = password;
+//
+//        while (!HashService.verify(tempPassword, user.getPassword())) {
+//            counter--;
+//            if (counter == 0) {
+//                LogInOutput.getInstance().printTooManyInvalidTries();
+//                return false;
+//            }
+//            LogInOutput.getInstance().triesLeft(counter);
+//            tempPassword = PlayerInput.getInstance().askForPassword();
+//        }
+//        return true;
+//    }
 
     private boolean resetPassword(String userName, Users users) {
         if(!PlayerInput.getInstance().askPasswordReset()){
@@ -85,7 +86,7 @@ public final class LogIn {
         }
 
        if (checkSecurityQuestions(userName, users)) {
-           String newPassword = PlayerInput.getInstance().askForNewPassword();
+           String newPassword = PlayerInput.getInstance().crateNewPassword();
            User user = users.getUser(userName);
            user.setPassword(HashService.hash(newPassword));
            FileWriteRead.getInstance().writeToUserFile(FileUtil.getInstance().getFileUserData(), users);

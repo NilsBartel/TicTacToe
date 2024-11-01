@@ -15,6 +15,15 @@ public class Users {
         return null;
     }
 
+    public String getPassword(String userName) {
+        for (User user : userList) {
+            if (user.getUserName().equals(userName)) {
+                return user.getPassword();
+            }
+        }
+        return null;
+    }
+
     public void addUser1(User user) {
         userList.add(user);
     }

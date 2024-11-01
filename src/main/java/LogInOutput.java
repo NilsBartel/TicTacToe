@@ -20,7 +20,7 @@ public final class LogInOutput {
         System.out.println("User " + userName + " has been created!");
     }
 
-    public void toManyInvalidTries() {
+    public void printTooManyInvalidTries() {
         System.out.println();
         System.out.println();
         System.out.println("Too many invalid tries!");
